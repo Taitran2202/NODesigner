@@ -17,7 +17,6 @@
    ```
    mkdir C:\src\cudaopticalflow\cudaopticalflowtest\OpticalFlowCudaCV\bin\Release & curl -o C:\src\cudaopticalflow\cudaopticalflowtest\OpticalFlowCudaCV\bin\Release\OpticalFlowCudaCV.dll https://f004.backblazeb2.com/file/NOVisionDesigner/deps/OpticalFlowCudaCV.dll
    ```
- - NOVision Python (for training) follow instruction at : https://github.com/namtr92/novision
 ## 3. Cuda + python3.8 setup:
  - Tensorflow-gpu version 2.8.0:
    ```
