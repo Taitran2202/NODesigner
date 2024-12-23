@@ -1,0 +1,268 @@
+﻿<dx:ThemedWindow  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="NOVisionDesigner.Windows.UserManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:NOVisionDesigner.Windows" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:usercontrols="clr-namespace:NOVisionDesigner.UserControls"
+                  mc:Ignorable="d" ShowGlow="False"
+        Title="User Management Window" Height="600" FontSize="14" Width="1000">
+    <Window.Resources>
+        
+        
+    </Window.Resources>
+    <Grid>
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Visibility="Collapsed" Grid.Row="0">
+                <Label Content="User Management" FontSize="24" FontWeight="SemiBold" FontStyle="Normal" Margin="20,0"/>
+                <Button  HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Collapsed"
+                        Margin="124,16" Padding="0" BorderBrush="Transparent" BorderThickness="0" >
+                    <Viewbox Width="24" Height="24" >
+                        <Canvas Width="24" Height="28">
+                            <Path Fill="#868FA0" Data="M 5.80597 10.5116 C 5.80597 6.91535 8.57913 4 12 4 C 15.4209 4 18.194 6.91535 18.194 10.5116 V 13.329 C 18.194 14.4999 18.6829 15.6196 19.5463 16.4265 C 20.4952 17.3131 19.8566 18.8837 18.5472 18.8837 H 5.45275 C 4.14343 18.8837 3.50485 17.3131 4.45368 16.4265 C 5.31715 15.6196 5.80597 14.4999 5.80597 13.329 V 10.5116 Z M12.0001 24C13.6795 24 15.0409 22.7208 15.0409 21.1428C15.0409 21.1161 15.0405 21.0894 15.0397 21.0628C15.033 20.8323 14.8203 20.6647 14.5749 20.6621L9.43734 20.6074C9.19201 20.6048 8.9753 20.7678 8.96307 20.998C8.96052 21.046 8.95923 21.0943 8.95923 21.1428C8.95923 22.7208 10.3207 24 12.0001 24Z" />
+                        </Canvas>
+                    </Viewbox>
+                </Button>
+                <Button  HorizontalAlignment="Right" Visibility="Collapsed" 
+                        VerticalAlignment="Top" Margin="76,16" Padding="0" BorderBrush="Transparent" BorderThickness="0" >
+                    <Viewbox Width="24" Height="24" >
+                        <Canvas Width="24" Height="24">
+                            <Path Fill="#868FA0" Data="M2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12ZM12 16C12.5523 16 13 16.4477 13 17C13 17.5523 12.5523 18 12 18C11.4477 18 11 17.5523 11 17C11 16.4477 11.4477 16 12 16ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM9 10C8.44772 10 7.98716 9.54534 8.12331 9.0101C8.56356 7.27927 10.1317 6 12 6C14.21 6 16 7.79 16 10C16 11.2829 15.21 11.9733 14.4408 12.6455C13.9577 13.0677 13.4829 13.4826 13.217 14.0326C12.9767 14.5299 12.5523 15 12 15C11.4477 15 10.98 14.5446 11.1101 14.0079C11.3823 12.8857 12.1123 12.3262 12.7704 11.8217C13.4202 11.3236 14 10.8792 14 10C14 8.9 13.1 8 12 8C11.2466 8 10.5871 8.42215 10.2462 9.04157C9.97995 9.52543 9.55228 10 9 10Z" />
+                        </Canvas>
+                    </Viewbox>
+                </Button>
+                <Button Visibility="Collapsed" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20,11" Padding="16"/>
+            </Grid>
+            <Grid Grid.Row="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid HorizontalAlignment="Stretch" Margin="5" >
+                    <dxe:TextEdit VerticalAlignment="Center" BorderThickness="1" x:Name="txt_search" BorderBrush="#CECECE" NullText="Search" Padding="26,0,0,0" FontSize="14" Height="30"/>
+                    <Viewbox Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0">
+                        <Canvas Width="24" Height="24">
+                            <Path Fill="#FF6E6E6E" Data="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+                        </Canvas>
+                    </Viewbox>
+
+                </Grid>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Right">
+
+                    <dx:SimpleButton x:Name="btn_add" Click="btn_add_Click"  Cursor="Hand" 
+                                                Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Add.svg'}"
+                                                Width="32" BorderThickness="0"  HorizontalAlignment="Right"  
+                                                VerticalAlignment="Stretch" Padding="4" />
+
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="2">
+                <dx:DXTabControl x:Name="tab_ctl" Margin="5" BorderBrush="Transparent" BorderThickness="0" Padding="0" SelectedIndex="0">
+                    <dx:DXTabItem Header="Users">
+                        <dxg:GridControl x:Name="grid_users" ItemsSource="{Binding Users}">
+                            <dxg:GridControl.View >
+                                <dxg:TableView x:Name="tbv_users" ShowIndicator="False" Loaded="tbv_users_Loaded"
+                                               VerticalScrollbarVisibility="Auto"  AllowPerPixelScrolling="True" 
+                                               NewItemRowPosition="None"  ShowGroupPanel="False" ShowTotalSummary="False">
+
+                                </dxg:TableView>
+                            </dxg:GridControl.View>
+                            <dxg:GridColumn FieldName="Command" Header="" IsSmart="True">
+                                <dxg:GridColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <dx:SimpleButton x:Name="btn_edit" Click="btn_edit_Click"  Cursor="Hand" 
+                                                Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Edit.svg'}"
+                                                Width="32" Height="32" Margin="2" 
+                                                VerticalAlignment="Center" Padding="4" />
+                                            <dx:SimpleButton x:Name="btn_remove_users" Click="btn_remove_users_Click"  Cursor="Hand" 
+                                                Glyph="{dx:DXImage 'SvgImages/Dashboards/Delete.svg'}"
+                                                Width="32" Height="32" Margin="2"
+                                                VerticalAlignment="Center" Padding="4" />
+                                        </StackPanel>
+                                    </DataTemplate>
+
+                                </dxg:GridColumn.CellTemplate>
+
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="ID" ReadOnly="True" Header="ID" IsSmart="True"/>
+                            <dxg:GridColumn FieldName="UserName" ReadOnly="True" Header="Username" IsSmart="True" />
+                            <dxg:GridColumn FieldName="Name" ReadOnly="True" Header="Name" IsSmart="True"/>
+                            <dxg:GridColumn FieldName="Role" ReadOnly="True" Header="Role" IsSmart="True">
+                                <dxg:GridColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Data.Role.Name}" Padding="4,2" />
+                                    </DataTemplate>
+                                </dxg:GridColumn.CellTemplate>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="LastLogin" ReadOnly="True" Header="Last Login" IsSmart="True">
+                                <dxg:GridColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Data.LastLogin, StringFormat='{}{0:dd.MM.yyyy HH:mm:ss}'}" Padding="4,2" />
+                                    </DataTemplate>
+                                </dxg:GridColumn.CellTemplate>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="DateCreated" ReadOnly="True" Header="Date Created" IsSmart="True">
+                                <dxg:GridColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Data.DateCreated, StringFormat='{}{0:dd.MM.yyyy HH:mm:ss}'}" Padding="4,2" />
+                                    </DataTemplate>
+                                </dxg:GridColumn.CellTemplate>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="Description" ReadOnly="True" Width="*" Header="Description" IsSmart="True" MinWidth="100"/>
+                            <dxg:GridColumn FieldName="Hash" ReadOnly="True" Visible="False"  Header="Hash" IsSmart="True" />
+                            <dxg:GridColumn FieldName="Salt" ReadOnly="True" Visible="False" Header="Salt" IsSmart="True"/>
+                        </dxg:GridControl>
+                    </dx:DXTabItem>
+                    <dx:DXTabItem Header="Roles">
+                        <dxg:GridControl Name="grid_roles" ItemsSource="{Binding Roles}">
+                            <dxg:GridControl.View >
+                                <dxg:TableView x:Name="tbv_roles" ShowIndicator="False" Loaded="tbv_roles_Loaded"
+                                               VerticalScrollbarVisibility="Auto" AllowPerPixelScrolling="True" 
+                                               NewItemRowPosition="None" ShowGroupPanel="False" ShowTotalSummary="False">
+
+                                </dxg:TableView>
+                            </dxg:GridControl.View>
+                            <dxg:GridColumn FieldName="Command" Header="" IsSmart="True">
+                                <dxg:GridColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <dx:SimpleButton x:Name="btn_edit_roles" Click="btn_edit_roles_Click" Cursor="Hand" 
+                                                Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Edit.svg'}"
+                                                Width="32" Height="32" Margin="2" 
+                                                VerticalAlignment="Center" Padding="4" />
+                                            <dx:SimpleButton x:Name="btn_remove_roles" Click="btn_remove_roles_Click" Cursor="Hand" 
+                                                Glyph="{dx:DXImage 'SvgImages/Dashboards/Delete.svg'}"
+                                                Width="32" Height="32" Margin="2"
+                                                VerticalAlignment="Center" Padding="4" />
+                                        </StackPanel>
+                                    </DataTemplate>
+
+                                </dxg:GridColumn.CellTemplate>
+
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="ID" ReadOnly="True" Header="ID" IsSmart="True"/>
+                            <dxg:GridColumn FieldName="Name" ReadOnly="True" Header="Name" IsSmart="True">
+                                <dxg:GridColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Data.Name}"  Padding="4,2" VerticalAlignment="Top" />
+                                    </DataTemplate>
+                                </dxg:GridColumn.CellTemplate>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="PermissionsLink" ReadOnly="True" Header="Permissions" IsSmart="True" Width="*" >
+                                <dxg:GridColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ListBox ItemsSource="{Binding Data.PermissionsLink}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0"  Background="Transparent">
+                                            <ListBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <UniformGrid Columns="3"/>
+                                                </ItemsPanelTemplate>
+                                            </ListBox.ItemsPanel>
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate >
+                                                    <Label Content="{Binding Permission.Description}" Padding="0" />
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                            <ListBox.ItemContainerStyle>
+                                                <Style TargetType="{x:Type ListBoxItem}">
+                                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                                <Grid Background="{TemplateBinding Background}">
+                                                                    <ContentPresenter 
+                                                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                                Content="{TemplateBinding Content}"
+                                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                Margin="{TemplateBinding Padding}"/>
+                                                                </Grid>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </ListBox.ItemContainerStyle>
+                                        </ListBox>
+                                    </DataTemplate>
+                                </dxg:GridColumn.CellTemplate>
+                            </dxg:GridColumn>
+                        </dxg:GridControl>
+                    </dx:DXTabItem>
+                    <dx:DXTabItem x:Name="tab_permissions" Header="Permissions">
+                        <dxg:GridControl Name="grid_permissions" ItemsSource="{Binding Permissions}">
+                            <dxg:GridControl.View >
+                                <dxg:TableView x:Name="tbv_permissions" ShowIndicator="False" Loaded="tbv_permissions_Loaded"
+                                               VerticalScrollbarVisibility="Auto" AllowPerPixelScrolling="True" 
+                                               NewItemRowPosition="None" ShowGroupPanel="False" ShowTotalSummary="False">
+
+                                </dxg:TableView>
+                            </dxg:GridControl.View>
+                            <dxg:GridColumn FieldName="Command" Header="" IsSmart="True">
+                                <dxg:GridColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <dx:SimpleButton x:Name="btn_edit_permissions" Click="btn_edit_permissions_Click"  Cursor="Hand" 
+                                                Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Edit.svg'}"
+                                                Width="32" Height="32" Margin="2" 
+                                                VerticalAlignment="Center" Padding="4" />
+                                            <dx:SimpleButton x:Name="btn_remove_permissions" Click="btn_remove_permissions_Click"  Cursor="Hand" 
+                                                Glyph="{dx:DXImage 'SvgImages/Dashboards/Delete.svg'}"
+                                                Width="32" Height="32" Margin="2"
+                                                VerticalAlignment="Center" Padding="4" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </dxg:GridColumn.CellTemplate>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="ID" ReadOnly="True" Header="ID" IsSmart="True"/>
+                            <dxg:GridColumn FieldName="Description" ReadOnly="True" Header="Description" IsSmart="True"/>
+                            <dxg:GridColumn FieldName="PermissionKey" ReadOnly="True" Header="Permission Key" IsSmart="True" Width="*"/>
+                        </dxg:GridControl>
+                    </dx:DXTabItem>
+                    <dx:DXTabItem Header="User Actions">
+                        <dxg:GridControl Name="grid_user_actions" Loaded="grid_user_actions_Loaded" ItemsSource="{Binding Actions}">
+                            <dxg:GridControl.View >
+                                <dxg:TableView x:Name="tbv_user_actions" ShowIndicator="False"
+                                               VerticalScrollbarVisibility="Auto" AllowPerPixelScrolling="True" 
+                                               NewItemRowPosition="None" ShowGroupPanel="False" ShowTotalSummary="False">
+
+                                </dxg:TableView>
+                            </dxg:GridControl.View>
+
+                            <dxg:GridColumn FieldName="Id" ReadOnly="True" Header="ID" IsSmart="True" SortOrder="Descending"/>
+                            <dxg:GridColumn FieldName="Description" ReadOnly="True" Header="Description" IsSmart="True" >
+                                <dxg:GridColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Data.Description}"  Padding="4,2" VerticalAlignment="Top" />
+                                    </DataTemplate>
+                                </dxg:GridColumn.CellTemplate>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="Time" RoundDateDisplayFormat="u" IsSmart="True" ReadOnly="True">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:DateEditSettings Mask="G" MaskUseAsDisplayFormat="True"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="Target" ReadOnly="True" Header="Target" IsSmart="True"/>
+                            <dxg:GridColumn FieldName="Property" ReadOnly="True" Header="Property" IsSmart="True"/>
+                            <dxg:GridColumn FieldName="OldValue" ReadOnly="True" Header="Old Value" IsSmart="True"/>
+                            <dxg:GridColumn FieldName="NewValue" ReadOnly="True" Header="New Value" IsSmart="True"/>
+                            <dxg:GridColumn FieldName="User" ReadOnly="True" Header="User" IsSmart="True">
+                                <dxg:GridColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Data.User.Name}"  Padding="4,2" VerticalAlignment="Top" />
+                                    </DataTemplate>
+                                </dxg:GridColumn.CellTemplate>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="ActionType" ReadOnly="True" Header="Action Type" IsSmart="True"/>
+                        </dxg:GridControl>
+                    </dx:DXTabItem>
+                </dx:DXTabControl>
+            </Grid>
+        </Grid>
+    </Grid>
+    
+</dx:ThemedWindow>

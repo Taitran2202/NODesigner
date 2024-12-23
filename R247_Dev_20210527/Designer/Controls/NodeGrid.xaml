@@ -1,0 +1,187 @@
+﻿<UserControl x:Class="NOVisionDesigner.Designer.Controls.NodeGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NOVisionDesigner.Designer.Controls" 
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+             xmlns:Misc="clr-namespace:NOVisionDesigner.Designer.ValueConverters" xmlns:Misc1="clr-namespace:NOVisionDesigner.Designer.Misc"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" FontSize="14" >
+    <UserControl.Resources>
+        <Misc:InvertBoolToVisibilityCollapse x:Key="InvertBoolToVisibilityCollapse"/>
+        <Misc:BoolToVisibilityCollapse x:Key="BoolToVisibilityCollapse"/>
+        <Misc1:StringToImageSource x:Key="StringToImageSource"></Misc1:StringToImageSource>
+        <Style TargetType="{x:Type dxe:TextEdit}">
+            <Setter Property="BorderTemplate">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ContentControl}">
+                        <Border x:Name="border"  
+                        Background="{Binding Background, RelativeSource={RelativeSource AncestorType={x:Type dxe:TextEdit}}}"  
+                        BorderBrush="{Binding BorderBrush, RelativeSource={RelativeSource AncestorType={x:Type dxe:TextEdit}}}"  
+                        BorderThickness="{Binding BorderThickness, RelativeSource={RelativeSource AncestorType={x:Type dxe:TextEdit}}}" CornerRadius="5">
+                            <ContentPresenter Margin="0,0,-1,0" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <DataTemplate x:Key="listTemplate">
+            <StackPanel HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch" Width="120" 
+                        Height="auto" MinHeight="100" Margin="0, 0, 0, 0" MouseMove="OnNodeMouseMove" >
+                <StackPanel.Style>
+                    <Style TargetType="{x:Type StackPanel}">
+                        <Setter Property="Background" Value="{Binding ListEntryBackgroundBrush, ElementName=self}"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{Binding ListEntryBackgroundMouseOverBrush, ElementName=self}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                <Image Width="50" Height="50"  Margin="0,16,0,16" Source="{Binding Icon}" >
+                    
+                </Image>
+                <TextBlock HorizontalAlignment="Center" Margin="8,0" 
+                           TextWrapping="Wrap" ToolTip="{Binding DisplayName}" ><Run Text="{Binding DisplayName}"/></TextBlock>
+                <Rectangle Height="4"></Rectangle>
+            </StackPanel>
+        </DataTemplate>
+        <ItemsPanelTemplate x:Key="listItemsPanelTemplate">
+            <WrapPanel Margin="2,0,0,0" HorizontalAlignment="Stretch" />
+        </ItemsPanelTemplate>
+        <ControlTemplate x:Key="listItemsControlTemplate">
+            
+                <ItemsPresenter HorizontalAlignment="Stretch" />
+            
+            
+        </ControlTemplate>
+        <Style x:Key="ContainerStyle" TargetType="{x:Type GroupItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel Orientation="Vertical" >
+                            <Label Content="{Binding Name}" Padding="8,8" FontWeight="SemiBold"  Background="#10000000"/>
+                            <Rectangle Height="1" >
+                                
+                            </Rectangle>
+                            <dx:DXExpander IsExpanded="True"  >
+                                <ItemsPresenter />
+                            </dx:DXExpander>
+                        </StackPanel>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <ControlTemplate x:Key="ToggleButtonControlTemplate1" TargetType="{x:Type ToggleButton}">
+            <dx:DXBorder x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" EnableDPICorrection="{x:Null}" SnapsToDevicePixels="True" dx:BlendHelper2.ThemeInfo="Core\Core\Themes\VS2017Light\StandardControls\Button.xaml;7;6">
+                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" dx:BlendHelper2.ThemeInfo="Core\Core\Themes\VS2017Light\StandardControls\Button.xaml;8;8" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </dx:DXBorder>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFC9DEF5"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FFCCCEDB"/>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FF007ACC"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FFCCCEDB"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FF007ACC"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FFCCCEDB"/>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF007ACC"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" TargetName="border" Value="0.38"/>
+                </Trigger>
+                <Trigger Property="dx:ThemeManager.IsTouchEnabled" Value="True">
+                    <Setter Property="MinWidth" TargetName="border" Value="44"/>
+                    <Setter Property="MinHeight" TargetName="border" Value="44"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </UserControl.Resources>
+    <dx:BackgroundPanel>
+        <Grid Margin="0,4,0,0">
+
+            <ToggleButton x:Name="toggleButton" Visibility="Hidden" 
+                      IsChecked="True" HorizontalAlignment="Right" 
+                      Padding="0" Background="Transparent"  BorderThickness="0" 
+                      VerticalAlignment="Center" Margin="0,0,20,0" Template="{DynamicResource ToggleButtonControlTemplate1}">
+                <Viewbox Width="24" Height="24">
+                    <Canvas Width="24" Height="24">
+                        <Path  Data="M7,10L12,15L17,10H7Z" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}" />
+                    </Canvas>
+                </Viewbox>
+            </ToggleButton>
+
+            <Grid Grid.Row="2" Margin="12,2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+              Visibility="{Binding IsChecked, Converter={StaticResource InvertBoolToVisibilityCollapse}, ElementName=toggleButton}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="0,0,0,0"  >
+
+                    <dxe:ButtonEdit x:Name="txtFilter"  Margin="0,0,0,0" Padding="4,2" NullText="Search tool..." 
+                                EditValueChanged="ButtonEdit_EditValueChanged"
+                                BorderThickness="0"  AllowDefaultButton="False">
+                        <dxe:ButtonInfo IsLeft="True" GlyphKind="Custom">
+                            <dxe:ButtonInfo.Template>
+                                <DataTemplate>
+                                    <dx:DXImage Source="{dx:DXImage SvgImages/Icon Builder/Actions_Zoom.svg}" Height="20" Width="20" Margin="4,0,0,0"/>
+                                </DataTemplate>
+                            </dxe:ButtonInfo.Template>
+                        </dxe:ButtonInfo>
+                    </dxe:ButtonEdit>
+
+                </Grid>
+                <Grid Grid.Row="1" Margin="0,5,0,0">
+                    <Border BorderThickness="2" BorderBrush="#20000000" >
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"  >
+
+                            <ListBox x:Name="list" IsTabStop="False"   ItemTemplate="{DynamicResource listTemplate}" 
+                             ItemsPanel="{DynamicResource listItemsPanelTemplate}" Template="{DynamicResource listItemsControlTemplate}">
+                                <ListBox.GroupStyle>
+                                    <GroupStyle ContainerStyle="{StaticResource ContainerStyle}"/>
+                                </ListBox.GroupStyle>
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="{x:Type ListBoxItem}">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                                        <Setter Property="Margin" Value="2,4"></Setter>
+                                        <Setter Property="Background" Value="White"></Setter>
+                                        <Setter Property="Foreground" Value="Black"></Setter>
+                                        <Setter Property="BorderBrush" Value="#20000000"></Setter>
+                                        <Setter Property="BorderThickness" Value="2"></Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="{DynamicResource BlueIOS}"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                                <Setter Property="BorderBrush" Value="{DynamicResource DarkBlue}"/>
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="{DynamicResource BlueIOS}"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                                <Setter Property="BorderBrush" Value="{DynamicResource DarkBlue}"/>
+
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+
+                            </ListBox>
+                        </ScrollViewer>
+                    </Border>
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </dx:BackgroundPanel>
+    
+</UserControl>

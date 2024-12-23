@@ -1,0 +1,29 @@
+﻿<UserControl xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NOVisionDesigner.Designer.Editors"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+             xmlns:misc="clr-namespace:NOVisionDesigner.Designer.Misc" 
+             x:Class="NOVisionDesigner.Designer.Editors.StringValueEditorView"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="120" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <misc:TextboxWithKeyboard x:Name="valueUpDown"  
+                                  Style="{DynamicResource TextboxwithkeyboardFlat}" 
+                                  Margin="0" Grid.ColumnSpan="1" HorizontalContentAlignment="Right" VerticalAlignment="Center" MinWidth="120" />
+        <Button  x:Name="btn_change_directory" Background="Transparent" BorderBrush="{DynamicResource NodeButtonBorderBrush}" Grid.ColumnSpan="2" Grid.Column="1"  Padding="8,1" Click="btn_change_directory_Click"  Margin="5,0,0,0">
+            <Viewbox Width="15" Height="15">
+                <Canvas Width="24" Height="24">
+                    <Path Fill="{DynamicResource OrangeIOS}" Data="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z" />
+                </Canvas>
+            </Viewbox>
+        </Button>
+    </Grid>
+</UserControl>

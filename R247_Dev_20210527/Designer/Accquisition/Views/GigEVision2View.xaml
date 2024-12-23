@@ -1,0 +1,127 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:misc="clr-namespace:NOVisionDesigner.Designer.Misc" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="NOVisionDesigner.Designer.Accquisition.Views.GigEVision2View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="300" FontSize="14">
+    <UserControl.Resources>
+        
+        <misc:TriggerModeToBoolConverter x:Key="TriggerModeToBoolConverter"/>
+        <Style TargetType="CheckBox">
+            <Setter Property="Template" Value="{DynamicResource CheckBoxControlTemplateFlat}">
+                
+            </Setter>
+        </Style>
+       
+
+    </UserControl.Resources>
+    <StackPanel>
+        <WrapPanel>
+            <Button x:Name="btn_software_trigger" Style="{x:Null}"  Content="Software Trigger" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Top" Command="{Binding TriggerSoftwareCommand}" Height="26"  Padding="8,2"/>
+            <Button x:Name="btn_camera_setting" Style="{x:Null}"  Content="Camera Setting" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Top" Click="btn_camera_setting_click" Height="26"  Padding="8,2"/>
+            <Button x:Name="btn_live_view" Style="{x:Null}"  Content="Live View" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Top" Click="btn_live_view_click" Height="26"  Padding="8,2"/>
+            <Button x:Name="btn_open_io_window" Style="{x:Null}"  Content="I/O Setting" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Top" Click="btn_camera_setting_click" Height="26"  Padding="8,2"/>
+            <Button x:Name="btn_open_stream_status_window" Style="{x:Null}"  Content="Stream Status" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Top" Click="btn_stream_status_click" Height="26"  Padding="8,2"/>
+        </WrapPanel>
+        <Grid>
+            <TextBox Text="{Binding Device}" VerticalAlignment="Stretch" Margin="5,5,120,5"/>
+            <Button x:Name="btn_select_camera" Style="{x:Null}"  Content="Select Camera" Margin="5" VerticalAlignment="Center" Click="Btn_select_camera_Click" HorizontalAlignment="Right" Height="26"  Padding="8,2"/>
+
+        </Grid>
+        <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="10,0,0,2"/>
+        <StackPanel Margin="5,0,0,0" Orientation="Vertical">
+
+
+
+            <Grid >
+                <Label Content="Trigger Mode" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,2,0,2"/>
+                <dxe:ToggleSwitch  HorizontalAlignment="Right" Margin="0" IsChecked="{Binding TriggerMode, Converter={StaticResource TriggerModeToBoolConverter}}" CheckedStateContent="ON" UncheckedStateContent="OFF" BorderBrush="#FFE4E4E4" MinWidth="100" />
+
+            </Grid>
+            <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>
+
+            <Grid >
+                <Label Content="USB IO Trigger" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,2,0,2"/>
+                <dxe:ToggleSwitch  HorizontalAlignment="Right" Margin="0" IsChecked="{Binding UsbTrigger}" CheckedStateContent="ON" UncheckedStateContent="OFF" BorderBrush="#FFE4E4E4" MinWidth="100" />
+
+            </Grid>
+            <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>
+            <Grid>
+                <Label Content="Trigger Source" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,2,0,2"/>
+                <dxe:ComboBoxEdit SelectedItem="{Binding TriggerSource}" IsTextEditable="False" ItemsSource="{Binding LstTriggerSource}"   HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+
+            </Grid>
+
+            <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>
+            <Grid>
+                <Label Content="Trigger Delay (µm)" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,2,0,2"/>
+                <misc:NumericUpDownWithKeyboard  Value="{Binding TriggerDelay}" StringFormat="N0" Minimum="0"  HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+
+            </Grid>
+            <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>
+            <Grid>
+
+                <Label Content="Exposure (µs)" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,2,0,2"/>
+                <misc:NumericUpDownWithKeyboard Value="{Binding Exposure}" Minimum="1"  HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+
+            </Grid>
+            <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>
+            <Grid>
+                <Label Content="Gain" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,2,0,2"/>
+                <misc:NumericUpDownWithKeyboard Value="{Binding Gain}" Minimum="0.1"  HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+
+            </Grid>
+            <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>
+            <Grid>
+                <StackPanel Orientation="Horizontal" Margin="10,5,0,5" VerticalAlignment="Center">
+                    <CheckBox IsChecked="{Binding IsEnabledReject}" VerticalAlignment="Center" Content="Reject pulse duration (ms)" ></CheckBox>
+                    
+                </StackPanel>
+                
+                <misc:NumericUpDownWithKeyboard Value="{Binding PulseWidth}" Minimum="1"  HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+
+            </Grid>
+            <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>
+        </StackPanel>
+        <TextBlock Text="Record Option" Margin="5,5,0,5" FontFamily="Segoe UI Semibold"  />
+        <StackPanel Margin="10,0,0,0">
+
+            <Grid  Margin="2,0">
+                <CheckBox x:Name="chk_sub_speed" IsChecked="{Binding RecordOnSpeed}" Content="Record to sub folder base on speed"  Margin="0"/>
+                <misc:NumericUpDownWithKeyboard Value="{Binding TransitionSpeed}" x:Name="num_transition_speed" Template="{DynamicResource NumericUpDownFlatWithKeyoard}" HorizontalAlignment="Right" MinWidth="120" />
+
+
+            </Grid>
+            <Grid Margin="2,0">
+
+                <CheckBox x:Name="chk_speed_low" IsChecked="{Binding RecordOnMinimum}" Content="Only record image when speed higher than "  Margin="0" HorizontalAlignment="Left"/>
+                <misc:NumericUpDownWithKeyboard Value="{Binding MinimumSpeed}" x:Name="num_minimum_speed" Template="{DynamicResource NumericUpDownFlatWithKeyoard}" HorizontalAlignment="Right" MinWidth="120" />
+            </Grid>
+            <Grid Margin="2,0">
+
+                <CheckBox x:Name="chk_speed_low_data" IsChecked="{Binding RecordDataOnMinimum}" Content="Only record Database when speed higher than"  HorizontalAlignment="Left" Margin="0,0,2,0"/>
+                <misc:NumericUpDownWithKeyboard Value="{Binding MinimumDataSpeed}" x:Name="num_minimum_data_speed" Template="{DynamicResource NumericUpDownFlatWithKeyoard}" HorizontalAlignment="Right" MinWidth="120" />
+            </Grid>
+        </StackPanel>
+        <TextBlock Text="Reject Option" Margin="5,5,0,5" FontFamily="Segoe UI Semibold"  />
+        <StackPanel Margin="10,0,0,0">
+
+            <Grid  Margin="2,0">
+                <CheckBox x:Name="chk_reject_speed" IsChecked="{Binding RejectBySpeed}" Content="Reject when speed higher than"  Margin="0"/>
+                <misc:NumericUpDownWithKeyboard Value="{Binding RejectSpeed}" x:Name="num_reject_speed" Template="{DynamicResource NumericUpDownFlatWithKeyoard}" HorizontalAlignment="Right" MinWidth="120" />
+
+            </Grid>
+            <Grid  Margin="2,0">
+                <CheckBox  IsChecked="{Binding InvertRejectSignal}" Content="Invert reject signal"  Margin="0"/>
+
+            </Grid>
+        </StackPanel>
+        <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="10,2,0,2"/>
+        <Grid  Visibility="Collapsed" Margin="0,5,0,0">
+            <Label Content="Gain" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,0,0"/>
+            <misc:NumericUpDownWithKeyboard Value="{Binding Gain}" Template="{DynamicResource NumericUpDownRoundConnerIOSWithKeyoard}" HorizontalAlignment="Right" MinWidth="80" Minimum="1" />
+        </Grid>
+    </StackPanel>
+</UserControl>

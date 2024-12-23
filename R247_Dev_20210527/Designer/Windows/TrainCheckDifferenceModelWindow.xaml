@@ -1,0 +1,97 @@
+﻿<Window x:Class="NOVisionDesigner.Designer.Windows.TrainCheckDifferenceModelWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.Windows" xmlns:misc="clr-namespace:NOVisionDesigner.Designer.Misc" xmlns:halcondotnet="clr-namespace:HalconDotNet;assembly=halcondotnet"
+        mc:Ignorable="d"
+        Title="TrainCheckDifferenceModelWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition  />
+
+            <RowDefinition Height="90"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="150"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="btn_exit" Height="Auto" Click="btn_exit_Click" Content="SAVE AND EXIT" Grid.Row="3" FontSize="14" TextOptions.TextFormattingMode="Display" TextOptions.TextHintingMode="Animated" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Column="1" Padding="16,4"/>
+        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
+
+
+            <Button x:Name="btn_start_train" Click="btn_start_train_Click" Content="Train"  Background="#FFF7F7F7" Height="Auto"/>
+
+            <Button x:Name="btn_clear_window" Click="btn_clear_window_Click"  Content="Clear">
+                
+            </Button>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+
+
+            
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox  Content="Auto Range" IsChecked="{Binding FindShapeLevelAuto}"></CheckBox>
+                    <misc:NumericUpDownWithKeyboard HorizontalAlignment="Right"  Value="{Binding UpperLevel}" StringFormat="{}{0:0.#}" ></misc:NumericUpDownWithKeyboard>
+                    <misc:NumericUpDownWithKeyboard HorizontalAlignment="Right"  Value="{Binding LowerLevel}" StringFormat="{}{0:0.#}" ></misc:NumericUpDownWithKeyboard>
+                        
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+
+                        <Grid Margin="10,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Min Score" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="Black"/>
+                            <misc:NumericUpDownWithKeyboard Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding MinScore}" BorderThickness="1" Template="{DynamicResource NumericUpDownRoundConnerIOS}" Background="Transparent"/>
+                        </Grid>
+                        <Grid Margin="10,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Angle" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="Black"/>
+                            <misc:NumericUpDownWithKeyboard Grid.Column="1"  Minimum="1" Maximum="180" Value="{Binding AngleVariation}" BorderThickness="1" Template="{DynamicResource NumericUpDownRoundConnerIOS}" Background="Transparent"/>
+                        </Grid>
+
+                    </StackPanel>
+                </StackPanel>
+            
+
+
+        </StackPanel>
+
+        <halcondotnet:HSmartWindowControlWPF Grid.Row="1" Name="window_display" HImagePart="0,0,1292,964"  HInitWindow="display_window_HInitWindow"></halcondotnet:HSmartWindowControlWPF>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
+
+            <Button x:Name="btn_draw_search" Height="Auto"  FontFamily="Rockwell" FontSize="12" BorderThickness="1" Padding="16" HorizontalContentAlignment="Left" Content="Search Region" Click="btn_draw_search_Click" Width="80" VerticalAlignment="Center">
+
+            </Button>
+            <Button x:Name="btn_draw_model" Height="Auto"  FontFamily="Rockwell" FontSize="12" BorderThickness="1" Padding="16" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Click="btn_draw_model_Click" Content="Model Region" Width="80" VerticalAlignment="Center">
+
+            </Button>
+            <Button x:Name="btn_draw_check" Height="Auto"  FontFamily="Rockwell" FontSize="12" Content="Load Train Data" BorderThickness="1" Padding="16" HorizontalContentAlignment="Left" Click="btn_draw_check_Click"   Width="80" VerticalAlignment="Center">
+  
+            </Button>
+
+
+            <StackPanel Name="confirm_box" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button x:Name="btn_ok" Click="btn_ok_Click" Height="Auto"   FontSize="12" BorderThickness="1"    Content="OK" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    
+                </Button>
+
+                <Button x:Name="btn_cancel" Click="btn_cancel_Click" Height="Auto"   FontSize="12"  BorderThickness="1"   Content="Cancel" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    
+                </Button>
+
+            </StackPanel>
+
+
+        </StackPanel>
+    </Grid>
+</Window>

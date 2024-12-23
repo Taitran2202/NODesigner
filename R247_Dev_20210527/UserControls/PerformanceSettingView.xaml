@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="NOVisionDesigner.UserControls.PerformanceSettingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NOVisionDesigner.UserControls" xmlns:misc="clr-namespace:NOVisionDesigner.Designer.Misc" 
+             xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=System"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" FontSize="14">
+    <UserControl.Resources>
+        <misc:InvertBoolToVisibilityCollapse x:Key="InvertBoolToVisibilityCollapse"/>
+    </UserControl.Resources>
+    <Grid>
+
+        <StackPanel Margin="0">
+            <CheckBox Margin="0,5" IsChecked="{Binding SetProcessPriority}" Template="{DynamicResource CheckBoxControlTemplateXboxSetting}" Content="Set process priority" HorizontalAlignment="Stretch"    />
+            <Grid  Margin="0,5" Visibility="{Binding SetProcessPriority, Converter={StaticResource InvertBoolToVisibilityCollapse}}">
+                <Label FontWeight="SemiBold" Content="Process priority"></Label>
+                <ComboBox  SelectedValue="{Binding ProcessPriority}" Style="{x:Null}"  HorizontalAlignment="Right" HorizontalContentAlignment="Right">
+                    <diagnostics:ProcessPriorityClass>Realtime</diagnostics:ProcessPriorityClass>
+                    <diagnostics:ProcessPriorityClass>Normal</diagnostics:ProcessPriorityClass>
+                    <diagnostics:ProcessPriorityClass>High</diagnostics:ProcessPriorityClass>
+                </ComboBox>
+            </Grid>
+
+
+
+
+
+
+
+            <Grid Margin="0,5" >
+                <CheckBox IsChecked="{Binding SetAffinityCore}" Template="{DynamicResource CheckBoxControlTemplateXboxSetting}" Content="Set number of core to use" HorizontalAlignment="Stretch"    />
+                
+            </Grid>
+            <Grid Margin="0,5" Visibility="{Binding SetAffinityCore, Converter={StaticResource InvertBoolToVisibilityCollapse}}">
+                <Label FontWeight="SemiBold" Content="Number of cores"></Label>
+                <misc:NumericUpDownWithKeyboard Minimum="1"  Value="{Binding AffinityCoreNumber}" HorizontalAlignment="Right"  />
+            </Grid>
+            <Rectangle Height="1" Fill="Black" Opacity="0.2" Margin="0,5"></Rectangle>
+            <Grid Margin="0,5,0,5" >
+                <TextBlock x:Name="txt_num_core"  Text="This cpu have 8 core" HorizontalAlignment="Left"    />
+
+            </Grid>
+
+
+
+        </StackPanel>
+    </Grid>
+</UserControl>

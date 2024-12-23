@@ -1,0 +1,95 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:views="clr-namespace:NodeNetwork.Views;assembly=NodeNetwork"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" x:Class="NOVisionDesigner.Designer.NodeViews.NodeViewAccquisition"
+             mc:Ignorable="d" 
+            
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <dx:BoolToVisibilityInverseConverter x:Key="BoolToVisibilityInverseConverter"/>
+        <dxc:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <views:NodeView x:Name="NodeView" ArrowSize="12"    >
+
+            <views:NodeView.LeadingControlPresenterStyle>
+                <Style TargetType="{x:Type ContentPresenter}">
+                    <Setter Property="TextBlock.Foreground" Value="Gray"/>
+                    <Setter Property="Content" Value="{Binding ''}"/>
+                    <Setter Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate >
+                                <StackPanel>
+                                    <Label Margin="20,2,2,2" Content="{Binding ProcessingTime}"   ContentStringFormat="{}{0:0.#} ms"/>
+                                    <Grid  Margin="15,5,5,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <CheckBox Margin="2,0" IsChecked="{Binding ShowDisplay}" Template="{DynamicResource CheckBoxControlTemplateRoundIOSGlobal}" Content="Display" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="20,0,10,2">
+                                            <Grid>
+                                                <Button x:Name="btn_stop" Background="Transparent" BorderBrush="{DynamicResource NodeButtonBorderBrush}" Visibility="{Binding Acq.IsRun, Converter={StaticResource BoolToVisibilityConverter}}" Padding="4" Margin="2" Click="btn_stop_Click" >
+                                                    <Viewbox Width="18" Height="18">
+                                                        <Canvas Width="24" Height="24">
+                                                            <Path Fill="{DynamicResource RedIOS}" Data="M18,18H6V6H18V18Z" />
+                                                        </Canvas>
+                                                    </Viewbox>
+                                                </Button>
+                                                <Button x:Name="btn_run" Background="Transparent" BorderBrush="{DynamicResource NodeButtonBorderBrush}" Padding="4" Visibility="{Binding Acq.IsRun, Converter={StaticResource BoolToVisibilityInverseConverter}}" Margin="2" Click="btn_run_Click" >
+                                                    <Viewbox Width="18" Height="18">
+                                                        <Canvas Width="24" Height="24">
+                                                            <Path Fill="{DynamicResource NodeBlue}" Data="M8,5.14V19.14L19,12.14L8,5.14Z" />
+                                                        </Canvas>
+                                                    </Viewbox>
+                                                </Button>
+                                                
+                                            </Grid>
+                                            <Button x:Name="btn_refresh" Background="Transparent" BorderBrush="{DynamicResource NodeButtonBorderBrush}" Padding="4"  Margin="2" Click="btn_refresh_Click" >
+                                                <Viewbox Width="18" Height="18">
+                                                    <Canvas Width="24" Height="24">
+                                                        <Path Fill="{DynamicResource NodeBlue}" Data="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z" />
+                                                    </Canvas>
+                                                </Viewbox>
+                                            </Button>
+                                        </StackPanel>
+
+                                    </Grid>
+                                </StackPanel>
+
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </views:NodeView.LeadingControlPresenterStyle>
+            <dxb:BarManager.DXContextMenu>
+                <dxb:PopupMenu Opened="PopupMenu_Opened" >
+                    <dxb:PopupMenu.Items>
+                        <dxb:BarButtonItem 
+                            Glyph="{dx:DXImage 'SvgImages/Spreadsheet/PivotTableOptions.svg'}"
+                                Content="Properties"
+                                ItemClick="MenuItem_Click" />
+                        <dxb:BarButtonItem 
+                            Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Hyperlink.svg'}"
+                                Content="Edit connections"
+                                ItemClick="MenuItem_edit_connection_Click" />
+                        <dxb:BarButtonItem
+                            Glyph="{dx:DXImage 'SvgImages/Dashboards/EditNames.svg'}"
+                                Content="Rename"
+                                ItemClick="MenuItemRename_Click" />
+                        <dxb:BarButtonItem
+                            Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_FolderClose.svg'}"
+                                Content="Open containing folder"
+                                ItemClick="MenuItemFolder_Click" />
+                    </dxb:PopupMenu.Items>
+                </dxb:PopupMenu>
+            </dxb:BarManager.DXContextMenu>
+        </views:NodeView>
+
+    </Grid>
+</UserControl>

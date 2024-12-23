@@ -1,0 +1,172 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NOVisionDesigner.Designer.SimpleView"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"           
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+    xmlns:WPF="clr-namespace:NodeNetwork.Utilities.WPF;assembly=NodeNetwork"
+    xmlns:dxdove="http://schemas.devexpress.com/winfx/2008/xaml/docking/visualelements"
+    xmlns:Misc="clr-namespace:NOVisionDesigner.Designer.Misc" 
+    x:Class="NOVisionDesigner.Designer.SimpleView.SimpleViewHost"
+            
+             mc:Ignorable="d" 
+             FontSize="{Binding FontSize}"
+             d:DesignHeight="450" d:DesignWidth="800"  >
+    <UserControl.Resources>
+        
+        <!--<Style TargetType="Button" BasedOn="{StaticResource ButtonHighContrast}">
+            <Style.Setters>
+                <Setter Property="Foreground" Value="{DynamicResource BlackBrush}"></Setter>
+                <Setter Property="Background" Value="White"></Setter>
+                <Setter Property="Padding" Value="8,4"></Setter>
+                <Setter Property="BorderBrush" Value="#21000000"></Setter>
+                <Setter Property="BorderThickness" Value="1"></Setter>
+            </Style.Setters>
+               
+        </Style>-->
+        <dx:BoolInverseConverter x:Key="BoolInverseConverter"/>
+        <WPF:BoolToVisibilityCollapse x:Key="BoolToVisibilityCollapse"/>
+        <WPF:InvertBoolToVisibilityCollapse x:Key="InvertBoolToVisibilityCollapse"/>
+        <local:MyTemplateSelector x:Key="MyTemplateSelector"/>
+        <DataTemplate x:Key="TextBoxDataTemplate" >
+            <Grid>
+                <TextBox BorderThickness="0" BorderBrush="Transparent"  />
+            </Grid>
+
+        </DataTemplate>
+
+    </UserControl.Resources>
+    <dx:BackgroundPanel>
+        <Grid x:Name="grid_main" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Background="#10000000">
+                <dxe:TextEdit Text="{Binding Title}"   BorderThickness="0" 
+                          Padding="4,0"
+                          MinWidth="40"
+                          IsReadOnly="{Binding DataContext.IsEdit,Converter={StaticResource BoolInverseConverter},ElementName=grid_main}" 
+                          HorizontalAlignment="Left" FontSize="14" FontWeight="SemiBold" 
+                          ShowBorder="{Binding DataContext.IsEdit,ElementName=grid_main}"
+                          VerticalAlignment="Center" Margin="5,0,0,0"/>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch"  HorizontalAlignment="Right">
+
+                    <dx:SimpleButton ToolTip="Edit" Cursor="Hand" x:Name="simpleButton" Click="simpleButton_Click" 
+                        Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Edit.svg'}"
+                        BorderThickness="0" Width="32"   
+                        
+                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"   
+                        Padding="4" >
+                        
+                    </dx:SimpleButton>
+                    <dx:SimpleButton x:Name="btn_add" ToolTip="Add" Cursor="Hand" 
+                        Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Add.svg'}"
+                        Width="32" BorderThickness="0"  HorizontalAlignment="Stretch" 
+                        
+                        VerticalAlignment="Stretch" Padding="4" Click="btn_add_Click">
+                       
+                    </dx:SimpleButton>
+
+                </StackPanel>
+            </Grid>
+            <Rectangle Grid.Row="1" Height="1" VerticalAlignment="Top" Fill="#AAEEEEEE"></Rectangle>
+            <ItemsControl  x:Name="lst_binding"   Grid.RowSpan="2" ItemsSource="{Binding BindingList}" Grid.Row="1"  Margin="5,5">
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border  Margin="1,1,5,1" Drop="b_Drop" AllowDrop="True">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal" 
+                                        Visibility="{Binding DataContext.IsEdit, Converter={StaticResource BoolToVisibilityCollapse},ElementName=grid_main}" >
+                                    <Border Margin="2,0" Padding="2" BorderThickness="1" BorderBrush="#20ffffff" 
+                                            MouseDown="Border_MouseDown"
+                                            PreviewMouseMove="b_PreviewMouseMove">
+                                        <dx:DXImage  
+                                                     
+                                        
+                                                 Width="24"
+                                                Height="24"
+                                                
+                                        Source="{dx:DXImage 'SvgImages/Dashboards/LayoutDirection.svg'}">
+
+                                        </dx:DXImage>
+                                    </Border>
+                                    
+                                    <dx:SimpleButton x:Name="btn_remove"  
+                                        GlyphHeight="24"
+                                                 Padding="2"
+                                                 Margin="2,0"
+                                        Glyph="{dx:DXImage 'SvgImages/Dashboards/Delete.svg'}"
+                                          Click="btn_remove_Click" >
+
+                                    </dx:SimpleButton>
+                                    <dx:SimpleButton x:Name="btn_up" 
+                                                 Margin="2,0"
+                                                 Padding="2"
+                                                  GlyphHeight="24"
+                                        Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Arrow1Up.svg'}"
+                                         Click="btn_up_Click">
+
+                                    </dx:SimpleButton>
+                                    <dx:SimpleButton x:Name="btn_down" 
+                                                  GlyphHeight="24"
+                                                 Padding="2"
+                                                 Margin="2,0"
+                                        Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Arrow1Down.svg'}"
+                                           Click="btn_down_Click">
+
+                                    </dx:SimpleButton>
+                                    <dx:SimpleButton x:Name="btn_edit_hmi_privilege" 
+                                                  GlyphHeight="24"
+                                                 Padding="2"
+                                                 Margin="2,0"
+                                            Glyph="{dx:DXImage 'SvgImages/Icon Builder/Security_Lock.svg'}"
+                                           Click="btn_edit_hmi_privilege_Click">
+
+                                    </dx:SimpleButton>
+                                </StackPanel>
+                                <UniformGrid Columns="2" Margin="0" Grid.Column="1"  IsEnabled="{Binding IsEditable}" >
+                                    <TextBox Padding="6,4"   BorderThickness="1" VerticalAlignment="Stretch" 
+                                                VerticalContentAlignment="Center"
+                                         
+                                         Margin="0,0,2,0"  Text="{Binding Label}" 
+                                         IsReadOnly="{Binding DataContext.IsEdit, Converter={StaticResource BoolInverseConverter},ElementName=grid_main}"/>
+                                    <ContentControl Margin="0,0,8,0"   Content="{Binding}"  
+                                                HorizontalAlignment="Stretch"  
+                                                VerticalContentAlignment="Stretch"
+                                                    
+                                                Background="Transparent" VerticalAlignment="Stretch"  
+                                                ContentTemplateSelector="{DynamicResource MyTemplateSelector}"/>
+                                </UniformGrid>
+                            </Grid>
+
+                        </Border>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="{x:Type ContentPresenter}">
+                        <Setter Property="HorizontalAlignment"  Value="Stretch"/>
+
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+            </ItemsControl>
+        </Grid>
+    </dx:BackgroundPanel>
+    
+</UserControl>

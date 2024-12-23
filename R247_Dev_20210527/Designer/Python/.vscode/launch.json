@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "create_a_new_model_classifier.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "C:\\Users\\TAN VU\\AppData\\Roaming\\R247\\Jobs\\rich_aroma\\VisionManager\\e791f0ff-b35f-4f02-a9ef-bbf249d1911d\\designer\\511d6b16-df31-421e-a0d5-b5e2daefa8b8\\TrainConfig.txt",
+            ],
+        }
+    ]
+}

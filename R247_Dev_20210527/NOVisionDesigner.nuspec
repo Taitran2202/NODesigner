@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>NOVisionDesigner</id>
+    <!-- version will be replaced by MSBuild -->
+    <version>0.0.0.0</version>
+    <title>NOVisionDesigner</title>
+    <authors>namtr</authors>
+    <description>description</description>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <copyright>Copyright 2016</copyright>
+  </metadata>
+  <files>
+    <file src="*.*" target="lib\net45\" exclude="*.pdb;*.nupkg;*.vshost.*"/>
+    <file src="Designer\**" target="lib\net45\Designer" exclude="*.pdb;*.nupkg;*.vshost.*"/>
+    <file src="runtimes\**" target="lib\net45\runtimes" exclude="*.pdb;*.nupkg;*.vshost.*"/>
+  </files>
+</package>

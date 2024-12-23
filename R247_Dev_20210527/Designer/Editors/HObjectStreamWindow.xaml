@@ -1,0 +1,14 @@
+﻿<Window x:Class="NOVisionDesigner.Designer.Editors.HObjectStreamWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.Editors" xmlns:HalconDotNet="clr-namespace:HalconDotNet;assembly=halcondotnet"
+        mc:Ignorable="d"
+        Title="HObjectStreamWindow" Height="450" Width="800">
+    <Grid>
+        <HalconDotNet:HSmartWindowControlWPF x:Name="window_display" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HInitWindow="window_display_HInitWindow">
+            
+        </HalconDotNet:HSmartWindowControlWPF>
+    </Grid>
+</Window>

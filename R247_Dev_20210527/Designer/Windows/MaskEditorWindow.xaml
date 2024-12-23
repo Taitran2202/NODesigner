@@ -1,0 +1,648 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.Windows"
+    xmlns:fluent ="urn:fluent-ribbon"
+    xmlns:misc="clr-namespace:NOVisionDesigner.Designer.Misc"
+        xmlns:mahapp ="http://metro.mahapps.com/winfx/xaml/controls"
+   
+        xmlns:HalconDotNet="clr-namespace:HalconDotNet;assembly=halcondotnet" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:UserControls="clr-namespace:NOVisionDesigner.UserControls" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="window"
+    x:Class="NOVisionDesigner.Designer.Windows.MaskEditorWindow"
+        mc:Ignorable="d" Loaded="Window_Loaded" UseLayoutRounding="True"  FontFamily="Times New Roman" Height="642" Width="1067" Title="Mask Editor" Closed="window_Closed"  >
+    <Window.Resources>
+        <misc:UnionModeConverter x:Key="UnionModeConverter"/>
+        <ContextMenu x:Key="cmButton">
+
+
+        </ContextMenu>
+        <misc:StringToColor x:Key="StringToColor"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <misc:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        <SolidColorBrush x:Key="TabItemCloseButtonNormalBackgroundBrush" Color="#00000000" />
+        <SolidColorBrush x:Key="TabItemCloseButtonNormalBorderBrush" Color="#FFFFFFFF" />
+        <SolidColorBrush x:Key="TabItemCloseButtonNormalForegroundBrush" Color="#FF8f949b" />
+
+        <SolidColorBrush x:Key="TabItemCloseButtonHoverBackgroundBrush" Color="#FFc13535" />
+        <SolidColorBrush x:Key="TabItemCloseButtonHoverForegroundBrush" Color="#FFf9ebeb" />
+
+        <SolidColorBrush x:Key="TabItemCloseButtonPressedBackgroundBrush" Color="#FF431e20" />
+        <SolidColorBrush x:Key="TabItemCloseButtonPressedBorderBrush" Color="#FF110033" />
+        <SolidColorBrush x:Key="TabItemCloseButtonPressedForegroundBrush" Color="#FFf9ebeb" />
+
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="SnapsToDevicePixels" Value="false" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Focusable" Value="False" />
+
+            <!-- The control template. -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid Background="Transparent">
+
+                            <!-- The background of the button, as an ellipse. -->
+                            <Ellipse x:Name="backgroundEllipse" />
+
+                            <!-- A path that renders a cross. -->
+                            <Path x:Name="ButtonPath"
+                              Margin="3"
+                              Stroke="{StaticResource TabItemCloseButtonNormalForegroundBrush}"
+                              StrokeThickness="1.5"
+                              StrokeStartLineCap="Square"
+                              StrokeEndLineCap="Square"
+                              Stretch="Uniform"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center" Width="10" Height="10" Data="M0,0 L25,25 M0,25 L25,0"/>
+                        </Grid>
+
+                        <!-- The triggers. -->
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="backgroundEllipse" Property="Fill"
+                                    Value="{DynamicResource TabItemCloseButtonHoverBackgroundBrush}" />
+                                <Setter TargetName="ButtonPath" Property="Stroke" 
+                                    Value="{DynamicResource TabItemCloseButtonHoverForegroundBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="backgroundEllipse" Property="Fill"
+                                    Value="{DynamicResource TabItemCloseButtonPressedBackgroundBrush}" />
+                                <Setter TargetName="backgroundEllipse" Property="Stroke"
+                                    Value="{DynamicResource TabItemCloseButtonPressedBorderBrush}" />
+                                <Setter TargetName="ButtonPath" Property="Stroke" 
+                                    Value="{DynamicResource TabItemCloseButtonPressedForegroundBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="EditMouseOverBrush" Color="#FF3B78FB" />
+        <SolidColorBrush x:Key="BrushEditMousePress" Color="#FF04049B" />
+        <Style x:Key="ButtonStyleEdit" TargetType="{x:Type Button}">
+            <Setter Property="SnapsToDevicePixels" Value="false" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Focusable" Value="False" />
+
+            <!-- The control template. -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid Background="Transparent">
+
+                            <!-- The background of the button, as an ellipse. -->
+                            <Ellipse x:Name="backgroundEllipse" />
+
+                            <!-- A path that renders a cross. -->
+                            <Image Source="/NOVISION Designer;component/Icons/Edit-25.png" Width="10" Height="10" />
+                        </Grid>
+
+                        <!-- The triggers. -->
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="backgroundEllipse" Property="Fill"
+                                    Value="{StaticResource EditMouseOverBrush}" />
+
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="backgroundEllipse" Property="Fill"
+                                    Value="{StaticResource BrushEditMousePress}" />
+
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <RadialGradientBrush x:Key="Brush2">
+            <GradientStop Color="#FF272727" Offset="1"/>
+            <GradientStop Color="#FF292828"/>
+        </RadialGradientBrush>
+        <Color x:Key="ColorGlow">#FF51EAFF</Color>
+        <Style x:Key="ButtonGlowNew" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle">
+                <Setter.Value>
+                    <Style>
+                        <Setter Property="Control.Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Rectangle StrokeDashArray="1 2" StrokeThickness="1" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="True" Margin="2"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="#FF20ACEE"/>
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="16,4"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Border x:Name="border" CornerRadius="4" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}"/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Border x:Name="border_glow" CornerRadius="4" BorderThickness="0">
+                                <Border.Effect>
+                                    <DropShadowEffect x:Name="drop_efect_glow" Color="{DynamicResource ColorGlow}" ShadowDepth="0"/>
+                                </Border.Effect>
+                                <Border.BorderBrush>
+                                    <RadialGradientBrush>
+                                        <GradientStop Color="#FF84C6FD" Offset="0"/>
+                                        <GradientStop Color="#FF00B9FF" Offset="1"/>
+                                    </RadialGradientBrush>
+                                </Border.BorderBrush>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <!--<Setter Property="Background" TargetName="border" Value="{StaticResource gradientbackground}"/>-->
+                                <Setter Property="BorderThickness" TargetName="border_glow" Value="1"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.23"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource gradientbackground_pressed}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ForceCursor" Value="True"/>
+        </Style>
+        
+        <ControlTemplate x:Key="DropDownButtonControlTemplate1" TargetType="{x:Type fluent:DropDownButton}">
+            <ControlTemplate.Resources>
+                <Style x:Key="{x:Type Separator}" TargetType="{x:Type Separator}">
+                    <Style.BasedOn>
+                        <Style TargetType="{x:Type Separator}">
+                            <Setter Property="Template" Value="{DynamicResource MenuSeparatorControlTemplate}"/>
+                        </Style>
+                    </Style.BasedOn>
+                </Style>
+            </ControlTemplate.Resources>
+            <Grid>
+                <Border x:Name="PART_ButtonBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" Height="Auto" VerticalAlignment="Stretch" CornerRadius="4">
+                    <Grid>
+                        <StackPanel x:Name="stackPanel" Orientation="Vertical" Width="Auto" HorizontalAlignment="Center">
+                            <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="Auto" Margin="0" SnapsToDevicePixels="True" VerticalAlignment="Center" Width="Auto">
+                                <ContentPresenter.Content>
+                                    <Binding Path="LargeIcon" RelativeSource="{RelativeSource TemplatedParent}">
+                                        <Binding.Converter>
+                                            <fluent:ObjectToImageConverter/>
+                                        </Binding.Converter>
+                                    </Binding>
+                                </ContentPresenter.Content>
+                            </ContentPresenter>
+                        </StackPanel>
+                        <fluent:TwoLineLabel x:Name="controlLabel" Focusable="False" HasGlyph="{TemplateBinding HasTriangle}" HorizontalAlignment="Right" Margin="2,0,5,2" Style="{DynamicResource TwoLineLabelStyle}" Text="{TemplateBinding Header}" VerticalAlignment="Center"/>
+
+                    </Grid>
+
+                </Border>
+                <Popup x:Name="PART_Popup" AllowsTransparency="True" Grid.ColumnSpan="2" IsOpen="{TemplateBinding IsDropDownOpen}" Margin="0,0,-4,0" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" Placement="Bottom" VerticalAlignment="Top">
+                    <Grid x:Name="DropDown" Margin="0" SnapsToDevicePixels="True" VerticalAlignment="Top">
+                        <Border x:Name="PART_DropDownBorder" BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}" BorderThickness="1" Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}" CornerRadius="1" HorizontalAlignment="Stretch" MinWidth="{TemplateBinding ActualWidth}" SnapsToDevicePixels="True" VerticalAlignment="Top">
+                            <Grid HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Top" Width="Auto">
+                                <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}" BorderThickness="1" CornerRadius="1" Height="Auto" VerticalAlignment="Top" Width="Auto"/>
+                                <Grid HorizontalAlignment="Stretch" Margin="1" VerticalAlignment="Top">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <ScrollViewer x:Name="PART_ScrollViewer" HorizontalScrollBarVisibility="Hidden" IsTabStop="False" MaxHeight="{TemplateBinding MaxDropDownHeight}" Margin="1" Style="{DynamicResource MenuScrollViewer}" SnapsToDevicePixels="True" VerticalScrollBarVisibility="Auto">
+                                        <StackPanel KeyboardNavigation.DirectionalNavigation="Local" IsItemsHost="True" Orientation="Vertical"/>
+                                    </ScrollViewer>
+                                    <Border x:Name="resizeBorder" BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}" BorderThickness="0,1,0,0" Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush}" CornerRadius="0,0,1,1" HorizontalAlignment="Stretch" Height="11" Grid.Row="1" VerticalAlignment="Top">
+                                        <Grid>
+                                            <Thumb x:Name="PART_ResizeVerticalThumb" Cursor="SizeNS" HorizontalAlignment="Stretch" Height="10" Margin="0,0,0,-90" Template="{DynamicResource ResizeVerticalThumbControlTemplate}" VerticalAlignment="Top" Width="Auto"/>
+                                            <Thumb x:Name="PART_ResizeBothThumb" Cursor="SizeNWSE" HorizontalAlignment="Right" Height="10" Margin="0,0,0,-90" Template="{DynamicResource ResizeBothThumbControlTemplate}" VerticalAlignment="Top" Width="10"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Popup>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="ResizeMode" Value="None">
+                    <Setter Property="Visibility" TargetName="resizeBorder" Value="Collapsed"/>
+                </Trigger>
+                <Trigger Property="ResizeMode" Value="Both">
+                    <Setter Property="Visibility" TargetName="PART_ResizeVerticalThumb" Value="Collapsed"/>
+                    <Setter Property="Visibility" TargetName="PART_ResizeBothThumb" Value="Visible"/>
+                    <Setter Property="Visibility" TargetName="resizeBorder" Value="Visible"/>
+                </Trigger>
+                <Trigger Property="ResizeMode" Value="Vertical">
+                    <Setter Property="Visibility" TargetName="PART_ResizeBothThumb" Value="Collapsed"/>
+                    <Setter Property="Visibility" TargetName="PART_ResizeVerticalThumb" Value="Visible"/>
+                    <Setter Property="Visibility" TargetName="resizeBorder" Value="Visible"/>
+                </Trigger>
+                <Trigger Property="Size" Value="Small">
+                    <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+                    <Setter Property="Content" TargetName="iconImage">
+                        <Setter.Value>
+                            <Binding Path="Icon" RelativeSource="{RelativeSource TemplatedParent}">
+                                <Binding.Converter>
+                                    <fluent:ObjectToImageConverter/>
+                                </Binding.Converter>
+                            </Binding>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
+                    <Setter Property="Text" TargetName="controlLabel" Value=""/>
+                    <!--<Setter Property="Width" TargetName="iconImage" Value="16"/>
+                    <Setter Property="Height" TargetName="iconImage" Value="16"/>
+                    <Setter Property="Margin" TargetName="iconImage" Value="2,0,0,0"/>-->
+                    <!--<Setter Property="Margin" TargetName="controlLabel" Value="-2,0,2,1"/>
+                    <Setter Property="Width" TargetName="controlLabel" Value="10"/>-->
+                    <Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Center"/>
+                </Trigger>
+                <Trigger Property="Size" Value="Middle">
+                    <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+                    <Setter Property="Content" TargetName="iconImage">
+                        <Setter.Value>
+                            <Binding Path="Icon" RelativeSource="{RelativeSource TemplatedParent}">
+                                <Binding.Converter>
+                                    <fluent:ObjectToImageConverter/>
+                                </Binding.Converter>
+                            </Binding>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Width" TargetName="stackPanel" Value="Auto"/>
+                    <Setter Property="VerticalAlignment" TargetName="iconImage" Value="Center"/>
+                    <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
+                    <!--<Setter Property="Margin" TargetName="controlLabel" Value="2,0,2,1"/>-->
+                    <Setter Property="VerticalAlignment" TargetName="PART_ButtonBorder" Value="Stretch"/>
+                    <!--<Setter Property="Width" TargetName="iconImage" Value="16"/>
+                    <Setter Property="Height" TargetName="iconImage" Value="16"/>
+                    <Setter Property="Margin" TargetName="iconImage" Value="2,0"/>-->
+                    <!--<Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Center"/>-->
+                </Trigger>
+                <Trigger Property="IsDropDownOpen" Value="True">
+                    <Setter Property="BorderBrush" TargetName="PART_ButtonBorder" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}"/>
+                    <Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" TargetName="iconImage" Value="0.5"/>
+                    <Setter Property="Opacity" TargetName="controlLabel" Value="0.5"/>
+                    <Setter Property="Effect" TargetName="iconImage">
+                        <Setter.Value>
+                            <fluent:GrayscaleEffect/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsMouseOver" Value="True"/>
+                        <Condition Property="IsDropDownOpen" Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"/>
+                    <Setter Property="BorderBrush" TargetName="PART_ButtonBorder" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"/>
+                </MultiTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        
+        <Style  TargetType="{x:Type RadioButton}">
+            <Style.BasedOn>
+                <Style TargetType="{x:Type RadioButton}">
+                    <Setter Property="Background" Value="{DynamicResource WhiteBrush}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource CheckBoxBrush}"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="mahapp:ControlsHelper.FocusBorderBrush" Value="{DynamicResource HighlightBrush}"/>
+                    <Setter Property="mahapp:ControlsHelper.MouseOverBorderBrush" Value="{DynamicResource CheckBoxMouseOverBrush}"/>
+                    <Setter Property="FontFamily" Value="{DynamicResource ContentFontFamily}"/>
+                    <Setter Property="FontSize" Value="{DynamicResource ContentFontSize}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource LabelTextBrush}"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="Padding" Value="6,0,0,0"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type RadioButton}">
+                                <Grid>
+
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal"/>
+                                            <VisualState x:Name="Disabled">
+                                                <Storyboard>
+                                                    <DoubleAnimation Duration="0" To="0.55" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="contentPresenter"/>
+
+                                                </Storyboard>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                        <VisualStateGroup x:Name="CheckStates">
+                                            <VisualState x:Name="Checked">
+
+                                            </VisualState>
+                                            <VisualState x:Name="Unchecked"/>
+                                            <VisualState x:Name="Indeterminate"/>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="2">
+                                        <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+
+                                    </Border>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                    </Trigger>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter Property="Background" TargetName="border">
+                                            <Setter.Value>
+                                                <RadialGradientBrush RadiusX="1.2" RadiusY="1.2" SpreadMethod="Pad">
+                                                    <GradientStop Color="#FFC5C5C5" Offset="0.996"/>
+                                                    <GradientStop Color="White" Offset="0"/>
+                                                </RadialGradientBrush>
+                                            </Setter.Value>
+                                        </Setter>
+
+                                    </Trigger>
+                                    <Trigger Property="IsFocused" Value="True">
+                                    </Trigger>
+
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </Style.BasedOn>
+        </Style>
+        <ControlTemplate x:Key="DropDownButtonControlTemplate2" TargetType="{x:Type fluent:DropDownButton}">
+            <ControlTemplate.Resources>
+                <Style x:Key="{x:Type Separator}" TargetType="{x:Type Separator}">
+                    <Style.BasedOn>
+                        <Style TargetType="{x:Type Separator}">
+                            <Setter Property="Template" Value="{DynamicResource MenuSeparatorControlTemplate}"/>
+                        </Style>
+                    </Style.BasedOn>
+                </Style>
+            </ControlTemplate.Resources>
+            <Grid>
+                <Border x:Name="PART_ButtonBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" Height="Auto" VerticalAlignment="Stretch">
+                    <StackPanel x:Name="stackPanel" Orientation="Vertical" Width="Auto">
+                        <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" Margin="0,2,0,0" SnapsToDevicePixels="True" VerticalAlignment="Center" Width="32">
+                            <ContentPresenter.Content>
+                                <Binding Path="LargeIcon" RelativeSource="{RelativeSource TemplatedParent}">
+                                    <Binding.Converter>
+                                        <fluent:ObjectToImageConverter/>
+                                    </Binding.Converter>
+                                </Binding>
+                            </ContentPresenter.Content>
+                        </ContentPresenter>
+                        <fluent:TwoLineLabel x:Name="controlLabel" Focusable="False" HasGlyph="{TemplateBinding HasTriangle}" HorizontalAlignment="Stretch" Margin="5,0,5,2" Style="{DynamicResource TwoLineLabelStyle}" Text="{TemplateBinding Header}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+                <Popup x:Name="PART_Popup" AllowsTransparency="True" Grid.ColumnSpan="2" IsOpen="{TemplateBinding IsDropDownOpen}" Margin="0,0,-4,0" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" Placement="Bottom" VerticalAlignment="Top">
+                    <Grid x:Name="DropDown" Margin="0" SnapsToDevicePixels="True" VerticalAlignment="Top">
+                        <Border x:Name="PART_DropDownBorder" BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}" BorderThickness="1" Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}" CornerRadius="1" HorizontalAlignment="Stretch" MinWidth="{TemplateBinding ActualWidth}" SnapsToDevicePixels="True" VerticalAlignment="Top">
+                            <Grid HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Top" Width="Auto">
+                                <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}" BorderThickness="1" CornerRadius="1" Height="Auto" VerticalAlignment="Top" Width="Auto"/>
+                                <Grid HorizontalAlignment="Stretch" Margin="1" VerticalAlignment="Top">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <ScrollViewer x:Name="PART_ScrollViewer" HorizontalScrollBarVisibility="Hidden" IsTabStop="False" MaxHeight="{TemplateBinding MaxDropDownHeight}" Margin="1" Style="{DynamicResource MenuScrollViewer}" SnapsToDevicePixels="True" VerticalScrollBarVisibility="Auto">
+                                        <StackPanel KeyboardNavigation.DirectionalNavigation="Local" IsItemsHost="True" Orientation="Vertical"/>
+                                    </ScrollViewer>
+                                    <Border x:Name="resizeBorder" BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}" BorderThickness="0,1,0,0" Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush}" CornerRadius="0,0,1,1" HorizontalAlignment="Stretch" Height="11" Grid.Row="1" VerticalAlignment="Top">
+                                        <Grid>
+                                            <Thumb x:Name="PART_ResizeVerticalThumb" Cursor="SizeNS" HorizontalAlignment="Stretch" Height="10" Margin="0,0,0,-90" Template="{DynamicResource ResizeVerticalThumbControlTemplate}" VerticalAlignment="Top" Width="Auto"/>
+                                            <Thumb x:Name="PART_ResizeBothThumb" Cursor="SizeNWSE" HorizontalAlignment="Right" Height="10" Margin="0,0,0,-90" Template="{DynamicResource ResizeBothThumbControlTemplate}" VerticalAlignment="Top" Width="10"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Popup>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="ResizeMode" Value="None">
+                    <Setter Property="Visibility" TargetName="resizeBorder" Value="Collapsed"/>
+                </Trigger>
+                <Trigger Property="ResizeMode" Value="Both">
+                    <Setter Property="Visibility" TargetName="PART_ResizeVerticalThumb" Value="Collapsed"/>
+                    <Setter Property="Visibility" TargetName="PART_ResizeBothThumb" Value="Visible"/>
+                    <Setter Property="Visibility" TargetName="resizeBorder" Value="Visible"/>
+                </Trigger>
+                <Trigger Property="ResizeMode" Value="Vertical">
+                    <Setter Property="Visibility" TargetName="PART_ResizeBothThumb" Value="Collapsed"/>
+                    <Setter Property="Visibility" TargetName="PART_ResizeVerticalThumb" Value="Visible"/>
+                    <Setter Property="Visibility" TargetName="resizeBorder" Value="Visible"/>
+                </Trigger>
+                <Trigger Property="Size" Value="Small">
+                    <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+                    <Setter Property="Content" TargetName="iconImage">
+                        <Setter.Value>
+                            <Binding Path="Icon" RelativeSource="{RelativeSource TemplatedParent}">
+                                <Binding.Converter>
+                                    <fluent:ObjectToImageConverter/>
+                                </Binding.Converter>
+                            </Binding>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
+                    <Setter Property="Text" TargetName="controlLabel" Value=""/>
+
+                    <Setter Property="Height" TargetName="iconImage" Value="16"/>
+                    <Setter Property="Margin" TargetName="iconImage" Value="2,0,0,0"/>
+                    <Setter Property="Margin" TargetName="controlLabel" Value="-2,0,2,1"/>
+                    <Setter Property="Width" TargetName="controlLabel" Value="10"/>
+                    <Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Center"/>
+                </Trigger>
+                <Trigger Property="Size" Value="Middle">
+                    <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+                    <Setter Property="Content" TargetName="iconImage">
+                        <Setter.Value>
+                            <Binding Path="Icon" RelativeSource="{RelativeSource TemplatedParent}">
+                                <Binding.Converter>
+                                    <fluent:ObjectToImageConverter/>
+                                </Binding.Converter>
+                            </Binding>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Width" TargetName="stackPanel" Value="Auto"/>
+                    <Setter Property="VerticalAlignment" TargetName="iconImage" Value="Center"/>
+                    <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
+                    <Setter Property="Margin" TargetName="controlLabel" Value="2,0,2,1"/>
+                    <Setter Property="VerticalAlignment" TargetName="PART_ButtonBorder" Value="Stretch"/>
+
+                    <Setter Property="Height" TargetName="iconImage" Value="16"/>
+                    <Setter Property="Margin" TargetName="iconImage" Value="2,0"/>
+                    <Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Center"/>
+                </Trigger>
+                <Trigger Property="IsDropDownOpen" Value="True">
+                    <Setter Property="BorderBrush" TargetName="PART_ButtonBorder" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}"/>
+                    <Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" TargetName="iconImage" Value="0.5"/>
+                    <Setter Property="Opacity" TargetName="controlLabel" Value="0.5"/>
+                    <Setter Property="Effect" TargetName="iconImage">
+                        <Setter.Value>
+                            <fluent:GrayscaleEffect/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsMouseOver" Value="True"/>
+                        <Condition Property="IsDropDownOpen" Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"/>
+                    <Setter Property="BorderBrush" TargetName="PART_ButtonBorder" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"/>
+                </MultiTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+    <Border ClipToBounds="True" BorderBrush="#FFEDEDED" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <HalconDotNet:HSmartWindowControlWPF x:Name="window_display"  HInitWindow="window_display_HInitWindow"  Grid.Column="1" Grid.Row="1" Margin="0" ContextMenu="{DynamicResource cmButton}" HMouseMove="window_display_HMouseMove" HMouseDown="window_display_HMouseDown" MouseLeave="window_display_MouseLeave" HMouseUp="window_display_HMouseUp"/>
+
+
+            <Border Margin="0" Grid.ColumnSpan="2">
+                <Grid Margin="0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+
+                        <StackPanel Orientation="Horizontal" Background="White">
+                            <Button x:Name="btn_load_region" Style="{DynamicResource ButtonStyleOfficeIconGlowActive}" Foreground="Black" ToolTip="Load Region" Margin="2,0"  Click="btn_load_region_Click">
+                                <Viewbox Width="15" Height="15">
+                                    <Canvas Width="24" Height="24">
+                                        <Path Data="M20,18H4V8H20M20,6H12L10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6Z" Fill="{DynamicResource BlueIOS}" />
+                                    </Canvas>
+                                </Viewbox>
+                            </Button>
+                            <Rectangle Fill="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Width="1" Opacity="0.1" Margin="0,5"/>
+                            <Button x:Name="btn_undo" Style="{DynamicResource ButtonStyleOfficeIconGlowActive}" Foreground="Black" ToolTip="undo" Margin="2,0"  Click="btn_undo_Click">
+                                <Viewbox Width="15" Height="15">
+                                    <Canvas Width="24" Height="24">
+                                        <Path Data="M13.5,7A6.5,6.5,0,0,1,20,13.5A6.5,6.5,0,0,1,13.5,20L10,20 10,18 13.5,18C16,18 18,16 18,13.5 18,11 16,9 13.5,9L7.83,9 10.91,12.09 9.5,13.5 4,8 9.5,2.5 10.92,3.91 7.83,7 13.5,7 M6,18L8,18 8,20 6,20 6,18z" Fill="#FF007AFF" />
+                                    </Canvas>
+                                </Viewbox>
+                            </Button>
+                            <Button x:Name="btn_redo" Style="{DynamicResource ButtonStyleOfficeIconGlowActive}" Foreground="Black" ToolTip="redo" Margin="2,0"  Click="btn_redo_Click">
+                                <Viewbox Width="15" Height="15">
+                                    <Canvas Width="24" Height="24">
+                                        <Path Data="M10.5,7A6.5,6.5,0,0,0,4,13.5A6.5,6.5,0,0,0,10.5,20L14,20 14,18 10.5,18C8,18 6,16 6,13.5 6,11 8,9 10.5,9L16.17,9 13.09,12.09 14.5,13.5 20,8 14.5,2.5 13.08,3.91 16.17,7 10.5,7 M18,18L16,18 16,20 18,20 18,18z" Fill="#FF007AFF" />
+                                    </Canvas>
+                                </Viewbox>
+                            </Button>
+                            <Rectangle Fill="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Width="1" Opacity="0.1" Margin="0,5"/>
+
+                            <RadioButton x:Name="btn_solid"  Height="Auto"  FontFamily="Segoe UI" FontSize="12"  Foreground="{DynamicResource {x:Static SystemColors.MenuBarBrushKey}}" FontWeight="Bold" Padding="10,4" IsChecked="True" Checked="btn_solid_Checked" Unchecked="btn_solid_Unchecked" Margin="2" ToolTip="Move Image"  >
+                                <StackPanel Orientation="Horizontal">
+
+
+                                    <Viewbox HorizontalAlignment="Left" Width="15" Height="15" Margin="5,0" VerticalAlignment="Center">
+                                        <Path Data="M6.58,19H14.58V22H6.58V19M19.74,11.6C19.55,11.4 19.29,11.28 19,11.28L18.78,11.31L15.58,13V11.83L16.09,2.9C16.12,2.35 15.7,1.87 15.15,1.84C14.6,1.81 14.12,2.23 14.09,2.78L13.82,7.47H13.58L12.54,7.58V2A1,1 0 0,0 11.54,1C11,1 10.54,1.45 10.54,2V8.41L9.72,8.78L9.03,3.32C8.96,2.77 8.46,2.38 7.91,2.45C7.36,2.5 6.97,3 7.04,3.57L7.81,9.63L7.43,9.8C7.3,9.85 7.18,9.93 7.07,10L5.97,6.11C5.81,5.54 5.25,5.2 4.71,5.34C4.18,5.5 3.88,6.08 4.04,6.65L6.61,15.77C6.61,15.8 6.63,15.84 6.64,15.87L6.67,16H6.68C6.9,16.57 7.47,17 8.08,17H14.58C14.97,17 15.32,16.84 15.58,16.57L20.5,12.37L19.74,11.6Z" Fill="#FF00A1C5" />
+                                    </Viewbox>
+                                </StackPanel>
+                            </RadioButton>
+
+                            <RadioButton x:Name="btn_gradient"   Height="Auto"  FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Padding="10,4" Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" Checked="btn_gradient_Checked" Margin="2" ToolTip="Brush" >
+                                <StackPanel Orientation="Horizontal">
+
+
+                                    <Viewbox HorizontalAlignment="Left" Width="15" Height="15" Margin="5,0" VerticalAlignment="Center">
+                                        <Path Data="M20.71,4.63L19.37,3.29C19,2.9 18.35,2.9 17.96,3.29L9,12.25L11.75,15L20.71,6.04C21.1,5.65 21.1,5 20.71,4.63M7,14A3,3 0 0,0 4,17C4,18.31 2.84,19 2,19C2.92,20.22 4.5,21 6,21A4,4 0 0,0 10,17A3,3 0 0,0 7,14Z" >
+                                            <Path.Fill>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FFCFE5FF" Offset="0"/>
+                                                    <GradientStop Color="#FF0672F3" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Path.Fill>
+                                        </Path>
+                                    </Viewbox>
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton x:Name="btn_eraser"  Height="Auto" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Padding="10,4" Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" Checked="btn_eraser_Checked" Margin="2" ToolTip="Eraser" >
+                                <StackPanel Orientation="Horizontal">
+
+
+                                    <Viewbox HorizontalAlignment="Left" Width="15" Height="15" Margin="5,0" VerticalAlignment="Center">
+                                        <Path Data="M16.24,3.56L21.19,8.5C21.97,9.29 21.97,10.55 21.19,11.34L12,20.53C10.44,22.09 7.91,22.09 6.34,20.53L2.81,17C2.03,16.21 2.03,14.95 2.81,14.16L13.41,3.56C14.2,2.78 15.46,2.78 16.24,3.56M4.22,15.58L7.76,19.11C8.54,19.9 9.8,19.9 10.59,19.11L14.12,15.58L9.17,10.63L4.22,15.58Z" Fill="#FFC90000" />
+                                    </Viewbox>
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton x:Name="rad_move"    Height="Auto"  FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Padding="10,4" Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"  Margin="2" ToolTip="Move Mask" Checked="rad_move_Checked" Unchecked="rad_move_Unchecked" >
+                                <StackPanel Orientation="Horizontal">
+
+
+                                    <Viewbox HorizontalAlignment="Left" Width="15" Height="15" Margin="5,0" VerticalAlignment="Center">
+                                        <Path Data="M9.5,13.09L10.91,14.5 6.41,19 10,19 10,21 3,21 3,14 5,14 5,17.59 9.5,13.09 M10.91,9.5L9.5,10.91 5,6.41 5,10 3,10 3,3 10,3 10,5 6.41,5 10.91,9.5 M14.5,13.09L19,17.59 19,14 21,14 21,21 14,21 14,19 17.59,19 13.09,14.5 14.5,13.09 M13.09,9.5L17.59,5 14,5 14,3 21,3 21,10 19,10 19,6.41 14.5,10.91 13.09,9.5z" Fill="#FF707070" />
+                                    </Viewbox>
+                                </StackPanel>
+                            </RadioButton>
+                        </StackPanel>
+
+                        <fluent:Spinner Header="Brush size" Margin="5,0,0,0" Value="{Binding Value, ElementName=sld_brushsize}" Width="120"/>
+
+                        <Slider x:Name="sld_brushsize" Value="{Binding BrushSize}" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0" Minimum="1" Maximum="200"/>
+
+                        <Rectangle Fill="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Width="1" Opacity="0.1" Margin="0,5"/>
+
+
+
+                        <fluent:DropDownButton x:Name="radioButton"  Height="Auto" Margin="1,0" Size="Middle" HorizontalAlignment="Stretch" Header="Display" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" Template="{DynamicResource DropDownButtonControlTemplate2}" >
+                            <fluent:DropDownButton.Icon>
+                                <Border   CornerRadius="3" BorderBrush="Gray" Margin="0" BorderThickness="1" Width="30" >
+                                    <Border.Background>
+                                        <SolidColorBrush Color="{Binding Color, Converter={StaticResource StringToColor}}"/>
+                                    </Border.Background>
+                                </Border>
+                            </fluent:DropDownButton.Icon>
+                            <xctk:ColorCanvas x:Name="color_background" Foreground="Black"  SelectedColor="{Binding Color, Converter={StaticResource StringToColor}}" BorderBrush="WhiteSmoke" SelectedColorChanged="color_background_SelectedColorChanged" />
+
+
+
+                        </fluent:DropDownButton>
+
+                        <fluent:DropDownButton x:Name="radioButton1"  Height="Auto" Padding="16,0,6,0" Margin="1,0" HorizontalAlignment="Stretch" Header="Drawing" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" Template="{DynamicResource DropDownButtonControlTemplate2}" Size="Middle" >
+                            <fluent:DropDownButton.Icon>
+                                <Border   CornerRadius="3" BorderBrush="Gray" Margin="0" BorderThickness="1" Width="30" >
+                                    <Border.Background>
+                                        <SolidColorBrush Color="{Binding ColorDraw, Converter={StaticResource StringToColor}}"/>
+                                    </Border.Background>
+                                </Border>
+                            </fluent:DropDownButton.Icon>
+                            <xctk:ColorCanvas x:Name="color_background1" Foreground="Black"  SelectedColor="{Binding ColorDraw, Converter={StaticResource StringToColor}}" BorderBrush="WhiteSmoke" SelectedColorChanged="color_background_SelectedColorChanged" />
+
+
+
+                        </fluent:DropDownButton>
+                        <Button x:Name="btn_gen_mask" Style="{DynamicResource ButtonStyleOfficeGlobal}" Content="Generate Mask" Click="btn_gen_mask_Click" Visibility="Collapsed"/>
+                        <fluent:Spinner Header="Smooth" Value="{Binding Smooth}" Visibility="Collapsed"/>
+                        <fluent:Spinner Header="Scale" Value="{Binding Scale}" Visibility="Collapsed"/>
+                    </StackPanel>
+                    <fluent:CheckBox Header="Margin Region" IsChecked="{Binding IsMargin}"  HorizontalAlignment="Right" Template="{DynamicResource CheckBoxControlTemplateRoundIOSGlobal}" Margin="0,2,2,2" Width="109"/>
+                </Grid>
+
+            </Border>
+        </Grid>
+    </Border>
+</Window>

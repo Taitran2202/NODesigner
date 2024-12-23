@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="NOVisionDesigner.UserControls.GeneralSettingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NOVisionDesigner.UserControls" xmlns:misc="clr-namespace:NOVisionDesigner.Designer.Misc" 
+             xmlns:System="clr-namespace:System;assembly=mscorlib" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Foreground="Black" >
+    <UserControl.Resources>
+        <misc:InvertBoolToVisibilityCollapse x:Key="BoolToVisibilityCollapse"/>
+    </UserControl.Resources>
+    <Grid>
+
+        <StackPanel Margin="0">
+            <Label Content="Application setting" FontSize="18" FontWeight="SemiBold"></Label>
+            <Rectangle Height="8"></Rectangle>
+            <UniformGrid Columns="2" Margin="0,0">
+                <Label Content="Language"   Padding="0,5,5,5" />
+                <ComboBox x:Name="cmb_lang" SelectedValue="{Binding Language}" Style="{x:Null}"   HorizontalAlignment="Right" HorizontalContentAlignment="Right">
+                    <System:String>vi-VN</System:String>
+                    <System:String>en-US</System:String>
+                </ComboBox>
+
+            </UniformGrid>
+            <UniformGrid Columns="2" Margin="0,5">
+                <Label Content="Display quality"   Padding="0,5,5,5" />
+                <ComboBox  SelectedValue="{Binding DisplayQuality}" Style="{x:Null}"   HorizontalAlignment="Right" HorizontalContentAlignment="Right">
+                    <local:DisplayQuality>Normal</local:DisplayQuality>
+                    <local:DisplayQuality>Low</local:DisplayQuality>
+                    <local:DisplayQuality>High</local:DisplayQuality>
+                </ComboBox>
+            </UniformGrid>
+
+            
+            <UniformGrid Columns="2" Margin="0,5">
+                <Label Content="Theme (restart required)"   Padding="0,5,5,5" />
+                <ComboBox x:Name="cmb_themes"  SelectedItem="{Binding SelectedThemed}" Style="{x:Null}" 
+                          ItemsSource="{Binding ThemedList}"   HorizontalAlignment="Right" HorizontalContentAlignment="Right">
+                </ComboBox>
+            </UniformGrid>
+            <!--<Rectangle Height="1" Fill="{DynamicResource {x:Static SystemColors.MenuBrushKey}}" />-->
+            <Grid Margin="0,5" >
+                <CheckBox IsChecked="{Binding ShowTaskBarFullScreen}" HorizontalAlignment="Stretch" 
+                          Template="{DynamicResource CheckBoxControlTemplateXboxSetting}" 
+                          Content="Show taskbar in fullscreen"   />
+
+            </Grid>
+
+            <Rectangle Height="1" Fill="Black" Opacity="0.2" Margin="0,5"></Rectangle>
+            <Grid Margin="0,5" >
+                <CheckBox IsChecked="{Binding LimitFolderImage}" HorizontalAlignment="Stretch" Template="{DynamicResource CheckBoxControlTemplateXboxSetting}" Content="Limit image in folder"   />
+                
+            </Grid>
+            <Grid Margin="0,5" Visibility="{Binding LimitFolderImage, Converter={StaticResource BoolToVisibilityCollapse}}">
+                <Label Content="Number of images" FontWeight="SemiBold"></Label>
+                <misc:NumericUpDownWithKeyboard Minimum="1"  Value="{Binding MaxFolderImage}" HorizontalAlignment="Right" MinWidth="150" />
+            </Grid>
+           
+            <Grid Margin="0,5" >
+                <CheckBox IsChecked="{Binding LimitDayImage}" Template="{DynamicResource CheckBoxControlTemplateXboxSetting}" Content="Limit days to keep images" HorizontalAlignment="Stretch"     />
+                
+            </Grid>
+            <Grid Margin="0,5" Visibility="{Binding LimitDayImage, Converter={StaticResource BoolToVisibilityCollapse}}" >
+                <Label Content="Number of days too keep" FontWeight="SemiBold"></Label>
+                <misc:NumericUpDownWithKeyboard Minimum="1"  Value="{Binding MaxDayImage}" HorizontalAlignment="Right" MinWidth="150" />
+            </Grid>
+            <Rectangle Height="1" Fill="Black" Opacity="0.2" Margin="0,5"></Rectangle>
+            <Grid Margin="0,5"  >
+                <Label Content="Maximum temporary recorded images" FontWeight="SemiBold"></Label>
+                <misc:NumericUpDownWithKeyboard Minimum="1" Maximum="50" Value="{Binding MaxTempRecordImage}" HorizontalAlignment="Right" />
+            </Grid>
+            <!--<Rectangle Height="1" Fill="{DynamicResource {x:Static SystemColors.MenuBrushKey}}" />-->
+            <CheckBox Template="{DynamicResource CheckBoxControlTemplateXboxSetting}" Content="Record user activity" IsChecked="{Binding RecordAction}" Margin="0,5"    />
+            <!--<Rectangle Height="1" Fill="{DynamicResource {x:Static SystemColors.MenuBrushKey}}" />-->
+            <CheckBox Template="{DynamicResource CheckBoxControlTemplateXboxSetting}" x:Name="txt_hardware" Content="Enable hardware acceleration (uncheck if the UI is not display correctly)" IsChecked="{Binding HWAcceleration}" Margin="0,5"    />
+
+            <!--<Rectangle Height="1" Fill="{DynamicResource {x:Static SystemColors.MenuBrushKey}}" />-->
+
+            <CheckBox Template="{DynamicResource CheckBoxControlTemplateXboxSetting}" Content="Display time" IsChecked="{Binding ShowTime}" Margin="0,5"    />
+            <!--<Rectangle Height="1" Fill="{DynamicResource {x:Static SystemColors.MenuBrushKey}}" />-->
+
+            <CheckBox Template="{DynamicResource CheckBoxControlTemplateXboxSetting}" Content="Display CPU usage" IsChecked="{Binding ShowCPU}" Margin="0,5"    />
+
+            <!--<Rectangle Height="1" Fill="{DynamicResource {x:Static SystemColors.MenuBrushKey}}" />-->
+            <Grid Margin="0,5"  >
+                <Label Content="Job Directory"></Label>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <misc:TextboxWithKeyboard Style="{DynamicResource TextboxwithkeyboardFlat}"  MinWidth="200" Text="{Binding JobDirectory}"></misc:TextboxWithKeyboard>
+                    <Button x:Name="btn_select_job_dir" Content="Change" Click="btn_select_job_dir_Click"  Margin="2,0,0,0"></Button>
+                </StackPanel>
+            </Grid>
+            
+        </StackPanel>
+    </Grid>
+</UserControl>

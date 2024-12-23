@@ -1,0 +1,133 @@
+﻿<UserControl x:Class="NOVisionDesigner.UserControls.SubCamera"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NOVisionDesigner.UserControls" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+             xmlns:halcon="clr-namespace:HalconDotNet;assembly=halcondotnet" 
+             xmlns:simpleview="clr-namespace:NOVisionDesigner.Designer.SimpleView" 
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:converter="clr-namespace:NOVisionDesigner.Designer.Misc"
+             mc:Ignorable="d" 
+             x:Name="MainWD"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <dx:BoolToVisibilityInverseConverter x:Key="BoolToVisibilityInverseConverter"/>
+        <dx:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <converter:EnumToVisibilityCollapseConverter x:Key="EnumToVisibilityCollapseConverter"/>
+    </UserControl.Resources>
+
+    <Border ClipToBounds="True" >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+
+
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="grid_view" Grid.Row="0">
+                <simpleview:DragAndResizeControl Loaded="grid_display_Loaded"  
+                                                 IsEdit="Hidden"
+                                                 ClipToBounds="True" 
+                                                 Width="600" Height="600"  Visibility="Visible" x:Name="grid_display" 
+                                                 VerticalAlignment="Top" HorizontalAlignment="Left" MinWidth="200">
+                    <Border  BorderThickness="1">
+
+                        <Grid>
+                            <UniformGrid Margin="0,2,0,0"  Rows="{Binding Rows}" Columns="{Binding Columns}"  >
+                                <Grid>
+                                    <halcon:HSmartWindowControlWPF HInitWindow="HSmartWindowControlWPF_HInitWindow" HKeepAspectRatio="False"  x:Uid="wd" DockPanel.Dock="Left" Margin="2" Background="Black"  ></halcon:HSmartWindowControlWPF>
+                                    <Label VerticalAlignment="Top" Background="{DynamicResource BlueIOS}" Foreground="White" Padding="8,2" FontSize="14" HorizontalAlignment="Center" Content="Live image"></Label>
+                                </Grid>
+                                <Grid>
+                                    <halcon:HSmartWindowControlWPF x:Uid="wd1" Visibility="Visible" Margin="2" Background="Black"  />
+                                    <Label VerticalAlignment="Top" Background="{DynamicResource RedIOS}" Foreground="White" Padding="8,2" FontSize="14" HorizontalAlignment="Center" Content="Fail image"></Label>
+                                </Grid>
+
+
+                            </UniformGrid>
+                            <!--<UniformGrid Margin="0,2,0,0" Visibility="{Binding Designer.displayData.Layout, Converter={StaticResource EnumToVisibilityCollapseConverter}, ConverterParameter=Vertical}"  Columns="1" Rows="{Binding ShowLastFail,FallbackValue=2}"  >
+                                <Grid>
+                                    <halcon:HSmartWindowControlWPF HInitWindow="HSmartWindowControlWPF_HInitWindow" HKeepAspectRatio="True"  x:Uid="wd2" DockPanel.Dock="Left" Margin="2" Background="Black"  ></halcon:HSmartWindowControlWPF>
+                                    <Label VerticalAlignment="Top" Background="{DynamicResource BlueIOS}" Foreground="White" Padding="8,2" FontSize="14" HorizontalAlignment="Center" Content="Live image"></Label>
+                                </Grid>
+                                <Grid>
+                                    <halcon:HSmartWindowControlWPF x:Uid="wd3" Visibility="Visible" Margin="2" Background="Black"  />
+                                    <Label VerticalAlignment="Top" Background="{DynamicResource RedIOS}" Foreground="White" Padding="8,2" FontSize="14" HorizontalAlignment="Center" Content="Fail image"></Label>
+                                </Grid>
+
+
+                            </UniformGrid>-->
+                        </Grid>
+                        
+                    </Border>
+                </simpleview:DragAndResizeControl>
+                <simpleview:DragAndResizeControl       d:Visibility="Visible"  
+                                                   
+                                                    VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                                    Width="150" Height="120" Margin="600,0,0,0" Visibility="Collapsed">
+                    <Border BorderThickness="1"  Padding="2">
+                        <Grid  Background="WhiteSmoke">
+                            <Label Visibility="{Binding Designer.Result,Converter={StaticResource BoolToVisibilityConverter}}" Content="OK" HorizontalContentAlignment="Center" 
+                           VerticalContentAlignment="Center" Foreground="White" FontSize="30" FontWeight="Bold" 
+                           Background="{DynamicResource GreenIOS}" />
+                            <Label Visibility="{Binding Designer.Result,Converter={StaticResource BoolToVisibilityInverseConverter}}" Content="NG" HorizontalContentAlignment="Center" 
+                           VerticalContentAlignment="Center" Foreground="White" FontSize="30" FontWeight="Bold" 
+                           Background="{DynamicResource RedIOS}" />
+                        </Grid>
+                    </Border>
+
+
+
+
+                </simpleview:DragAndResizeControl>
+                <simpleview:DragAndResizeControl  Opacity="{Binding MenuOpacity}"  
+                                                  IsEdit="Hidden"
+                                                  Background="Transparent" 
+                                                  x:Name="hmi" MinWidth="200" d:Visibility="Visible"  
+                                                  Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ElementName=btn_hmi}" 
+                                                  MinHeight="200" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" Height="600"
+                                                  Margin="600,150,0,0">
+                    <Border  BorderThickness="1">
+                        <simpleview:SimpleViewHost  Loaded="SimpleViewHost_Loaded"></simpleview:SimpleViewHost>
+                    </Border>
+                </simpleview:DragAndResizeControl>
+
+            </Grid>
+
+            <Grid Grid.Row="1" Background="#10000000" TextBlock.FontWeight="SemiBold">
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
+                    <Button Cursor="Hand" BorderThickness="2" Padding="12,4" Margin="2" 
+                            x:Name="btn_open_designer"  Content="DESIGN"   Command="{Binding OpenDesigner}"  
+                            Background="Transparent" BorderBrush="#20000000" 
+                             FontSize="14"/>
+                    <Button Cursor="Hand" BorderThickness="2" Padding="12,4" Margin="2" x:Name="btn_open_designer_list"  
+                            Content="LIST"   Command="{Binding OpenDesignerList}"  
+                            Background="Transparent" BorderBrush="#20000000"   FontSize="14"/>
+                    <Button Cursor="Hand" BorderThickness="2" Padding="12,4" Margin="2" x:Name="btn_open_records" 
+                            Content="RECORD" Grid.Row="1"  Command="{Binding OpenRecorderWiew}" 
+                            CommandParameter="{Binding ElementName=MainWD}" Background="Transparent" 
+                            BorderBrush="#20000000"   FontSize="14"   />
+                    <Button Cursor="Hand" BorderThickness="2" Padding="12,4" Margin="2" Content="TAG" Grid.Row="1"  
+                            Command="{Binding OpenTagManagerCommand}"  Background="Transparent" 
+                            BorderBrush="#20000000"   FontSize="14"   />
+                    <dx:SimpleButton Cursor="Hand" BorderThickness="2" Padding="12,4"  x:Name="btn_hmi" Margin="2" 
+                                     ButtonKind="Toggle" Content="HMI" Grid.Row="1"    Background="Transparent" 
+                                     BorderBrush="#20000000"   FontSize="14"/>
+                </WrapPanel>
+
+
+
+
+                <Label Content="{Binding Designer.ProcessingTime,FallbackValue=0}" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Background="Transparent" Foreground="{DynamicResource NodeBlue}" Margin="0,0,10,0"  MinWidth="180" ContentStringFormat="Processing Time {0:0} ms" FontSize="14" />
+
+
+
+            </Grid>
+
+        </Grid>
+    </Border>
+
+</UserControl>

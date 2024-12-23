@@ -1,0 +1,204 @@
+﻿<Window x:Class="NOVisionDesigner.Designer.Windows.AugmentationEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.Windows" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:HalconDotNet="clr-namespace:HalconDotNet;assembly=halcondotnet"
+        mc:Ignorable="d"
+        Title="AugmentationEditorWindow" Height="600" Width="480">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Vertical">
+                <Label Content="Augmentation Options" FontFamily="Calibri" FontSize="20" FontWeight="Bold" Margin="2"/>
+                <Label Content=" Augmentation create new training examples for your model to learn from" Margin="2"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Margin="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+                <Border BorderBrush="LightGray" BorderThickness="1">
+                    <Grid Grid.Column="0">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight">
+                                <Button x:Name="Btn_Flip" Content="Flip" Height="30" Width="50" Margin="10" Click="Btn_Flip_Click"></Button>
+                                <Button x:Name="Btn_Brightness" Content="Brightness" Height="30" Width="80" Margin="10" Click="Btn_Brightness_Click"></Button>
+                                <Button x:Name="Btn_Rotate" Content="Rotate" Height="30" Width="60" Margin="10" Click="Btn_Rotate_Click"></Button>
+                                <Button x:Name="Btn_Zoom" Content="Zoom" Height="30" Width="60" Margin="10" Click="Btn_Zoom_Click"></Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Grid Grid.Column="1">
+                    <Label Content="List Augmentation" FontFamily="Calibri" FontSize="20" FontWeight="Bold"/>
+                    <ListBox x:Name="list_augmentation" Padding="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  ScrollViewer.CanContentScroll="True" Background="#FFFBFBFB"  SelectionChanged="List_Augmentation_SelectionChanged" Grid.Column="1" BorderBrush="#FFDADADA">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate >
+                                <StackPanel Orientation="Horizontal" Margin="2">
+                                    <Grid Background="#FFFBFBFB">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0" Background="#FFFBFBFB">
+                                            <TextBlock TextTrimming="CharacterEllipsis" HorizontalAlignment="Left" Text="{Binding Name}" />
+                                        </Grid>
+                                        <Grid Grid.Column="1" Background="#FFFBFBFB">
+                                            <Button x:Name="btn_augmentation_remove" Margin="0,0,2,0" Padding="2" BorderThickness="0" VerticalAlignment="Center"  HorizontalAlignment="Right"  Click="Btn_Augmentation_Remove_Click">
+                                                <Viewbox Width="15" Height="15">
+                                                    <Canvas Width="24" Height="24">
+                                                        <Path Fill="Black" Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                                                    </Canvas>
+                                                </Viewbox>
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                  
+                    </ListBox>
+                </Grid>
+            </Grid>
+            <Border x:Name="box_flip" HorizontalAlignment="Center" VerticalAlignment="Center"  Padding="8" Background="WhiteSmoke" BorderBrush="#FFE0E0E0" BorderThickness="1" Visibility="Hidden">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Flip" FontSize="20" FontFamily="Calibri" FontWeight="Bold"/>
+                    <Grid>
+                        <Grid Background="WhiteSmoke" Margin="3">
+                            <StackPanel Orientation="Vertical" Margin="5">
+                                <Label Content="Flip" FontWeight="Bold" FontFamily="Calibri"/>
+                                <Label Content="Add horizontal or vertical flips to help your model be insensitive to subject orientation"/>
+                                <CheckBox x:Name="checkbox_flip_horizontal" Content="Horizontal" Checked="checkbox_flip_horizontal_Checked" Unchecked="checkbox_flip_horizontal_Checked"/>
+                                <CheckBox x:Name="checkbox_flip_vertical" Content="Vertical" Checked="checkbox_flip_vertical_Checked" Unchecked="checkbox_flip_vertical_Checked"/>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="Btn_Apply_Flip"  Height="40"  Background="SkyBlue" Content="Apply" Click="Btn_Apply_Flip_Click"/>
+                            <Button x:Name="Btn_GoBack_Flip" HorizontalAlignment="Right" Height="40" Content="Go Back" Click="Btn_GoBack_Flip_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <Border x:Name="box_rotate" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="8" Background="WhiteSmoke" BorderBrush="#FFE0E0E0" BorderThickness="1" Visibility="Hidden">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Rotate" FontSize="20" FontFamily="Calibri" FontWeight="Bold"/>
+                    <Grid>
+                        <Grid Background="WhiteSmoke" Margin="3">
+                            <StackPanel Orientation="Vertical" Margin="5">
+                                <Label Content="Rotate " FontWeight="Bold" FontFamily="Calibri"/>
+                                <Label Content="Add rotations to help your model be insensitive to camera orientation."/>
+                                <Label Content="This augmentation allows the generator to randomly rotate the image between 0.0 (degree) to value selected"/>
+                                <DockPanel VerticalAlignment="Center">
+                                    <Label Content="degree" DockPanel.Dock="Right" VerticalAlignment="Center"/>
+                                    <TextBox Margin="5" Text="{Binding ElementName=rotate_slide, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="60" />
+                                    <Slider Maximum="360" Minimum="0" Margin="5" x:Name ="rotate_slide" TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="Rotate_Slide_ValueChanged"/>
+                                </DockPanel>
+                            </StackPanel>
+                           
+                        </Grid>
+                    </Grid>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="Btn_Apply_Rotate"  Height="40"  Background="SkyBlue" Content="Apply" Click="Btn_Apply_Rotate_Click"/>
+                            <Button x:Name="Btn_GoBack_Rotate" HorizontalAlignment="Right" Height="40" Content="Go Back" Click="Btn_GoBack_Rotate_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <Border x:Name="box_brightness" HorizontalAlignment="Center" VerticalAlignment="Center"  Padding="8" Background="WhiteSmoke" BorderBrush="#FFE0E0E0" BorderThickness="1" Visibility="Hidden">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Brightness" FontSize="20" FontFamily="Calibri" FontWeight="Bold"/>
+                    <Grid>
+                        <Grid Background="WhiteSmoke" Margin="3">
+                            <StackPanel Orientation="Vertical" Margin="5">
+                                <Label Content="Brightness" FontWeight="Bold" FontFamily="Calibri"/>
+                                <Label Content="Add variability to image brightness to help your model be more resilient to lighting and camera setting changes."/>
+                                <Label Content="This augmentation allows the generator to randomly brighten or darken image between darken_threshold and brighten_threshold selected."/>
+                                <StackPanel>
+                                    <Label Content="Brighten threshold"/>
+                                    <DockPanel VerticalAlignment="Center">
+                                        <Label Content="%" DockPanel.Dock="Right" VerticalAlignment="Center"/>
+                                        <TextBox Margin="5" Text="{Binding ElementName=brighten_slide, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="60" />
+                                        <Slider Maximum="100" Minimum="1" Margin="5" x:Name ="brighten_slide" TickFrequency="0.1" IsSnapToTickEnabled="True" ValueChanged="Brightness_Slide_ValueChanged"/>
+                                    </DockPanel>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <Label Content="Draken threshold"/>
+                                    <DockPanel VerticalAlignment="Center">
+                                        <Label Content="%" DockPanel.Dock="Right" VerticalAlignment="Center"/>
+                                        <TextBox Margin="5" Text="{Binding ElementName=darken_slide, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="60" />
+                                        <Slider Maximum="100" Minimum="1" Margin="5" x:Name ="darken_slide" TickFrequency="0.1" IsSnapToTickEnabled="True" ValueChanged="Brightness_Slide_ValueChanged"/>
+                                    </DockPanel>
+                                </StackPanel>
+                                <!--<CheckBox x:Name="checkbox_brighten" Content="Brighten" Checked="checkbox_brighten_Checked" Unchecked="checkbox_brighten_Checked"/>
+                                <CheckBox x:Name="checkbox_darken" Content="Darken" Checked="checkbox_darken_Checked" Unchecked="checkbox_darken_Checked"/>-->
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="Btn_Apply_Brightness"  Height="40"  Background="SkyBlue" Content="Apply" Click="Btn_Apply_Brightness_Click"/>
+                            <Button x:Name="Btn_GoBack_Brightness" HorizontalAlignment="Right" Height="40" Content="Go Back" Click="Btn_GoBack_Brightnes_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <Border x:Name="box_zoom" HorizontalAlignment="Center" VerticalAlignment="Center"  Padding="8" Background="WhiteSmoke" BorderBrush="#FFE0E0E0" BorderThickness="1" Visibility="Hidden">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Zoom Image" FontSize="20" FontFamily="Calibri" FontWeight="Bold"/>
+                    <Grid>
+                        <Grid Background="WhiteSmoke" Margin="3">
+                            <StackPanel Orientation="Vertical" Margin="5">
+                                <Label Content="Zoom Image" FontWeight="Bold" FontFamily="Calibri"/>
+                                <Label Content="A zoom augmentation randomly zooms the image in and either adds new pixel values around the image or interpolates pixel values respectively."/>
+                                <Label Content="Value Changed sets the range for the zoom will be [1-value, 1+value] which (1-value) is zoom in and (1+value) is zoom out "/>
+                                <DockPanel VerticalAlignment="Center">
+                                    <Label Content="%" DockPanel.Dock="Right" VerticalAlignment="Center"/>
+                                    <TextBox Margin="5" Text="{Binding ElementName=zoom_slide, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="60" />
+                                    <Slider Maximum="100" Minimum="0" Margin="5" x:Name ="zoom_slide" TickFrequency="0.25" IsSnapToTickEnabled="True" ValueChanged="Zoom_Slide_ValueChanged"/>
+                                </DockPanel>  
+                                
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="Btn_Apply_Zoom"  Height="40"  Background="SkyBlue" Content="Apply" Click="Btn_Apply_Zoom_Click"/>
+                            <Button x:Name="Btn_GoBack_Zoom" HorizontalAlignment="Right" Height="40" Content="Go Back" Click="Btn_GoBack_Zoom_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+           
+            <Grid Grid.Column="0" Margin="10">
+                <Border BorderThickness="1" BorderBrush="LightGray" >
+                    <HalconDotNet:HSmartWindowControlWPF  Focusable="True" HMoveContent="True" HInitWindow="window_display_process_HInitWindow" x:Name="window_display_process" Margin="0,0,0,2">
+                    </HalconDotNet:HSmartWindowControlWPF>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Column="1" Margin="10">
+                <Border BorderThickness="1" BorderBrush="LightGray">
+                    <HalconDotNet:HSmartWindowControlWPF  Focusable="True" HMoveContent="True" HInitWindow="window_display_result_HInitWindow" x:Name="window_display_result" Margin="0,0,0,2">
+                    </HalconDotNet:HSmartWindowControlWPF>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

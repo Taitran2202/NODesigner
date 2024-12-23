@@ -1,0 +1,211 @@
+﻿<dx:ThemedWindow x:Class="NOVisionDesigner.Designer.Windows.DispGraphicsEditorWindow"
+                xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:local="clr-namespace:NOVisionDesigner.Designer.Windows" 
+                xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid" 
+                xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+                xmlns:HalconDotNet="clr-namespace:HalconDotNet;assembly=halcondotnet" 
+                xmlns:misc="clr-namespace:NOVisionDesigner.Designer.Misc"
+                xmlns:converter ="clr-namespace:NOVisionDesigner.Designer.ValueConverters"
+                ShowGlow="False"
+                FontSize="14"
+                mc:Ignorable="d"
+                WindowStartupLocation="CenterScreen"
+                Title="DispGraphicsEditorWindow" Height="450" Width="800">  
+    <dx:ThemedWindow.Resources>
+        <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"></converter:InverseBooleanConverter>
+        <converter:StringToColor1 x:Key="StringToColor1"></converter:StringToColor1>
+    </dx:ThemedWindow.Resources>
+    <Grid>
+        <Border>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="300"/>
+                </Grid.ColumnDefinitions>
+                <HalconDotNet:HSmartWindowControlWPF x:Name="window_display"  HInitWindow="window_display_HInitWindow" 
+                                                     Grid.Row="1" Margin="2,0,0,0"  
+                                                     HMouseMove="window_display_HMouseMove">
+                    <HalconDotNet:HSmartWindowControlWPF.ContextMenu>
+                        <ContextMenu >
+                            <MenuItem Header="Add Text" Click="OnRectangle1_Click"/>
+                            <MenuItem Header="Add Line" Click="OnRectangle2_Click"/>
+                            <MenuItem Header="Add Circle" Click="OnCircle_Click"/>
+                            <MenuItem Header="Duplicate" Click="OnDuplicate" />
+                            <MenuItem Header="Remove" Click="OnRemove" />
+
+                        </ContextMenu>
+                    </HalconDotNet:HSmartWindowControlWPF.ContextMenu>
+                </HalconDotNet:HSmartWindowControlWPF>
+                
+                <Border Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+               
+                
+                <Border  Grid.Column="1" Grid.RowSpan="2">
+
+                    <StackPanel Orientation="Vertical" Margin="2,5,0,0">
+                        
+
+
+                        <Label Content="Graphic list" FontWeight="SemiBold" Margin="5,5,0,0"/>
+                        <ListBox x:Name="lst_region" Margin="5,2,5,0" BorderThickness="1" 
+                                 IsEnabled="{Binding IsDraw,Converter={StaticResource InverseBooleanConverter}}" 
+                                 MinHeight="100" BorderBrush="{x:Null}" Background="{x:Null}">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListBoxItem}">
+                                    <Setter Property="Padding" Value="0"/>
+                                    <Setter Property="Margin" Value="0"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True" >
+                                            <Setter Property="Background" Value="#FF0082EE" />
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True" >
+                                            <Setter Property="Background" Value="#FF108DF5" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+
+                            <ListBox.ItemTemplate>
+                                <DataTemplate >
+
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Margin="2">
+                                        <Grid Background="{x:Null}" HorizontalAlignment="Stretch">
+                                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Margin="5,0,25,2">
+
+                                                <Label VerticalAlignment="Center">
+                                                    <TextBlock  TextTrimming="CharacterEllipsis"   
+                                                            Text="{Binding Name}" />
+                                                </Label>
+
+                                            </StackPanel>
+
+                                            <Button x:Name="btn_remove" Background="Transparent" Margin="0,0,2,0" Padding="2" 
+                                                    BorderThickness="0" VerticalAlignment="Center"  
+                                                    HorizontalAlignment="Right"  Click="btn_remove_Click">
+                                                <Viewbox Width="15" Height="15">
+                                                    <Canvas Width="24" Height="24">
+                                                        <Path Fill="White" Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                                                    </Canvas>
+                                                </Viewbox>
+                                            </Button>
+                                        </Grid>
+
+                                    </StackPanel>
+
+
+
+
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <Label Content="Properties" Margin="5,10,0,0"/>
+
+                        <dxprg:PropertyGridControl Margin="5,0,2,0"  x:Name="properties" VerticalAlignment="Top" 
+                                                   SelectedObject="{Binding SelectedItem,ElementName=lst_region}"
+                                                   ExpandCategoriesWhenSelectedObjectChanged="True" >
+                            <dxprg:PropertyDefinition Type="sys:Int32">
+                                <dxprg:PropertyDefinition.EditSettings>
+                                    <dxe:SpinEditSettings MinValue="1" MaxValue="100" IsFloatValue="False"/>
+                                </dxprg:PropertyDefinition.EditSettings>
+
+                            </dxprg:PropertyDefinition>
+                            <dxprg:PropertyDefinition Path="Text">
+                                <dxprg:PropertyDefinition.CellTemplate>
+                                    <DataTemplate>
+                                        <misc:TextboxWithKeyboard Text="{Binding Value}" Style="{DynamicResource TextboxwithkeyboardFlat}"></misc:TextboxWithKeyboard>
+                                    </DataTemplate>
+                                </dxprg:PropertyDefinition.CellTemplate>
+                            </dxprg:PropertyDefinition>
+                            <dxprg:CategoryDefinition Path="Appearance">
+                                <dxprg:PropertyDefinition  >
+                                    <dxprg:PropertyDefinition.CellTemplate>
+                                        <DataTemplate>
+                                            <dxe:PopupColorEdit  Color="{Binding Value, Converter={StaticResource StringToColor1},Mode=TwoWay}" >
+
+                                            </dxe:PopupColorEdit>
+                                        </DataTemplate>
+                                    </dxprg:PropertyDefinition.CellTemplate>
+
+                                </dxprg:PropertyDefinition>
+                            </dxprg:CategoryDefinition>
+                        </dxprg:PropertyGridControl>
+                    </StackPanel>
+                </Border>
+                <Border Margin="0" Grid.ColumnSpan="1">
+                    <StackPanel Orientation="Horizontal" Margin="2,2,0,2">
+                        <Button x:Name="btn_add_rectangle" Padding="10,4" Click="btn_add_rectangle_Click" Margin="0,0,2,0" >
+                            <!--Fluent:Button.LargeIcon>
+                            <Image Source="iOS_Icons/icons8-Login-50.png" Width="25" Height="25"/>
+                        </Fluent:Button.LargeIcon>-->
+                            <StackPanel Orientation="Horizontal">
+
+
+                                <Viewbox HorizontalAlignment="Left" Width="15" Height="15" Margin="5,0" VerticalAlignment="Center">
+                                    <Path Data="M9.62,12L12,5.67 14.37,12 M11,3L5.5,17 7.75,17 8.87,14 15.12,14 16.25,17 18.5,17 13,3 11,3z" Fill="#FF636363" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Stretch="Fill" Width="20" />
+                                </Viewbox>
+                                <TextBlock Text="Text" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,0"  FontWeight="Normal"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btn_add_rec2" Padding="10,4" Click="btn_add_rec2_Click" 
+                                 Margin="2,0" >
+                            <!--Fluent:Button.LargeIcon>
+                            <Image Source="iOS_Icons/icons8-Login-50.png" Width="25" Height="25"/>
+                        </Fluent:Button.LargeIcon>-->
+                            <StackPanel Orientation="Horizontal">
+
+
+                                <Viewbox HorizontalAlignment="Left" Width="15" Height="15" Margin="5,0" VerticalAlignment="Center">
+                                    <Path Data="M15,3L15,7.59 7.59,15 3,15 3,21 9,21 9,16.42 16.42,9 21,9 21,3 M17,5L19,5 19,7 17,7 M5,17L7,17 7,19 5,19" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Stretch="Fill" Width="20" Fill="#FF636363" RenderTransformOrigin="0.5,0.5" />
+                                </Viewbox>
+                                <TextBlock Text="Line" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,0" FontWeight="Normal"/>
+                            </StackPanel>
+                        </Button>
+                        
+                        <Button Padding="10,4" 
+                                 Click="Button_Click" Margin="2,0" >
+                            <!--Fluent:Button.LargeIcon>
+                            <Image Source="iOS_Icons/icons8-Login-50.png" Width="25" Height="25"/>
+                        </Fluent:Button.LargeIcon>-->
+                            <StackPanel Orientation="Horizontal">
+
+
+                                <Viewbox HorizontalAlignment="Left" Width="15" Height="15" Margin="5,0" VerticalAlignment="Center">
+                                    <Path Data="M11,19A6,6,0,0,0,17,13L19,13A8,8,0,0,1,11,21A8,8,0,0,1,3,13A8,8,0,0,1,11,5L11,7A6,6,0,0,0,5,13A6,6,0,0,0,11,19 M19,5L22,5 22,7 19,7 19,10 17,10 17,7 14,7 14,5 17,5 17,2 19,2 19,5z" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Stretch="Fill" Width="20" Fill="#FF636363" RenderTransformOrigin="0.5,0.5" />
+                                </Viewbox>
+                                <TextBlock Text="Circle" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,0" FontWeight="Normal"/>
+                            </StackPanel>
+                        </Button>
+                        <Button  Padding="10,4" Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" Visibility="Collapsed" Margin="2,0" >
+                            <!--Fluent:Button.LargeIcon>
+                            <Image Source="iOS_Icons/icons8-Login-50.png" Width="25" Height="25"/>
+                        </Fluent:Button.LargeIcon>-->
+                            <StackPanel Orientation="Horizontal">
+
+
+                                <Viewbox HorizontalAlignment="Left" Width="15" Height="15" Margin="5,0" VerticalAlignment="Center">
+                                    <Path Data="M23,9L23,15 20.35,15C19.38,17.12,17.43,18.78,15,19.54L15,22 9,22 9,19.54C5.5,18.45 3,15.5 3,12 3,7.58 7.03,4 12,4 15.78,4 19,6.07 20.35,9L23,9 M17,15L17,9 18.06,9C16.85,7.21 14.59,6 12,6 8.13,6 5,8.69 5,12 5,14.39 6.64,16.46 9,17.42L9,16 15,16 15,17.42C16.29,16.9,17.35,16.05,18.06,15L17,15 M19,13L21,13 21,11 19,11 19,13 M11,20L13,20 13,18 11,18 11,20z" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Stretch="Fill" Width="20" Fill="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" RenderTransformOrigin="0.5,0.5" />
+                                </Viewbox>
+                                <TextBlock Text="Ellipse" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,0" FontWeight="Normal"/>
+                            </StackPanel>
+                        </Button>
+
+                    </StackPanel>
+
+                </Border>
+                <Rectangle Height="1" Grid.ColumnSpan="2" Fill="#20000000" HorizontalAlignment="Stretch" VerticalAlignment="Top"></Rectangle>
+                <GridSplitter Width="1" Background="Transparent" HorizontalAlignment="Right"></GridSplitter>
+            </Grid>
+        </Border>
+    </Grid>
+</dx:ThemedWindow>

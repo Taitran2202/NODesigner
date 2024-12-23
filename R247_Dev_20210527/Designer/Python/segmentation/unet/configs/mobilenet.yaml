@@ -1,0 +1,3 @@
+skip_connection_names : ["converted_input", "re_lu", "re_lu_3", "re_lu_7"]
+encoder_output_name: "re_lu_8"
+f : [16, 32, 48, 64]

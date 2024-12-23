@@ -1,0 +1,25 @@
+﻿<dx:ThemedWindow x:Class="NOVisionDesigner.Windows.TotalHMIWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Windows" xmlns:simpleview="clr-namespace:NOVisionDesigner.Designer.SimpleView"
+        mc:Ignorable="d"
+        Title="Menu Window" Height="450" Width="auto" SizeToContent="Width" ShowGlow="False"  WindowStartupLocation="CenterScreen">
+    <Grid>
+        <ItemsControl x:Name="hmiList" MinWidth="500">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <simpleview:SimpleViewHost MinWidth="200"></simpleview:SimpleViewHost>
+                </DataTemplate>
+                
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"></StackPanel>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </Grid>
+</dx:ThemedWindow>

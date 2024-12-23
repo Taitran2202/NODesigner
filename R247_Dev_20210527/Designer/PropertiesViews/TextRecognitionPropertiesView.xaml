@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="NOVisionDesigner.Designer.PropertiesViews.TextRecognitionPropertiesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NOVisionDesigner.Designer.PropertiesViews" xmlns:anomalyWindow="clr-namespace:NOVisionDesigner.Designer.Windows" xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:misc="clr-namespace:NOVisionDesigner.Designer.Misc"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <misc:StringToEditValueColor x:Key="StringToColor" />
+
+    </UserControl.Resources>
+    <Grid>
+        <dxprg:PropertyGridControl
+                                    ShowDescriptionIn="Panel"
+                                   
+                                    VerticalContentAlignment="Center"
+                                   
+                                    x:Name="grid_model_prop"
+                                    FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                                           HorizontalContentAlignment="Right" 
+                                                           ExpandCategoriesWhenSelectedObjectChanged="True" 
+                                    ShowProperties="WithPropertyDefinitions"
+                                                           ShowCategories="Hidden" Margin="0,8,0,0" 
+                                                           ShowToolPanel="False" ShowSearchBox="False" 
+                                   
+                                    >
+
+            <dxprg:PropertyDefinition Path="Warmup">
+               
+            </dxprg:PropertyDefinition>
+            <dxprg:PropertyDefinition Path="WarmupBatch">
+
+            </dxprg:PropertyDefinition>
+            <dxprg:PropertyDefinition Path="MaxTextWidth">
+
+            </dxprg:PropertyDefinition>
+            <dxprg:PropertyDefinition Path="ExpandRatio">
+
+            </dxprg:PropertyDefinition>
+            <dxprg:PropertyDefinition Path="DisplayPosition">
+
+            </dxprg:PropertyDefinition>
+            <dxprg:PropertyDefinition Path="DisplayOffsetX">
+
+            </dxprg:PropertyDefinition>
+            <dxprg:PropertyDefinition Path="DisplayOffsetY">
+
+            </dxprg:PropertyDefinition>
+            <dxprg:PropertyDefinition Path="TextFontsize">
+
+            </dxprg:PropertyDefinition>
+            <dxprg:PropertyDefinition  Path="TextForegroundColor">
+                <dxprg:PropertyDefinition.CellTemplate>
+                    <DataTemplate>
+                        <dxe:PopupColorEdit  
+                            BorderBrush="Transparent"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            DisplayMode="Color" Padding="4" 
+                                Color="{Binding Value,Converter={StaticResource StringToColor}, Mode=TwoWay}" />
+                    </DataTemplate>
+                </dxprg:PropertyDefinition.CellTemplate>
+            </dxprg:PropertyDefinition>
+            <dxprg:PropertyDefinition  Path="TextBackgroundColor">
+                <dxprg:PropertyDefinition.CellTemplate>
+                    <DataTemplate>
+                        <dxe:PopupColorEdit  
+                            BorderBrush="Transparent"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            DisplayMode="Color" Padding="4" 
+                                Color="{Binding Value,Converter={StaticResource StringToColor}, Mode=TwoWay}" />
+                    </DataTemplate>
+                </dxprg:PropertyDefinition.CellTemplate>
+            </dxprg:PropertyDefinition>
+            <dxprg:PropertyDefinition  Path="BoxColor">
+                <dxprg:PropertyDefinition.CellTemplate>
+                    <DataTemplate>
+                        <dxe:PopupColorEdit  
+                            BorderBrush="Transparent"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            DisplayMode="Color" Padding="4" 
+                                Color="{Binding Value,Converter={StaticResource StringToColor}, Mode=TwoWay}" />
+                    </DataTemplate>
+                </dxprg:PropertyDefinition.CellTemplate>
+            </dxprg:PropertyDefinition>
+        </dxprg:PropertyGridControl>
+    </Grid>
+</UserControl>

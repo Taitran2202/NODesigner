@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFrameworks>net472</TargetFrameworks>
+    <OutputType>library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWPF>true</UseWPF>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>5.2.0</Version>
+    <Authors>Wouter De Keersmaecker</Authors>
+    <PackageTags>wpf reactiveui node network editor node-editor graph</PackageTags>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <RepositoryUrl>https://www.github.com/wouterdek/nodenetwork</RepositoryUrl>
+    <RepositoryType>Github</RepositoryType>
+    <PackageIconUrl>https://raw.githubusercontent.com/Wouterdek/NodeNetwork/gh-pages/img/logo.png</PackageIconUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DocumentationFile>bin\Release\NodeNetwork.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
+    <WarningLevel>5</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v19.2">
+		<HintPath Condition="Exists('D:\ProgramFiles\DevExpress 19.2\Components\Bin\Framework\DevExpress.Data.v19.2.dll')">D:\ProgramFiles\DevExpress 19.2\Components\Bin\Framework\DevExpress.Data.v19.2.dll</HintPath>
+		<HintPath Condition="Exists('C:\Program Files (x86)\DevExpress 19.2\Components\Bin\Framework\DevExpress.Data.v19.2.dll')">C:\Program Files (x86)\DevExpress 19.2\Components\Bin\Framework\DevExpress.Data.v19.2.dll</HintPath>
+    <HintPath Condition="Exists('D:\ProgramFiles\Components\Bin\Framework\DevExpress.Data.v19.2.dll')">D:\ProgramFiles\Components\Bin\Framework\DevExpress.Data.v19.2.dll</HintPath>
+		<HintPath Condition="Exists('D:\devExp\Components\Bin\Framework\DevExpress.Data.v19.2.dll')">D:\devExp\Components\Bin\Framework\DevExpress.Data.v19.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Core.v19.2">
+      <HintPath Condition="Exists('D:\ProgramFiles\Components\Bin\Framework\DevExpress.Xpf.Core.v19.2.dll')">D:\ProgramFiles\Components\Bin\Framework\DevExpress.Xpf.Core.v19.2.dll</HintPath>
+      <HintPath Condition="Exists('C:\Program Files (x86)\DevExpress 19.2\Components\Bin\Framework\DevExpress.Xpf.Core.v19.2.dll')">C:\Program Files (x86)\DevExpress 19.2\Components\Bin\Framework\DevExpress.Xpf.Core.v19.2.dll</HintPath>
+		<HintPath Condition="Exists('D:\ProgramFiles\DevExpress 19.2\Components\Bin\Framework\DevExpress.Xpf.Core.v19.2.dll')">D:\ProgramFiles\DevExpress 19.2\Components\Bin\Framework\DevExpress.Xpf.Core.v19.2.dll</HintPath>
+		<HintPath Condition="Exists('D:\devExp\Components\Bin\Framework\DevExpress.Xpf.Core.v19.2.dll')">D:\devExp\Components\Bin\Framework\DevExpress.Xpf.Core.v19.2.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="System.Windows" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.12" />
+    <PackageReference Include="ReactiveUI" Version="13.2.18" />
+    <PackageReference Include="ReactiveUI.Events.WPF" Version="13.2.18" />
+    <PackageReference Include="ReactiveUI.WPF" Version="13.2.18" />
+    <PackageReference Include="Splat.Drawing" Version="11.0.1" />
+    <PackageReference Include="System.Buffers" Version="4.5.1" />
+    <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
+    <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
+    <PackageReference Include="System.Memory" Version="4.5.4" />
+    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,90 @@
+﻿<dx:ThemedWindow x:Class="NOVisionDesigner.Designer.Accquisition.Windows.GigEVisionVimbaSettingWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
+             xmlns:HalconDotNet="clr-namespace:HalconDotNet;assembly=halcondotnet" 
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+             xmlns:converter="clr-namespace:NOVisionDesigner.Designer.ValueConverters"
+                 xmlns:converter1="clr-namespace:NOVisionDesigner.Designer.Misc"
+                 xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+              xmlns:Misc="clr-namespace:NOVisionDesigner.Designer.Misc" xmlns:windows="clr-namespace:NOVisionDesigner.Designer.Accquisition.Windows"
+                 mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="400" Width="500" Height="800" Title="Advanced Setting" FontSize="14" Closed="ThemedWindow_Closed" ShowGlow="False">
+    <Window.Resources>
+        <dx:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <dx:BoolInverseConverter x:Key="BoolInverseConverter"/>
+        <converter:BoolToVisibilityCollapse x:Key="BoolToVisibilityCollapse"/>
+        <converter:InvertBoolToVisibilityCollapse x:Key="InvertBoolToVisibilityCollapse"/>
+    </Window.Resources>
+    <Border>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="grid_parameters" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <!--<StackPanel Grid.Row="0" Margin="16" HorizontalAlignment="Left" Orientation="Horizontal"  VerticalAlignment="Center" >
+                        <Button x:Name="btn_start"  Content="Start live" Command="{Binding StartLiveCommand}" Visibility="{Binding IsLive,Converter={StaticResource BoolToVisibilityCollapse}}" FontSize="14"  Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="14,8,14,8" Background="{DynamicResource BlackBrush}" BorderBrush="{x:Null}" Foreground="White" Style="{DynamicResource ButtonDarkMode}"/>
+                        <Button x:Name="btn_stop"  Content="Stop live" Command="{Binding StopLiveCommand}" Visibility="{Binding IsLive,Converter={StaticResource InvertBoolToVisibilityCollapse}}" FontSize="14"  Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="14,8,14,8" Background="{DynamicResource RedIOS}" BorderBrush="{x:Null}" Foreground="{DynamicResource WhiteBrush}" Style="{DynamicResource ButtonDarkMode}" />
+                    </StackPanel>-->
+                    <Grid  Margin="5" >
+
+                        <dxe:TextEdit VerticalAlignment="Center" BorderThickness="1" x:Name="txtFilter"   NullText="Search" Padding="26,0,0,0" FontSize="14" Height="30"/>
+                        <Viewbox Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,0,0">
+                            <Canvas Width="24" Height="24">
+                                <Path Fill="Black" Data="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+                            </Canvas>
+                        </Viewbox>
+                    </Grid>
+                    <Grid Margin="5">
+                        <Label Content="Visibility" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontWeight="SemiBold"></Label>
+                        <ComboBox x:Name="cmb_visibility" SelectionChanged="cmb_visibility_SelectionChanged" Margin="0" VerticalAlignment="Center" Width="100" HorizontalAlignment="Right">
+                            <ComboBox.Items>
+                                <ComboBoxItem IsSelected="True">Beginner</ComboBoxItem>
+                                <ComboBoxItem>Expert</ComboBoxItem>
+                                <ComboBoxItem>Guru</ComboBoxItem>
+                            </ComboBox.Items>
+                        </ComboBox>
+                    </Grid>
+                    <!--<Rectangle Height="1"  Margin="0" Fill="#FFE5E5E5" HorizontalAlignment="Stretch"></Rectangle>-->
+                </StackPanel>
+                <ScrollViewer Grid.Row="1" Margin="5" BorderBrush="LightGray" VerticalScrollBarVisibility="Auto">
+                    <StackPanel  Orientation="Vertical">
+                        <StackPanel  >
+                            <windows:ListFeaturesControl x:Name="lst_features_control"/>
+                            <!--<ItemsControl x:Name="lst_features" ItemsSource="{Binding ListFeatures}" ItemTemplateSelector="{StaticResource myDataTemplateSelector}"/>-->
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+                <Grid Grid.Row="2">
+                    <!--<Rectangle Height="1"  Margin="0" Fill="#FFE5E5E5" HorizontalAlignment="Stretch" VerticalAlignment="Top"></Rectangle>-->
+                    <Grid Grid.Row="2"  >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <dx:SimpleButton Grid.Column="0" x:Name="btn_export" 
+                                      Padding="8,4" HorizontalAlignment="Stretch" Margin="5"
+                                      Glyph="{dx:DXImage 'SvgImages/Save/Save.svg'}"
+                                      FontWeight="SemiBold"
+                                      Content="Export Setting"
+                                      Click="btn_export_Click"/>
+                        <dx:SimpleButton Grid.Column="1"  x:Name="btn_import"  
+                                      FontWeight="SemiBold"
+                                      Padding="8,4" HorizontalAlignment="Stretch" Margin="5"
+                                      Glyph="{dx:DXImage 'SvgImages/Actions/Open.svg'}"
+                                      Content="Import Setting"
+                                      Click="btn_import_Click" />
+                    </Grid>
+                </Grid>
+            </Grid>
+            <dx:WaitIndicator  DeferedVisibility="{Binding IsLoading}" Content="{Binding LoadingMessage}" ></dx:WaitIndicator>
+        </Grid>
+    </Border>
+</dx:ThemedWindow>

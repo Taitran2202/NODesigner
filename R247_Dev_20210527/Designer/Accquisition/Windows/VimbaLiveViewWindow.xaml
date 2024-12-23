@@ -1,0 +1,118 @@
+﻿<dx:ThemedWindow x:Class="NOVisionDesigner.Designer.Accquisition.Windows.VimbaLiveViewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.Accquisition.Windows" 
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:converter="clr-namespace:NOVisionDesigner.Designer.ValueConverters" xmlns:HalconDotNet="clr-namespace:HalconDotNet;assembly=halcondotnet"
+                 mc:Ignorable="d" ShowGlow="False" FontSize="14"
+        Title="Vimba Live View Window" Height="800" Width="1200" Closed="ThemedWindow_Closed">
+    <Window.Resources>
+        <converter:BoolToVisibilityCollapse x:Key="BoolToVisibilityCollapse"/>
+        <converter:InvertBoolToVisibilityCollapse x:Key="InvertBoolToVisibilityCollapse"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="400"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <dx:DXTabControl Grid.Column="1" Padding="0" Margin="5" SelectedIndex="0" >
+            <dx:DXTabItem Header="Common parameters">
+                <local:ListFeaturesControl x:Name="lst_features_control1" />
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="All parameters" >
+                <Grid x:Name="grid_parameters" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Margin="0,5">
+
+                        <Grid  Margin="5" >
+                            <dxe:TextEdit VerticalAlignment="Center" BorderThickness="1" x:Name="txtFilter"   NullText="Search" Padding="26,0,0,0" FontSize="14" Height="30"/>
+                            <Viewbox Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,0,0">
+                                <Canvas Width="24" Height="24">
+                                    <Path Fill="Black" Data="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+                                </Canvas>
+                            </Viewbox>
+                        </Grid>
+                        <Grid Margin="5">
+                            <Label Content="Visibility" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontWeight="SemiBold"></Label>
+                            <ComboBox x:Name="cmb_visibility" SelectionChanged="cmb_visibility_SelectionChanged" Margin="0" VerticalAlignment="Center" Width="100" HorizontalAlignment="Right">
+                                <ComboBox.Items>
+                                    <ComboBoxItem IsSelected="True">Beginner</ComboBoxItem>
+                                    <ComboBoxItem>Expert</ComboBoxItem>
+                                    <ComboBoxItem>Guru</ComboBoxItem>
+                                </ComboBox.Items>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                    <ScrollViewer BorderBrush="LightGray" BorderThickness="1" Grid.Row="1" Margin="5,5,5,5" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel  >
+                                <local:ListFeaturesControl x:Name="lst_features_control"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <Grid Grid.Row="2">
+                        <!--<Rectangle Height="1"  Margin="0" Fill="#FFE5E5E5" HorizontalAlignment="Stretch" VerticalAlignment="Top"></Rectangle>-->
+                        <Grid Grid.Row="2"  >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <dx:SimpleButton Grid.Column="0" x:Name="btn_export" 
+                                      Padding="8,4" HorizontalAlignment="Stretch" Margin="5"
+                                      Glyph="{dx:DXImage 'SvgImages/Save/Save.svg'}"
+                                      FontWeight="SemiBold"
+                                      Content="Export Setting"
+                                      Click="btn_export_Click"/>
+                            <dx:SimpleButton Grid.Column="1"  x:Name="btn_import"  
+                                      FontWeight="SemiBold"
+                                      Padding="8,4" HorizontalAlignment="Stretch" Margin="5"
+                                      Glyph="{dx:DXImage 'SvgImages/Actions/Open.svg'}"
+                                      Content="Import Setting"
+                                      Click="btn_import_Click" />
+                        </Grid>
+                    </Grid>
+                    <dx:WaitIndicator  DeferedVisibility="{Binding IsLoading}" Content="{Binding LoadingMessage}" ></dx:WaitIndicator>
+                </Grid>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
+        <Grid x:Name="grid_display" Grid.Column="0" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <StackPanel Orientation="Horizontal" Margin="0">
+                    <StackPanel Grid.Row="0" Margin="0,5,5,5" HorizontalAlignment="Left" Orientation="Horizontal"  VerticalAlignment="Stretch" >
+                        <Button x:Name="btn_start"  Content="Start live" Click="btn_start_Click" 
+                            Visibility="{Binding IsLive,Converter={StaticResource BoolToVisibilityCollapse}}" 
+                            FontSize="14"  Cursor="Hand" VerticalAlignment="Stretch" HorizontalAlignment="Center" 
+                            Background="{DynamicResource BlackBrush}" BorderThickness="1"
+                            BorderBrush="White"  Style="{DynamicResource ButtonDarkMode}"/>
+                        <Button x:Name="btn_stop"  Content="Stop live" Click="btn_stop_Click" 
+                            Visibility="{Binding IsLive,Converter={StaticResource InvertBoolToVisibilityCollapse}}" 
+                            FontSize="14"  Cursor="Hand" VerticalAlignment="Stretch" HorizontalAlignment="Center" 
+                            Background="{DynamicResource RedIOS}" 
+                            BorderBrush="{x:Null}"  Style="{DynamicResource ButtonDarkMode}" />
+                    </StackPanel>
+                    <dx:SimpleButton  Click="btn_zoom_in_click"  HorizontalAlignment="Left" Padding="2"  Margin="0,5,0,5" Glyph="{dx:DXImage 'Office2013/Zoom/ZoomIn_32x32.png'}" ></dx:SimpleButton>
+                    <dx:SimpleButton  Click="btn_zoom_out_click" HorizontalAlignment="Left" Padding="2" Margin="5,5,0,5" Glyph="{dx:DXImage 'Office2013/Zoom/ZoomOut_32x32.png'}" ></dx:SimpleButton>
+                    <dx:SimpleButton  Click="btn_zoom_fit_click" HorizontalAlignment="Left" Padding="2" Margin="5,5,0,5" Glyph="{dx:DXImage 'Office2013/Zoom/Zoom100_32x32.png'}" ></dx:SimpleButton>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0" VerticalAlignment="Center">
+                    <Label Content="{Binding FocusValue}" ContentStringFormat="Focus: {0}" Margin="8,0" VerticalAlignment="Center"></Label>
+                    <Label Content="{Binding FrameID}" ContentStringFormat="Frame: {0}" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Grid>
+            <Border Grid.Row="1" BorderThickness="1" BorderBrush="LightGray">
+                <HalconDotNet:HSmartWindowControlWPF x:Name="window_display" HInitWindow="window_display_HInitWindow" Grid.Row="1" ></HalconDotNet:HSmartWindowControlWPF>
+            </Border>
+        </Grid>
+    </Grid>
+</dx:ThemedWindow>

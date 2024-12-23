@@ -1,0 +1,163 @@
+﻿<Window x:Class="NOVisionDesigner.Designer.Windows.DrawGraphicsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.Windows" xmlns:System="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"     
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="DrawGraphicsWindow" Height="428.003" Width="588.133" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="1" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Input List" FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                <Button Grid.Column="1" Background="#00000000"  Foreground="#FF0F0F0F" Click="btn_edit_click" Height="30" BorderThickness="1" BorderBrush="#FFEEEEEE" ToolTip="Edit input" Style="{DynamicResource ButtonStyleOfficeIconGlowActive}" Width="40" Padding="2" Margin="0,0,2,0">
+                    Edit
+                </Button>
+                <Button Grid.Column="2" Background="#00000000"  Foreground="#FF0F0F0F" Click="Button_remove_Click_1" Height="30" BorderThickness="1" BorderBrush="#FFEEEEEE" ToolTip="Remove input" Style="{DynamicResource ButtonStyleOfficeIconGlowActive}" Width="50" Padding="0" Margin="0,0,2,0">
+                    Remove
+                </Button>
+                <Button Grid.Column="3" Background="#00000000"  Foreground="#FF0F0F0F" Click="btn_add_filter_Click" Height="30" BorderThickness="1" BorderBrush="#FFEEEEEE" ToolTip="Add new input" Style="{DynamicResource ButtonStyleOfficeIconGlowActive}" Width="40" Padding="2" Margin="0,0,2,0">
+                    Add
+                </Button>
+            </Grid>
+
+            <Border Grid.Row="1">
+                <ListBox Name="lst_input"  >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate >
+
+
+                            <Grid Height="30">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <CheckBox IsChecked="{Binding Show}">Show</CheckBox>
+                                <Grid Grid.Column="1" VerticalAlignment="Center" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label FontWeight="Bold"  Content ="Type: "></Label>
+                                    <Label Grid.Column="1" Width="60" Content ="{Binding Type}" ></Label>
+                                </Grid>
+                                <Grid Grid.Column="2" VerticalAlignment="Center" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label FontWeight="Bold"  Content ="Name: "></Label>
+                                    <TextBox IsReadOnly="True" Grid.Column="1" Width="120" Text="{Binding Path=Name}" ></TextBox>
+                                </Grid>
+                                <Grid Grid.Column="3" VerticalAlignment="Center" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label FontWeight="Bold" Content ="X: "></Label>
+                                    <xctk:IntegerUpDown  Grid.Column="1" Value ="{Binding Col}" ></xctk:IntegerUpDown>
+                                </Grid>
+                                <Grid Grid.Column="4" VerticalAlignment="Center" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label FontWeight="Bold" Content="Y: "></Label>
+                                    <xctk:IntegerUpDown Grid.Column="1" Value ="{Binding Row}" ></xctk:IntegerUpDown>
+                                </Grid>
+
+                            </Grid>
+                        </DataTemplate>
+
+                    </ListBox.ItemTemplate>
+                    <ListBox.Resources>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <Border x:Name="Bd"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        Padding="{TemplateBinding Padding}"
+                                        SnapsToDevicePixels="true" CornerRadius="5" Background="White" BorderThickness="1" IsEnabled="False">
+                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <MultiTrigger>
+                                                <MultiTrigger.Conditions>
+                                                    <Condition Property="Selector.IsSelectionActive"
+                                                    Value="False" />
+                                                    <Condition Property="IsSelected"
+                                                    Value="True" />
+                                                </MultiTrigger.Conditions>
+
+                                                <Setter Property="BorderBrush"
+                                                TargetName="Bd"
+                                                Value="#FF0AC7FF" />
+                                                <Setter Property="Background"
+                                                TargetName="Bd"
+                                                Value="#FF6DF2FF" />
+                                            </MultiTrigger>
+                                            <MultiTrigger>
+                                                <MultiTrigger.Conditions>
+                                                    <Condition Property="Selector.IsSelectionActive"
+                                                    Value="True" />
+                                                    <Condition Property="IsSelected"
+                                                    Value="True" />
+                                                </MultiTrigger.Conditions>
+
+                                                <Setter Property="BorderBrush"
+                                                TargetName="Bd"
+                                                Value="#FFA9EBFF" />
+                                                <Setter Property="Background"
+                                                TargetName="Bd"
+                                                Value="White" />
+                                            </MultiTrigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Bd" Property="BorderBrush" Value="#FF64D7F9" />
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="Bd" Property="IsEnabled" Value="True"/>
+
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                        <Style TargetType="{x:Type ScrollViewer}">
+                            <Setter Property="Template" Value="{DynamicResource ScrollViewerControlTemplate}"/>
+                        </Style>
+                    </ListBox.Resources>
+
+                </ListBox>
+            </Border>
+
+
+        </Grid>
+
+
+    </Grid>
+</Window>

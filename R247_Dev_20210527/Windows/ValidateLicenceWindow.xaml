@@ -1,0 +1,108 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVision.Windows"
+        xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls" x:Class="NOVision.Windows.ValidateLicenceWindow"
+        mc:Ignorable="d"
+        Title="ValidateLicenceWindow" Height="280" Width="500" AllowsTransparency="True" WindowStyle="None" ResizeMode="NoResize" Background="Transparent">
+    <Window.Resources>
+        <Color x:Key="ColorGlow">#FF51EAFF</Color>
+        <!--<Style x:Key="ButtonGlowNew" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle">
+                <Setter.Value>
+                    <Style>
+                        <Setter Property="Control.Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Rectangle StrokeDashArray="1 2" StrokeThickness="1" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="True" Margin="2"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="#1A1A1A"/>
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="16,4"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Border x:Name="border" CornerRadius="4" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}"/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Border x:Name="border_glow" CornerRadius="4" BorderThickness="0">
+                                --><!--<Border.Effect>
+                                    <DropShadowEffect x:Name="drop_efect_glow" Color="{DynamicResource ColorGlow}" ShadowDepth="0"/>
+                                </Border.Effect>-->
+                                <!--<Border.BorderBrush>
+                                    <RadialGradientBrush>
+                                        <GradientStop Color="#FF84C6FD" Offset="0"/>
+                                        <GradientStop Color="#FF00B9FF" Offset="1"/>
+                                    </RadialGradientBrush>
+                                </Border.BorderBrush>--><!--
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                --><!--<Setter Property="Background" TargetName="border" Value="{StaticResource gradientbackground}"/>--><!--
+                                <Setter Property="BorderThickness" TargetName="border_glow" Value="1"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.23"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                --><!--<Setter Property="Background" TargetName="border" Value="{StaticResource gradientbackground_pressed}"/>--><!--
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ForceCursor" Value="True"/>
+        </Style>-->
+    </Window.Resources>
+    <Border CornerRadius="5" Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="64"/>
+                <RowDefinition/>
+                <RowDefinition Height="64"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" x:Name="btn_hide" HorizontalAlignment="Stretch"  Margin="48,0"  VerticalAlignment="Stretch" Content="Exit" FontWeight="SemiBold" Foreground="#1A1A1A" Cursor="Hand" Background="White" Click="btn_hide_Click" Padding="16,8" BorderBrush="Transparent" BorderThickness="0" />
+                <Button Grid.Column="1" x:Name="btn_ok" HorizontalAlignment="Stretch"  Margin="48,0"  VerticalAlignment="Stretch" Content="Submit" FontWeight="SemiBold" Foreground="#1A1A1A" Cursor="Hand" Background="White" Click="btn_ok_Click" Padding="16,8" BorderBrush="Transparent" BorderThickness="0" />
+            </Grid>
+            <!--<Border BorderThickness="1" BorderBrush="{DynamicResource BlackIOS}" d:IsLocked="True">
+                --><!--<Border.Effect>
+                    <DropShadowEffect Color="{DynamicResource ColorGlow}" ShadowDepth="0"/>
+                </Border.Effect>--><!--
+            </Border>-->
+            <Border Grid.Row="0" Height="32" VerticalAlignment="Top" MouseDown="Border_MouseDown_1">
+                <TextBlock VerticalAlignment="Center" Margin="16,8" HorizontalAlignment="Left" FontWeight="Bold" FontSize="14" Foreground="#1A1A1A" Text="LICENCE VALIDATION"></TextBlock>
+            </Border>
+            <TextBox Grid.Row="1" x:Name="txt_licence" HorizontalAlignment="Stretch" Margin="16" VerticalAlignment="Stretch" TextWrapping="Wrap" Custom:TextBoxHelper.Watermark="Enter a licence key" VerticalContentAlignment="Center"/>
+            <ListBox Grid.Row="2" x:Name="lst_id" HorizontalAlignment="Stretch"  Margin="16" VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="#FFB8B8B8">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBox Text="{Binding Name}"></TextBox>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+        </Grid>
+    </Border>
+</Window>

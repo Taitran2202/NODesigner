@@ -1,0 +1,281 @@
+﻿<dx:ThemedWindow x:Class="NOVisionDesigner.Designer.Windows.PadInspectionRecorderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.Windows" 
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+        xmlns:HalconDotNet="clr-namespace:HalconDotNet;assembly=halcondotnet" 
+        xmlns:local1="clr-namespace:NOVisionDesigner.Designer.Controls"
+                 xmlns:ValueConverters ="clr-namespace:NOVisionDesigner.Designer.ValueConverters"
+        mc:Ignorable="d"
+                 FontSize="14"
+                 ShowGlow="False"
+        Title="PadInspectionRecorderWindow" Height="450" Width="800">
+    <Window.Resources>
+        <dx:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"></dx:BoolToVisibilityConverter>
+        <dx:BoolToVisibilityInverseConverter x:Key="BoolToVisibilityInverseConverter"></dx:BoolToVisibilityInverseConverter>
+    </Window.Resources>
+    <Grid Grid.Column="0" Grid.ColumnSpan="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Rectangle Height="1" Grid.Row="0" Fill="#20000000" VerticalAlignment="Top"></Rectangle>
+        <Grid >
+            <Border  Padding="0" x:Name="border_recording">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Grid Margin="4,0" MinWidth="100">
+                        <StackPanel Orientation="Horizontal" 
+                                    Visibility="{Binding IsRecording,Converter={StaticResource BoolToVisibilityConverter}}">
+                            <Ellipse Width="25" Height="25" Fill="{DynamicResource RedIOS}"></Ellipse>
+                            <Rectangle Width="8"></Rectangle>
+                            <Label Content="Recording" VerticalAlignment="Center"></Label>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" 
+                                    Visibility="{Binding IsRecording,Converter={StaticResource BoolToVisibilityInverseConverter}}">
+                            <Rectangle Width="25" Height="25" Fill="{DynamicResource YellowIOS}"></Rectangle>
+                            <Rectangle Width="8"></Rectangle>
+                            <Label Content="Paused" VerticalAlignment="Center"></Label>
+                        </StackPanel>
+                    </Grid>
+                    <Rectangle Width="1" Fill="#20ffffff" Margin="8,0"></Rectangle>
+                    <dx:SimpleButton 
+                        Glyph="{dx:DXImage 'SvgImages/Outlook Inspired/Save.svg'}"
+                        BorderThickness="1"
+                            GlyphHeight="28"
+                       Padding="8,4"
+                            Margin="2,0"
+                    Click="btn_save_selected_image_Click"
+                    
+                    
+                    Content="Save" Visibility="Collapsed"></dx:SimpleButton>
+                    <dx:SimpleButton 
+                    GlyphHeight="28"
+                    BorderThickness="1"
+                        Padding="8,4"
+                    Glyph="{dx:DXImage 'SvgImages/Save/SaveAll.svg'}"
+                    Click="btn_save_all_image_Click"
+                    Content="Save all" Visibility="Collapsed"></dx:SimpleButton>
+                    <dx:SimpleButton 
+                        Glyph="{dx:DXImage 'SvgImages/XAF/Action_ResumeRecording.svg'}"
+                        
+                        BorderThickness="1"
+                            GlyphHeight="28"
+                       Padding="8,4"
+                            Margin="4"
+                    Click="btn_continue_record_Click"
+                    Visibility="{Binding IsRecording,Converter={StaticResource BoolToVisibilityInverseConverter}}"
+                    
+                    Content="Continue"></dx:SimpleButton>
+                    <dx:SimpleButton 
+                    GlyphHeight="28"
+                        Margin="4"
+                        Visibility="{Binding IsRecording,Converter={StaticResource BoolToVisibilityConverter}}"
+                    BorderThickness="1"
+                        Padding="8,4"
+                    Glyph="{dx:DXImage 'SvgImages/XAF/Action_PauseRecording.svg'}"
+                    Click="btn_pause_record_Click"
+                    Content="Pause"></dx:SimpleButton>
+                    <Rectangle Width="1" Fill="#20ffffff" Margin="8,0"></Rectangle>
+                    <dx:DropDownButton Content="Train" Margin="4">
+                        <StackPanel>
+                            <dx:SimpleButton 
+                            Padding="8,4"
+                                HorizontalContentAlignment="Left"
+                                Click="btn_add_train_Click"
+                            Content="Add good image to database and train"></dx:SimpleButton>
+                            <dx:SimpleButton 
+                            Padding="8,4"
+                                Click="btn_add_train_quick_Click"
+                                HorizontalContentAlignment="Left"
+                            Content="Add good image to database and do quick train"></dx:SimpleButton>
+                        </StackPanel>
+                       
+                    </dx:DropDownButton>
+                   
+                </StackPanel>
+            </Border>
+            
+            <Border Margin="0,2,4,2" Padding="4" HorizontalAlignment="Right" VerticalAlignment="Center"   >
+                
+            </Border>
+            <Border  Padding="4"  HorizontalAlignment="Center" VerticalAlignment="Stretch">
+
+                
+            </Border>
+
+            <!--<dxb:BarManager Visibility="Visible"  Grid.Row="0" Margin="4,0,0,0"  HorizontalAlignment="Left" OpacityMask="{x:Null}"  >
+
+
+                    <dxb:BarManager.Bars>
+                        <dxb:Bar Caption="File" IsMainMenu="True"   GlyphSize="Large" >
+                            <dxb:BarSubItem x:Name="biFile" Content="File">
+                                <dxb:BarButtonItem x:Name="biFileOpen" Content="Save Image" Glyph="{dx:DXImage Image=Save_16x16.png}" LargeGlyph="{dx:DXImage Image=Save_32x32.png}" ItemClick="save_image_click" />
+                                <dxb:BarButtonItem x:Name="biFileNew" Content="Save All" Glyph="{dx:DXImage Image=SaveAll_16x16.png}" LargeGlyph="{dx:DXImage Image=New_32x32.png}"  ItemClick="save_all_click" />
+                            </dxb:BarSubItem>
+                            <dxb:BarSubItem Content="Layout" IsVisible="False">
+
+                                <dxb:BarButtonItem Content="Load Layout"   Glyph="{dx:DXImage Images/Appearance/LoadTheme_16x16.png}"/>
+                                <dxb:BarButtonItem Content="Save Layout"  Glyph="{dx:DXImage Images/Appearance/SaveTheme_16x16.png}" />
+                            </dxb:BarSubItem>
+                        </dxb:Bar>
+
+
+                    </dxb:BarManager.Bars>
+                </dxb:BarManager>-->
+        </Grid>
+        <Rectangle Height="1" Grid.Row="1" Fill="#20000000" VerticalAlignment="Top"></Rectangle>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <HalconDotNet:HSmartWindowControlWPF x:Name="window_display"  
+                                                     HInitWindow="window_display_HInitWindow" 
+                                                     HMouseDown="window_display_HMouseDown" Margin="0"/>
+            </Grid>
+            <StackPanel Grid.Column="1">
+                <StackPanel Margin="8,4" DataContext="{Binding SelectedItem,ElementName=lst_images}">
+                    <Grid>
+                        <Label Content="NG" FontWeight="SemiBold" 
+                               Visibility="{Binding IsNormal,Converter={StaticResource BoolToVisibilityInverseConverter},FallbackValue=Hidden}"
+                               Foreground="{DynamicResource RedIOS}" FontSize="50"></Label>
+                        <Label Content="OK" FontWeight="SemiBold" 
+                               Visibility="{Binding IsNormal,Converter={StaticResource BoolToVisibilityConverter},FallbackValue=Hidden}"
+                               Foreground="{DynamicResource GreenIOS}" FontSize="50"></Label>
+                    </Grid>
+                    
+                </StackPanel>
+                <Rectangle Height="1" Margin="0,4" Fill="#20ffffff"></Rectangle>
+                <Rectangle Height="8"></Rectangle>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Opacity" VerticalAlignment="Center" Margin="10,0,4,0" Padding="0,0,0,0" />
+                    <Slider x:Name="slider_opacity" Margin="5,0" Minimum="0" Value="{Binding ColorOpacity}" 
+                            Maximum="100" Width="100" VerticalAlignment="Center" SmallChange="1" />
+                    <Label Content="{Binding Value,ElementName=slider_opacity}"  VerticalAlignment="Center"
+                           HorizontalContentAlignment="Right" Width="40"   ContentStringFormat="{}{0:0} %" />
+                </StackPanel>
+                <Rectangle Height="8"></Rectangle>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                    <dx:SimpleButton  Click="btn_zoom_in_click"  HorizontalAlignment="Left" 
+                                      Padding="2"  Margin="0,0,4,0" Glyph="{dx:DXImage 'Office2013/Zoom/ZoomIn_32x32.png'}" ></dx:SimpleButton>
+                    <dx:SimpleButton  Click="btn_zoom_out_click" HorizontalAlignment="Left" 
+                                      Padding="2" Margin="2,0" Glyph="{dx:DXImage 'Office2013/Zoom/ZoomOut_32x32.png'}" ></dx:SimpleButton>
+                    <dx:SimpleButton  Click="btn_zoom_fit_click" HorizontalAlignment="Left" 
+                                      Padding="2" Margin="2,0" Glyph="{dx:DXImage 'Office2013/Zoom/Zoom100_32x32.png'}" ></dx:SimpleButton>
+
+                </StackPanel>
+                <StackPanel Margin="16">
+                    <CheckBox x:Name="chk_show_graphic" Content="Show graphics" 
+                                  IsChecked="True"
+                                 Checked="chk_show_graphic_Checked"
+                                  Unchecked="chk_show_graphic_Unchecked"
+                                  Template="{DynamicResource CheckBoxControlTemplateFlat}"></CheckBox>
+                    <Rectangle Height="8"></Rectangle>
+                    <CheckBox x:Name="chk_select_region"
+                                  IsChecked="True"
+                            Content="Enable region select" 
+                                  Template="{DynamicResource CheckBoxControlTemplateFlat}"></CheckBox>
+                </StackPanel>
+                <Rectangle Height="1" Margin="0,4" Fill="#20ffffff"></Rectangle>
+                <UniformGrid Margin="16">
+                    <dx:SimpleButton 
+                        Padding="16"
+                        Click="btn_mark_good_CLick"
+                    Glyph="{dx:DXImage 'SvgImages/Snap/Checkbox.svg'}"
+                        GlyphAlignment="Top">
+                        <dx:SimpleButton.Content>
+                            <TextBlock TextWrapping="Wrap" Text="Mark Good"></TextBlock>
+                        </dx:SimpleButton.Content>
+                    </dx:SimpleButton>
+                    <dx:SimpleButton 
+                        Padding="16"
+                         GlyphAlignment="Top"
+                        Click="btn_mark_bad_Click"
+                    Glyph="{dx:DXImage 'SvgImages/XAF/Action_Delete.svg'}">
+                        <dx:SimpleButton.Content>
+                            <TextBlock TextWrapping="Wrap" Text="Mark Bad"></TextBlock>
+                        </dx:SimpleButton.Content>
+                    </dx:SimpleButton>
+                </UniformGrid>
+                
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="2" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*">
+
+                </RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,6" Height="45">
+                <dx:SimpleButton  x:Name="btn_previous" Height="Auto" 
+                                      Content="Previous"
+                                      Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Arrow1Left.svg'}"
+                             HorizontalContentAlignment="Center" 
+                             VerticalContentAlignment="Center" Click="btn_previous_Click"  Width="120">
+
+                </dx:SimpleButton>
+                <dx:SimpleButton x:Name="btn_set_current_image"   
+                            Click="btn_set_current_image_Click" Width="180" 
+                                     Glyph="{dx:DXImage 'SvgImages/Dashboards/GridResetColumnWidths.svg'}"
+                                     GlyphAlignment="Left"
+                                        Content="Run"
+                            BorderThickness="1" Height="Auto">
+
+
+                </dx:SimpleButton>
+                <dx:SimpleButton  x:Name="btn_next"   Height="Auto" 
+                                      Content="Next"
+                                      GlyphAlignment="Right"
+                                      Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Arrow1Right.svg'}"
+                             HorizontalContentAlignment="Center" 
+                             VerticalContentAlignment="Center" Click="btn_next_Click"  Width="120" >
+
+                </dx:SimpleButton>
+            </StackPanel>
+            <Grid Grid.Row="0">
+                <ListBox x:Name="lst_images" SelectionChanged="lst_images_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Rectangle StrokeThickness="4" 
+                                    
+                                    Stroke="{DynamicResource RedIOS}">
+
+                                </Rectangle>
+                                <Rectangle StrokeThickness="4" 
+                                    Visibility="{Binding IsNormal,Converter={StaticResource BoolToVisibilityConverter}}"
+                                    Stroke="{DynamicResource GreenIOS}">
+                                    
+                                </Rectangle>
+                                <Rectangle StrokeThickness="4" 
+                                    Visibility="{Binding IsAdded,Converter={StaticResource BoolToVisibilityConverter}}"
+                                    Stroke="{DynamicResource BlueIOS}">
+
+                                </Rectangle>
+                                <Grid Margin="8">
+                                    <TextBlock Text="{Binding ID}"></TextBlock>
+                                </Grid>
+                            </Grid>
+                               
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel  IsItemsHost="True">
+                                
+                            </WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </Grid>
+        </Grid>
+        <dx:WaitIndicator Grid.RowSpan="3" Content="Training..." DeferedVisibility="{Binding IsLoading}" d:IsHidden="True"></dx:WaitIndicator>
+    </Grid>
+</dx:ThemedWindow>

@@ -1,0 +1,119 @@
+﻿<UserControl         
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:misc="clr-namespace:NOVisionDesigner.Designer.Misc"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:converter="clr-namespace:NOVisionDesigner.Designer.ValueConverters" 
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:controls="clr-namespace:NOVisionDesigner.Designer.Accquisition.Windows"
+    x:Class="NOVisionDesigner.Designer.Accquisition.Views.GigEVisionVimbaView"
+    mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="300" Loaded="UserControl_Loaded" FontSize="14">
+    <UserControl.Resources>
+        <converter:BoolToVisibilityCollapse x:Key="BoolToVisibilityCollapse"/>
+        <converter:InvertBoolToVisibilityCollapse x:Key="InvertBoolToVisibilityCollapse"/>
+        <misc:TriggerModeToBoolConverter x:Key="TriggerModeToBoolConverter"/>
+        <controls:ListFeaturesControl x:Key="ListFeaturesControl"/>
+
+    </UserControl.Resources>
+    <StackPanel>
+        <Rectangle Visibility="Visible" Margin="0,5" Height="1" Fill="#FF979797" Opacity="0.32"/>
+        <WrapPanel>
+            <Button x:Name="btn_software_trigger" Style="{x:Null}"  Content="Software Trigger" HorizontalAlignment="Center" Margin="5,5,0,5" VerticalAlignment="Top" Command="{Binding TriggerSoftwareCommand}" Height="26"  Padding="8,2"/>
+            <Button x:Name="btn_camera_setting" Style="{x:Null}"  Content="Advanced Setting" HorizontalAlignment="Center" Margin="5,5,0,5" VerticalAlignment="Top" Click="btn_camera_setting_click" Height="26"  Padding="8,2"/>
+            <Button Visibility="Collapsed" x:Name="btn_open_io_window" Style="{x:Null}"  Content="I/O Setting" HorizontalAlignment="Center" Margin="5,5,0,5" VerticalAlignment="Top" Click="btn_camera_setting_click" Height="26"  Padding="8,2"/>
+            <Button x:Name="btn_select_camera" Style="{x:Null}"  Content="Select Camera" HorizontalAlignment="Center" Margin="5,5,0,5" VerticalAlignment="Top" Click="btn_select_camera_Click" Height="26"  Padding="8,2"/>
+            <Button x:Name="btn_show_live_view" Style="{x:Null}"  Content="Show Live View" HorizontalAlignment="Center" Margin="5,5,0,5" VerticalAlignment="Top" Click="btn_show_live_view_Click" Height="26"  Padding="8,2"/>
+        </WrapPanel>
+        <Rectangle Visibility="Visible" Margin="0,5" Height="1" Fill="#FF979797" Opacity="0.32"/>
+        <Grid >
+            <Grid Grid.Column="1" HorizontalAlignment="Right" >
+                <Button x:Name="btn_connect_camera" MinWidth="150" Visibility="{Binding Connected,Converter={StaticResource BoolToVisibilityCollapse}}" Content="Connect Camera" Margin="5" VerticalAlignment="Center" Click="btn_connect_camera_Click"  HorizontalAlignment="Right" Height="26"  Padding="8,2" />
+                <Button x:Name="btn_disconnect_camera" MinWidth="150" Visibility="{Binding Connected,Converter={StaticResource InvertBoolToVisibilityCollapse}}" Content="Disconnect Camera" Margin="5"  VerticalAlignment="Center" Click="btn_disconnect_camera_Click" HorizontalAlignment="Right" Height="26"  Padding="8,2" />
+            </Grid>
+            <StackPanel Grid.Column="0" HorizontalAlignment="Left" Orientation="Horizontal">
+                <Label Content="Device: " FontWeight="Bold" FontSize="14" HorizontalAlignment="Left" Margin="5"/>
+                <TextBox Text="{Binding Device}" IsReadOnly="True" BorderBrush="LightGray" FontSize="14" HorizontalAlignment="Left" Margin="5"/>
+            </StackPanel>
+        </Grid>
+        <Rectangle Visibility="Visible" Margin="0,5" Height="1" Fill="#FF979797" Opacity="0.32"/>
+        <StackPanel Visibility="Collapsed" Margin="5" Orientation="Vertical">
+            <Grid>
+                <Label Content="Trigger Mode" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                <dxe:ToggleSwitch  HorizontalAlignment="Right" Margin="0" IsChecked="{Binding TriggerMode, Converter={StaticResource TriggerModeToBoolConverter}}" CheckedStateContent="ON" UncheckedStateContent="OFF" BorderBrush="#FFE4E4E4" MinWidth="100" />
+
+            </Grid>
+            <!--<Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>-->
+
+            <Grid Visibility="Collapsed">
+                <Label Content="USB IO Trigger" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                <dxe:ToggleSwitch  HorizontalAlignment="Right" Margin="0" IsChecked="{Binding UsbTrigger}" CheckedStateContent="ON" UncheckedStateContent="OFF" BorderBrush="#FFE4E4E4" MinWidth="100" />
+
+            </Grid>
+            <!--<Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>-->
+            <Grid>
+                <Label Content="Trigger Source" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                <dxe:ComboBoxEdit SelectedItem="{Binding TriggerSource}" IsTextEditable="False" ItemsSource="{Binding LstTriggerSource}"   HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+
+            </Grid>
+
+            <!--<Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>-->
+            <Grid>
+                <Label Content="Trigger Delay (µm)" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <misc:NumericUpDownWithKeyboard Value="{Binding TriggerDelay}" StringFormat="N0" Minimum="0"  HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+
+            </Grid>
+            <!--<Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>-->
+            <Grid>
+
+                <Label Content="Exposure (µs)" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                <misc:NumericUpDownWithKeyboard Value="{Binding Exposure}" Minimum="1"  HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+
+            </Grid>
+            <!--<Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>-->
+            <Grid >
+                <Label Content="Gain" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                <misc:NumericUpDownWithKeyboard Value="{Binding Gain}" Minimum="0.1"  HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+
+            </Grid>
+            <Grid Visibility="Collapsed">
+                <Label Content="Reject pulse duration (ms)" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                <misc:NumericUpDownWithKeyboard Value="{Binding PulseWidth}" Minimum="1"  HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+
+            </Grid>
+            <Grid>
+                <Label Content="Top" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                <misc:NumericUpDownWithKeyboard Value="{Binding Top}" Minimum="0"  HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+
+            </Grid>
+            <Grid>
+                <Label Content="Left" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                <misc:NumericUpDownWithKeyboard Value="{Binding Left}" Minimum="0"  HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+
+            </Grid>
+            <Grid>
+                <Label Content="Width" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                <misc:NumericUpDownWithKeyboard Value="{Binding Width}" Minimum="1"  HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+
+            </Grid>
+            <Grid>
+                <Label Content="Height" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                <misc:NumericUpDownWithKeyboard Value="{Binding Height}" Minimum="1"  HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+
+            </Grid>
+
+        </StackPanel>
+        <StackPanel Margin="0">
+            <Grid Margin="5">
+                <Label HorizontalAlignment="Left" FontWeight="Bold" Content="Common Features List"/>
+                <dx:SimpleButton x:Name="btn_add_features" Click="btn_add_features_Click" ToolTip="Add" Cursor="Hand" 
+                        Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Edit.svg'}"
+                        Width="32" BorderThickness="0"  HorizontalAlignment="Right" 
+                        VerticalAlignment="Stretch" Padding="4" />
+            </Grid>
+            <controls:ListFeaturesControl x:Name="lst_features_control" />
+
+        </StackPanel>
+    </StackPanel>
+</UserControl>

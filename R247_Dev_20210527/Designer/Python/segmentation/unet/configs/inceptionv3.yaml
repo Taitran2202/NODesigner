@@ -1,0 +1,4 @@
+skip_connection_names : ["converted_input", "activation_2", "activation_4", "activation_28"]
+padding: ["valid","valid","valid","valid"]
+encoder_output_name: "activation_74"
+f : [16, 32, 48, 64]

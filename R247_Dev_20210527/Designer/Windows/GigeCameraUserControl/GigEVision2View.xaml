@@ -1,0 +1,134 @@
+﻿<UserControl x:Class="NOVisionDesigner.Designer.Windows.GigeCameraUserControl.GigEVision2View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NOVisionDesigner.Designer.Windows.GigeCameraUserControl" xmlns:misc="clr-namespace:NOVisionDesigner.Designer.Misc"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <misc:TriggerModeToBoolConverter x:Key="TriggerModeToBoolConverter"/>
+    </UserControl.Resources>
+    <StackPanel>
+        <WrapPanel>
+            <Button x:Name="btn_software_trigger" Style="{x:Null}"  Content="Software Trigger" HorizontalAlignment="Center" Margin="5" 
+                    VerticalAlignment="Top" Click="btn_sofware_trigger_click" Height="26" FontSize="13" Padding="8,2"/>
+            <Button x:Name="btn_live_view"  Content="live View" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Top" Click="btn_live_view_Click" Height="26" FontSize="13" Padding="8,2"/>
+            <Button IsEnabled="True" x:Name="btn_camera_setting" Style="{x:Null}"  Content="{Binding stateRun}" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Top" Click="btn_camera_setting_click" Height="26" FontSize="13" Padding="8,2"/>
+            <Button IsEnabled="False" x:Name="btn_open_io_window" Style="{x:Null}"  Content="I/O Setting" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Top" Click="btn_camera_setting_click" Height="26" FontSize="13" Padding="8,2"/>
+
+        </WrapPanel>
+        <Grid>
+            <TextBox Text="{Binding Device}" VerticalAlignment="Stretch" Margin="5,5,120,5"/>
+            <Button x:Name="btn_select_camera" Style="{x:Null}"  Content="Select Camera" Margin="5" VerticalAlignment="Center" Click="Btn_select_camera_Click" HorizontalAlignment="Right" Height="26" FontSize="13" Padding="8,2"/>
+
+        </Grid>
+        <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="10,0,0,2"/>
+        <StackPanel Margin="5,0,0,0" Orientation="Vertical">
+
+
+
+            <Grid>
+                <Label Content="Trigger Mode" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                <dxe:ToggleSwitch  HorizontalAlignment="Right" Margin="0" IsChecked="{Binding TriggerMode,Converter={StaticResource TriggerModeToBoolConverter}}" CheckedStateContent="ON" UncheckedStateContent="OFF" BorderBrush="#FFE4E4E4" MinWidth="100" />
+
+            </Grid>
+            <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>
+            <Grid>
+                <Label Content="Trigger Source" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                <dxe:ComboBoxEdit SelectedItem="{Binding TriggerSource}" IsTextEditable="False" ItemsSource="{Binding LstTriggerSource}"   HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+
+            </Grid>
+            <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>
+            <Grid>
+                <Label Content="Trigger Delay (&#181;m)" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                <!--<misc:NumericUpDownWithKeyboard Value="{Binding TriggerDelay}" StringFormat="N0" Minimum="0"  HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>-->
+                <dxe:SpinEdit HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100" Value="{Binding TriggerDelay, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+
+            </Grid>
+            <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>
+            <Grid>
+                <Label Content="Exposure (&#181;s)" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                <!--<misc:NumericUpDownWithKeyboard Value="{Binding Exposure}" Minimum="1"  HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>-->
+                <dxe:SpinEdit HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100" Value="{Binding Exposure, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+
+            </Grid>
+            <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>
+            <Grid>
+                <Label Content="Gain" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                <!--<misc:NumericUpDownWithKeyboard Value="{Binding Gain}" Minimum="0.1"  HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>-->
+                <dxe:SpinEdit HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100" Value="{Binding Gain, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+
+            </Grid>
+            <!--<Grid>
+                <Label Content="Reject pulse duration (ms)" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                --><!--<misc:NumericUpDownWithKeyboard Value="{Binding PulseWidth}" Minimum="1"  HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>--><!--
+                <dxe:SpinEdit HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100" Value="{Binding PulseWidth, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+
+            </Grid>-->
+            <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>
+            <Grid>
+                <Label Content="UserSetDefaultSelector" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                <dxe:ComboBoxEdit SelectedItem="{Binding UserSetDefaultSelector}" IsTextEditable="False" ItemsSource="{Binding LstUserSetDefaultSelector}"   HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+            </Grid>
+            <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>
+            <Grid>
+                <Label Content="UserSetLoad" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                <Button Content="Execute" IsEnabled="{Binding isEnableUserSetLoad}" Click="Btn_UserSetLoad_Click" HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+            </Grid>
+            <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>
+            <Grid>
+                <Label Content="UserSetSave" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                <Button Content="Execute" IsEnabled="{Binding isEnableUserSetSave}" Click="Btn_UserSetSave_Click" HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+            </Grid>
+            <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="5,0,0,0"/>
+            <Grid>
+                <Label Content="UserSetSelector" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                <dxe:ComboBoxEdit SelectedItem="{Binding UserSetSelector}" IsTextEditable="False" ItemsSource="{Binding LstUserSetSelector}"   HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100"/>
+
+            </Grid>
+        </StackPanel>
+        <!--<TextBlock Text="Record Option" Margin="5,5,0,5" FontFamily="Segoe UI Semibold" FontSize="13" ></TextBlock>
+        <StackPanel Margin="10,0,0,0">
+
+            <Grid  Margin="2,0">
+                <CheckBox x:Name="chk_sub_speed" IsChecked="{Binding RecordOnSpeed}" Content="Record to sub folder base on speed"  Margin="0"/>
+                --><!--<misc:NumericUpDownWithKeyboard Value="{Binding TransitionSpeed}" x:Name="num_transition_speed" Template="{DynamicResource NumericUpDownFlatWithKeyoard}" HorizontalAlignment="Right" MinWidth="120" ></misc:NumericUpDownWithKeyboard>--><!--
+                <dxe:SpinEdit HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100" Value="{Binding TransitionSpeed, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+
+            </Grid>
+            <Grid Margin="2,0">
+                --><!--<misc:NumericUpDownWithKeyboard Value="{Binding MinimumSpeed}" x:Name="num_minimum_speed" Template="{DynamicResource NumericUpDownFlatWithKeyoard}" HorizontalAlignment="Right" MinWidth="120" />--><!--
+                <dxe:SpinEdit HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100" Value="{Binding MinimumSpeed, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+
+                <CheckBox x:Name="chk_speed_low" IsChecked="{Binding RecordOnMinimum}" Content="Only record image when speed higher than "  Margin="0" HorizontalAlignment="Left"/>
+            </Grid>
+            <Grid Margin="2,0">
+                --><!--<misc:NumericUpDownWithKeyboard Value="{Binding MinimumDataSpeed}" x:Name="num_minimum_data_speed" Template="{DynamicResource NumericUpDownFlatWithKeyoard}" HorizontalAlignment="Right" MinWidth="120" />--><!--
+                <dxe:SpinEdit HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100" Value="{Binding MinimumDataSpeed, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+
+                <CheckBox x:Name="chk_speed_low_data" IsChecked="{Binding RecordDataOnMinimum}" Content="Only record Database when speed higher than"  HorizontalAlignment="Left" Margin="0,0,2,0"/>
+            </Grid>
+        </StackPanel>
+        <TextBlock Text="Reject Option" Margin="5,5,0,5" FontFamily="Segoe UI Semibold" FontSize="13" ></TextBlock>
+        <StackPanel Margin="10,0,0,0">
+
+            <Grid  Margin="2,0">
+                <CheckBox x:Name="chk_reject_speed" IsChecked="{Binding RejectBySpeed}" Content="Reject when speed higher than"  Margin="0"/>
+                --><!--<misc:NumericUpDownWithKeyboard Value="{Binding RejectSpeed}" x:Name="num_reject_speed" Template="{DynamicResource NumericUpDownFlatWithKeyoard}" HorizontalAlignment="Right" MinWidth="120" ></misc:NumericUpDownWithKeyboard>--><!--
+                <dxe:SpinEdit HorizontalAlignment="Right" Margin="0" BorderBrush="#FFE4E4E4" MinWidth="100" Value="{Binding RejectSpeed, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+
+            </Grid>
+            <Grid  Margin="2,0">
+                <CheckBox  IsChecked="{Binding InvertRejectSignal}" Content="Invert reject signal"  Margin="0"/>
+
+            </Grid>
+        </StackPanel>-->
+        <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#FFE4E4E4" Margin="10,2,0,2"/>
+        <Grid  Visibility="Collapsed" Margin="0,5,0,0">
+            <Label Content="Gain" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,0,0"></Label>
+            <misc:NumericUpDownWithKeyboard Value="{Binding Gain}" Template="{DynamicResource NumericUpDownRoundConnerIOSWithKeyoard}" HorizontalAlignment="Right" MinWidth="80" Minimum="1" />
+        </Grid>
+    </StackPanel>
+</UserControl>

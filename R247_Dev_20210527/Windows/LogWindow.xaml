@@ -1,0 +1,26 @@
+﻿<dx:ThemedWindow  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+                  x:Class="NOVisionDesigner.Windows.LogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Windows" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        mc:Ignorable="d" ShowGlow="False"
+        Title="LogWindow" Height="600" Width="900" FontSize="14" WindowStartupLocation="CenterScreen" >
+    <Grid>
+        <dxg:GridControl x:Name="gridcontrol"  VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" Margin="0">
+            <dxg:GridControl.View>
+            <dxg:TableView  ShowGroupPanel="False"  ShowSearchPanelMode="Always" ShowGroupFooters="False"  />
+            </dxg:GridControl.View>
+            <dxg:GridColumn FieldName="Id" IsSmart="True" ReadOnly="True" SortOrder="Descending"/>
+            <dxg:GridColumn FieldName="Time" RoundDateDisplayFormat="u" IsSmart="True" ReadOnly="True">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:DateEditSettings Mask="G" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="Type" IsSmart="True" ReadOnly="True"/>
+            <dxg:GridColumn FieldName="Source" IsSmart="True" ReadOnly="True"/>
+            <dxg:GridColumn FieldName="Message" FixedWidth="False" ReadOnly="True" MinWidth="500"/>
+        </dxg:GridControl>
+    </Grid>
+</dx:ThemedWindow>

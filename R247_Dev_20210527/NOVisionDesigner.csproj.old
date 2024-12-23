@@ -1,0 +1,2497 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{63A57B7F-66B5-4E2F-87A1-8A58C65917D2}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>NOVisionDesigner</RootNamespace>
+    <AssemblyName>NOVISION Designer</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icons\new_ocean_group_logo_18_cut_dqS_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AdvancedHMIDrivers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\AdvancedHMIDrivers.dll</HintPath>
+    </Reference>
+    <Reference Include="Automation.BDaq4, Version=4.0.0.0, Culture=neutral, PublicKeyToken=463f5928d60183a0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Advantech\DAQNavi\Automation.BDaq\4.0.0.0\Automation.BDaq4.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.DATABUILDERAXLibEx, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\AxInterop.DATABUILDERAXLibEx.dll</HintPath>
+    </Reference>
+    <Reference Include="DALSA.SaperaLT.SapClassBasic, Version=8.50.0.2011, Culture=neutral, PublicKeyToken=4d8604101dcb6b58, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\DALSA.SaperaLT.SapClassBasic.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v19.2, Version=19.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ProgramFiles\DevExpress 19.2\Components\Bin\Framework\DevExpress.Data.v19.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Images.v19.2, Version=19.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ProgramFiles\Components\Bin\Framework\DevExpress.Images.v19.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Mvvm.v19.2, Version=19.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ProgramFiles\DevExpress 19.2\Components\Bin\Framework\DevExpress.Mvvm.v19.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v19.2.Core, Version=19.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ProgramFiles\Components\Bin\Framework\DevExpress.Printing.v19.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Accordion.v19.2, Version=19.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ProgramFiles\DevExpress 19.2\Components\Bin\Framework\DevExpress.Xpf.Accordion.v19.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Charts.v19.2, Version=19.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ProgramFiles\DevExpress 19.2\Components\Bin\Framework\DevExpress.Xpf.Charts.v19.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Controls.v19.2, Version=19.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ProgramFiles\DevExpress 19.2\Components\Bin\Framework\DevExpress.Xpf.Controls.v19.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Core.v19.2, Version=19.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ProgramFiles\DevExpress 19.2\Components\Bin\Framework\DevExpress.Xpf.Core.v19.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Docking.v19.2, Version=19.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ProgramFiles\Components\Bin\Framework\DevExpress.Xpf.Docking.v19.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Gauges.v19.2, Version=19.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ProgramFiles\DevExpress 19.2\Components\Bin\Framework\DevExpress.Xpf.Gauges.v19.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v19.2, Version=19.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ProgramFiles\Components\Bin\Framework\DevExpress.Xpf.Grid.v19.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v19.2.Core, Version=19.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ProgramFiles\Components\Bin\Framework\DevExpress.Xpf.Grid.v19.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Layout.v19.2.Core, Version=19.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ProgramFiles\Components\Bin\Framework\DevExpress.Xpf.Layout.v19.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.LayoutControl.v19.2, Version=19.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ProgramFiles\Components\Bin\Framework\DevExpress.Xpf.LayoutControl.v19.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.PropertyGrid.v19.2, Version=19.2.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ProgramFiles\Components\Bin\Framework\DevExpress.Xpf.PropertyGrid.v19.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Themes.Office2019Black.v19.2, Version=19.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ProgramFiles\DevExpress 19.2\Components\Bin\Framework\DevExpress.Xpf.Themes.Office2019Black.v19.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Themes.Office2019White.v19.2, Version=19.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ProgramFiles\DevExpress 19.2\Components\Bin\Framework\DevExpress.Xpf.Themes.Office2019White.v19.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Themes.VS2017Dark.v19.2, Version=19.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ProgramFiles\DevExpress 19.2\Components\Bin\Framework\DevExpress.Xpf.Themes.VS2017Dark.v19.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Themes.VS2017Light.v19.2, Version=19.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="Interop.DATABUILDERAXLibEx, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>DLL\Interop.DATABUILDERAXLibEx.dll</HintPath>
+    </Reference>
+    <Reference Include="MfgControl.AdvancedHMI.Drivers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\MfgControl.AdvancedHMI.Drivers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Utilities.v4.0" />
+    <Reference Include="OpticalFlowCudaCV">
+      <HintPath>C:\src\cudaopticalflow\cudaopticalflowtest\OpticalFlowCudaCV\bin\Release\OpticalFlowCudaCV.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="PvDotNet, Version=6.1.1.5002, Culture=neutral, PublicKeyToken=666697f16d0ae86b, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\PvDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="PvGUIDotNet, Version=6.1.1.5002, Culture=neutral, PublicKeyToken=666697f16d0ae86b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\PvGUIDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.Composition.Registration" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="VimbaNET, Version=1.8.2.28852, Culture=neutral, PublicKeyToken=96b729f24f119b9a, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\VimbaNET.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Data\AuthenticationHelper.cs" />
+    <Compile Include="Data\LogContext.cs" />
+    <Compile Include="Data\LogProvider.cs" />
+    <Compile Include="Data\RecordFolderAccessContext.cs" />
+    <Compile Include="Data\RecordFolderHelper.cs" />
+    <Compile Include="Data\UserContext.cs" />
+    <Compile Include="Designer\Accquisition\Accquisition.cs" />
+    <Compile Include="Designer\Accquisition\CameraInterfaceBase.cs" />
+    <Compile Include="Designer\Accquisition\EBUS.cs" />
+    <Compile Include="Designer\Accquisition\GigEVision2Script.cs" />
+    <Compile Include="Designer\Accquisition\Sapera.cs" />
+    <Compile Include="Designer\Accquisition\GigEVision2.cs" />
+    <Compile Include="Designer\Accquisition\GigEVisionVimba.cs" />
+    <Compile Include="Designer\Accquisition\USB3Vision.cs" />
+    <Compile Include="Designer\Accquisition\Views\AccquisitionView.xaml.cs">
+      <DependentUpon>AccquisitionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Accquisition\Views\CalibrationView.xaml.cs">
+      <DependentUpon>CalibrationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Accquisition\Views\DeviceListWindow2.xaml.cs">
+      <DependentUpon>DeviceListWindow2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Accquisition\Views\EBUSView.xaml.cs">
+      <DependentUpon>EBUSView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Accquisition\Views\GigEVision2ScriptView.xaml.cs">
+      <DependentUpon>GigEVision2ScriptView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Accquisition\Views\GigEVision2View.xaml.cs">
+      <DependentUpon>GigEVision2View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Accquisition\Views\GigEVisionVimbaView.xaml.cs">
+      <DependentUpon>GigEVisionVimbaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Accquisition\Views\SaperaView.xaml.cs">
+      <DependentUpon>SaperaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Accquisition\Views\USB3VisionView.xaml.cs">
+      <DependentUpon>USB3VisionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Accquisition\Windows\CameraAdjustment.xaml.cs">
+      <DependentUpon>CameraAdjustment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Accquisition\Windows\AcqScriptWindow.xaml.cs">
+      <DependentUpon>AcqScriptWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Accquisition\Windows\EbusSettingWindow.xaml.cs">
+      <DependentUpon>EbusSettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Accquisition\Windows\UniquaEbusWindow.xaml.cs">
+      <DependentUpon>UniquaEbusWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Accquisition\Windows\UniquaView\UniquaLiveView.xaml.cs">
+      <DependentUpon>UniquaLiveView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\BaseNode.cs" />
+    <Compile Include="Designer\Communication\Bus.cs" />
+    <Compile Include="Designer\Communication\HMIService.cs" />
+    <Compile Include="Designer\Controls\AddImageForNodeControl.xaml.cs">
+      <DependentUpon>AddImageForNodeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Controls\AnomalyTrainConfigControl.xaml.cs">
+      <DependentUpon>AnomalyTrainConfigControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Controls\BlobDetectionView.xaml.cs">
+      <DependentUpon>BlobDetectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Controls\ColorToStringEditor.xaml.cs">
+      <DependentUpon>ColorToStringEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Controls\ConfusionMatrixViewer.xaml.cs">
+      <DependentUpon>ConfusionMatrixViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Controls\DeepPrintTrainConfigControl.xaml.cs">
+      <DependentUpon>DeepPrintTrainConfigControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Controls\FullKeyboard.xaml.cs">
+      <DependentUpon>FullKeyboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Controls\MoxaDeviceList.xaml.cs">
+      <DependentUpon>MoxaDeviceList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Controls\NodeGrid.xaml.cs">
+      <DependentUpon>NodeGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Controls\NodeList.xaml.cs">
+      <DependentUpon>NodeList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Controls\NumericUpDown.xaml.cs">
+      <DependentUpon>NumericUpDown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Controls\OCRGroupModelViewer.xaml.cs">
+      <DependentUpon>OCRGroupModelViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Controls\ProgressControl.xaml.cs">
+      <DependentUpon>ProgressControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Controls\RecorderItemGroup.xaml.cs">
+      <DependentUpon>RecorderItemGroup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Controls\RecorderItemView.xaml.cs">
+      <DependentUpon>RecorderItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Data\DefectData.cs" />
+    <Compile Include="Designer\Deeplearning\Windows\BrushWindow.xaml.cs">
+      <DependentUpon>BrushWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Deeplearning\Windows\PPOCR\ModelSelectionWindow.xaml.cs">
+      <DependentUpon>ModelSelectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\DesignerHost.cs" />
+    <Compile Include="Designer\Diagram\Adorners\ResizeRotateAdorner.cs" />
+    <Compile Include="Designer\Diagram\Adorners\ResizeRotateChrome.cs" />
+    <Compile Include="Designer\Diagram\Adorners\SizeAdorner.cs" />
+    <Compile Include="Designer\Diagram\Adorners\SizeChrome.cs" />
+    <Compile Include="Designer\Diagram\DesignerItemDecorator.cs" />
+    <Compile Include="Designer\Diagram\DiagramDesigner.xaml.cs">
+      <DependentUpon>DiagramDesigner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Diagram\MoveThumb.cs" />
+    <Compile Include="Designer\Diagram\Rect1Box.cs" />
+    <Compile Include="Designer\Diagram\ResizeThumb.cs" />
+    <Compile Include="Designer\Diagram\RotateThumb.cs" />
+    <Compile Include="Designer\Editors\EnumValueEditorView.xaml.cs">
+      <DependentUpon>EnumValueEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Editors\BoolValueEditorView.xaml.cs">
+      <DependentUpon>BoolValueEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Editors\BoolValueEditorViewModel.cs" />
+    <Compile Include="Designer\Editors\BooleanValueEditorView.xaml.cs">
+      <DependentUpon>BooleanValueEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Editors\GroupEndpointEditorView.xaml.cs">
+      <DependentUpon>GroupEndpointEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Editors\GroupEndpointEditorViewModel.cs" />
+    <Compile Include="Designer\Editors\HHomMat2DValueEditorView.xaml.cs">
+      <DependentUpon>HHomMat2DValueEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Editors\HHomMat2DValueEditorViewModel.cs" />
+    <Compile Include="Designer\Editors\DoubleValueEditorView.xaml.cs">
+      <DependentUpon>DoubleValueEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Editors\DoubleValueEditorViewModel.cs" />
+    <Compile Include="Designer\Editors\HObjectStreamWindow.xaml.cs">
+      <DependentUpon>HObjectStreamWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Editors\Output\HObjectOutputValueEditorView.xaml.cs">
+      <DependentUpon>HObjectOutputValueEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Editors\Output\NumberOutputValueEditorView.xaml.cs">
+      <DependentUpon>NumberOutputValueEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Editors\Output\HObjectValueEditorViewModel.cs" />
+    <Compile Include="Designer\Editors\Output\OutputValueEditorViewModel.cs" />
+    <Compile Include="Designer\Editors\RegionValueEditorView.xaml.cs">
+      <DependentUpon>RegionValueEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Editors\RegionValueEditorViewModel.cs" />
+    <Compile Include="Designer\Editors\StringColorValueEditorView.xaml.cs">
+      <DependentUpon>StringColorValueEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Editors\StringColorValueEditorViewModel.cs" />
+    <Compile Include="Designer\Editors\DateTimeValueEditorView.xaml.cs">
+      <DependentUpon>DateTimeValueEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Editors\StringEnumValueEditorView.xaml.cs">
+      <DependentUpon>StringEnumValueEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Editors\StringEnumValueEditorViewModel.cs" />
+    <Compile Include="Designer\Editors\ViewModels\EnumValueEditorViewModel.cs" />
+    <Compile Include="Designer\Editors\ViewModels\BooleanValueEditorViewModel.cs" />
+    <Compile Include="Designer\Editors\ViewModels\DateTimeValueEditorViewModel.cs" />
+    <Compile Include="Designer\Editors\Windows\StringListEditorWindow.xaml.cs">
+      <DependentUpon>StringListEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Encryption\AES.cs" />
+    <Compile Include="Designer\Extensions\BaseInputViewModel.cs" />
+    <Compile Include="Designer\Extensions\Functions.cs" />
+    <Compile Include="Designer\Extensions\NodeExpression.cs" />
+    <Compile Include="Designer\GeneralWindow\ImageGalleryWindow.xaml.cs">
+      <DependentUpon>ImageGalleryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\GroupNodes\GroupInputViewModel.cs" />
+    <Compile Include="Designer\GroupNodes\GroupListInputViewModel.cs" />
+    <Compile Include="Designer\GroupNodes\GroupOutputViewModel.cs" />
+    <Compile Include="Designer\GroupNodes\GroupPortViewModel.cs" />
+    <Compile Include="Designer\GroupNodes\GroupSubnetIONodeViewModel.cs" />
+    <Compile Include="Designer\GroupNodes\GroupViewModel.cs" />
+    <Compile Include="Designer\HMIProperty.cs" />
+    <Compile Include="Designer\IHalconDeserializable.cs" />
+    <Compile Include="Designer\Misc\GroupIOBinding.cs" />
+    <Compile Include="Designer\Misc\MouseBehaviour.cs" />
+    <Compile Include="Designer\Misc\ZoomBorder.cs" />
+    <Compile Include="Designer\Nodes\HostLinkNode.cs" />
+    <Compile Include="Designer\Nodes\UDPClientNode.cs" />
+    <Compile Include="Designer\Nodes\TCPClientNode.cs" />
+    <Compile Include="Designer\Nodes\ScaleImageNode.cs" />
+    <Compile Include="Designer\Nodes\MultiBlobNode.cs" />
+    <Compile Include="Designer\Nodes\EdgeDetectionLDC.cs" />
+    <Compile Include="Designer\Nodes\DispGraphicsNode.cs" />
+    <Compile Include="Designer\Nodes\BrightnessNode.cs" />
+    <Compile Include="Designer\Nodes\MoxaInput.cs" />
+    <Compile Include="Designer\Nodes\MoxaOutput.cs" />
+    <Compile Include="Designer\Nodes\InputEnumNode.cs" />
+    <Compile Include="Designer\Nodes\ObjectDetectionV2.cs" />
+    <Compile Include="Designer\Nodes\RectangleMetrologyNode.cs" />
+    <Compile Include="Designer\Nodes\RYOLO.cs" />
+    <Compile Include="Designer\Nodes\RYOLOv4.cs" />
+    <Compile Include="Designer\Nodes\YOLOv6.cs" />
+    <Compile Include="Designer\Nodes\InputNumber.cs" />
+    <Compile Include="Designer\Nodes\ZeroMQNode.cs" />
+    <Compile Include="Designer\Nodes\InputBooleanNode.cs" />
+    <Compile Include="Designer\Nodes\InputDateNode.cs" />
+    <Compile Include="Designer\Nodes\InputStringNode.cs" />
+    <Compile Include="Designer\Nodes\DeepPrintInspectionNode.cs" />
+    <Compile Include="Designer\Nodes\TextDetectionNode.cs" />
+    <Compile Include="Designer\Nodes\TextRecognitionNode.cs" />
+    <Compile Include="Designer\Nodes\AnomalyV3.cs" />
+    <Compile Include="Designer\Nodes\CommandNode.cs" />
+    <Compile Include="Designer\Nodes\AnomalySegmentationDetectionNode.cs" />
+    <Compile Include="Designer\Nodes\AnoNetWithWeaklySupervisedNode.cs" />
+    <Compile Include="Designer\Nodes\PrintInspectionNode.cs" />
+    <Compile Include="Designer\Nodes\KeyencePLCNode.cs" />
+    <Compile Include="Designer\Nodes\DatabaseNode.cs" />
+    <Compile Include="Designer\Nodes\CheckDifferenceMultiModelNode.cs" />
+    <Compile Include="Designer\Nodes\CSharpScriptingNode.cs" />
+    <Compile Include="Designer\Nodes\FilterNode - Copy.cs" />
+    <Compile Include="Designer\Nodes\FindLinesNode.cs" />
+    <Compile Include="Designer\Nodes\FrameSynchronization.cs" />
+    <Compile Include="Designer\Nodes\MeasureLinesNode.cs" />
+    <Compile Include="Designer\Nodes\OCRForDigitsAndCharacters.cs" />
+    <Compile Include="Designer\Nodes\OnCompleteNode.cs" />
+    <Compile Include="Designer\Nodes\OnlineNode.cs" />
+    <Compile Include="Designer\Nodes\AccquisitionNode.cs" />
+    <Compile Include="Designer\Nodes\NodeInfo.cs" />
+    <Compile Include="Designer\Nodes\MultipleRunNode.cs" />
+    <Compile Include="Designer\Nodes\OCRNode.cs" />
+    <Compile Include="Designer\Nodes\OCRValidationNode.cs" />
+    <Compile Include="Designer\Nodes\RecordImage.cs" />
+    <Compile Include="Designer\Nodes\RegexNode.cs" />
+    <Compile Include="Designer\Nodes\RegionFilterNode.cs" />
+    <Compile Include="Designer\Nodes\TensorflowModelbase.cs" />
+    <Compile Include="Designer\Nodes\YOLOv3.cs" />
+    <Compile Include="Designer\Nodes\YOLOv4.cs" />
+    <Compile Include="Designer\NodeViews\GroupNodeView.xaml.cs">
+      <DependentUpon>GroupNodeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\INode.cs" />
+    <Compile Include="Designer\Keyboards\VirtualFullKeyboardWindow.xaml.cs">
+      <DependentUpon>VirtualFullKeyboardWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Keyboards\VirtualNumericKeyboard.xaml.cs">
+      <DependentUpon>VirtualNumericKeyboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Misc\Calibration.cs" />
+    <Compile Include="Designer\Misc\DeserializeFactory.cs" />
+    <Compile Include="Designer\Misc\DrawState.cs" />
+    <Compile Include="Designer\Misc\Filmstrip.cs" />
+    <Compile Include="Designer\Misc\FilterToolHelper.cs" />
+    <Compile Include="Designer\Misc\HelperMethods.cs" />
+    <Compile Include="Designer\Misc\InspectionResult.cs" />
+    <Compile Include="Designer\Misc\LineValue.cs" />
+    <Compile Include="Designer\Misc\NotifyMessage.cs" />
+    <Compile Include="Designer\Misc\NumericUpDownWithKeyboard.cs" />
+    <Compile Include="Designer\Misc\TextboxWithKeyboard.cs" />
+    <Compile Include="Designer\Misc\TypeCheckToVisibility.cs" />
+    <Compile Include="Designer\Misc\ValueConverters.cs" />
+    <Compile Include="Designer\Nodes\AnomalyDetectionNode.cs" />
+    <Compile Include="Designer\Nodes\BlobNode.cs" />
+    <Compile Include="Designer\Nodes\CameraOutputNode.cs" />
+    <Compile Include="Designer\ISegmentationWindow.cs" />
+    <Compile Include="Designer\Nodes\ColorDetectionNode.cs" />
+    <Compile Include="Designer\Nodes\DeepClassifier.cs" />
+    <Compile Include="Designer\Nodes\DisplayRegion.cs" />
+    <Compile Include="Designer\Nodes\DrawGraphics.cs" />
+    <Compile Include="Designer\Nodes\DrawRegion.cs" />
+    <Compile Include="Designer\Nodes\FilterNode.cs" />
+    <Compile Include="Designer\Nodes\FindEdge2Node.cs" />
+    <Compile Include="Designer\Nodes\FindEdgeNode.cs" />
+    <Compile Include="Designer\Nodes\GigeCamera.cs" />
+    <Compile Include="Designer\Nodes\GenerateRegion.cs" />
+    <Compile Include="Designer\GroupNodes\GroupNode.cs" />
+    <Compile Include="Designer\Nodes\LoadImagePathNode.cs" />
+    <Compile Include="Designer\Nodes\DisplayImage.cs" />
+    <Compile Include="Designer\Editors\IntegerValueEditorView.xaml.cs">
+      <DependentUpon>IntegerValueEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Editors\IntegerValueEditorViewModel.cs" />
+    <Compile Include="Designer\Nodes\MeasurementNode.cs" />
+    <Compile Include="Designer\Nodes\ObjectDetection.cs" />
+    <Compile Include="Designer\Nodes\OutputNodeViewModel.cs" />
+    <Compile Include="Designer\Editors\StringValueEditorView.xaml.cs">
+      <DependentUpon>StringValueEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Editors\StringValueEditorViewModel.cs" />
+    <Compile Include="Designer\Nodes\PatternNode.cs" />
+    <Compile Include="Designer\Nodes\SegmentationNode.cs" />
+    <Compile Include="Designer\Nodes\TimerBlock.cs" />
+    <Compile Include="Designer\Nodes\USBInput.cs" />
+    <Compile Include="Designer\Nodes\USBOutput.cs" />
+    <Compile Include="Designer\NodeViews\NodeViewAccquisition.xaml.cs">
+      <DependentUpon>NodeViewAccquisition.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\NodeViews\NodeViewRegionFilter.xaml.cs">
+      <DependentUpon>NodeViewRegionFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Processing\HalconUtils.cs" />
+    <Compile Include="Designer\Processing\RANSAC.cs" />
+    <Compile Include="Designer\PropertiesViews\ColorDetectionView.xaml.cs">
+      <DependentUpon>ColorDetectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\PropertiesViews\MeasureLineView.xaml.cs">
+      <DependentUpon>MeasureLineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\PropertiesViews\TimerView.xaml.cs">
+      <DependentUpon>TimerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Python\NOVisionPython.cs" />
+    <Compile Include="Designer\Python\PaddleOCRPython.cs" />
+    <Compile Include="Designer\Python\TrainAnoNet.cs" />
+    <Compile Include="Designer\Python\TrainASModel.cs" />
+    <Compile Include="Designer\Python\TrainEdgeDetection.cs" />
+    <Compile Include="Designer\Python\TrainObjectDetection.cs" />
+    <Compile Include="Designer\NodeViews\GroupSubnetIONodeView.xaml.cs">
+      <DependentUpon>GroupSubnetIONodeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\NodeViews\MyNodeView.xaml.cs">
+      <DependentUpon>MyNodeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\NodeViews\MyPortView.xaml.cs">
+      <DependentUpon>MyPortView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Python\TrainClassifier.cs" />
+    <Compile Include="Designer\Nodes\WebcamNode.cs" />
+    <Compile Include="Designer\NodeViews\WebcamNodeView.xaml.cs">
+      <DependentUpon>WebcamNodeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\NodeViews\CameraNodeView.xaml.cs">
+      <DependentUpon>CameraNodeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\NodeViews\NodeViewWithEditor.xaml.cs">
+      <DependentUpon>NodeViewWithEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Processing\Segmentation.cs" />
+    <Compile Include="Designer\PropertiesViews\MeasurementView.xaml.cs">
+      <DependentUpon>MeasurementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Python\TrainOCR.cs" />
+    <Compile Include="Designer\Python\TrainOCRClassifier.cs" />
+    <Compile Include="Designer\Python\TrainRYOLOv4.cs" />
+    <Compile Include="Designer\Python\TrainSegmentation.cs" />
+    <Compile Include="Designer\Python\TrainUnsupervised.cs" />
+    <Compile Include="Designer\Python\TrainYOLOv3.cs" />
+    <Compile Include="Designer\Python\TrainAnomalyV3.cs" />
+    <Compile Include="Designer\Python\TrainYOLOv4.cs" />
+    <Compile Include="Designer\Python\TrainYOLOv6.cs" />
+    <Compile Include="Designer\SimpleView\DragAndResizeControl.xaml.cs">
+      <DependentUpon>DragAndResizeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\SimpleView\EditHMIPrivilegeWindow.xaml.cs">
+      <DependentUpon>EditHMIPrivilegeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\SimpleView\HMISummaryWindow.xaml.cs">
+      <DependentUpon>HMISummaryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\SimpleView\PropertiesSelectionWindow.xaml.cs">
+      <DependentUpon>PropertiesSelectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\SimpleView\SimpleControl.cs" />
+    <Compile Include="Designer\SimpleView\SimpleViewHost.xaml.cs">
+      <DependentUpon>SimpleViewHost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\SimpleView\SimpleViewWindow.xaml.cs">
+      <DependentUpon>SimpleViewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\TestDesigner.xaml.cs">
+      <DependentUpon>TestDesigner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\ValueConverters\AllConverters.cs" />
+    <Compile Include="Designer\Windows\AddCharacterOrderWindow.xaml.cs">
+      <DependentUpon>AddCharacterOrderWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\AddInputWindow.xaml.cs">
+      <DependentUpon>AddInputWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\AddTypeWindow.xaml.cs">
+      <DependentUpon>AddTypeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\AnomalyV3Window.xaml.cs">
+      <DependentUpon>AnomalyV3Window.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\AnomalySegmentationDetectionEditorWindow.xaml.cs">
+      <DependentUpon>AnomalySegmentationDetectionEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\AnoNetWithWeaklySupervisedWindow.xaml.cs">
+      <DependentUpon>AnoNetWithWeaklySupervisedWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\AugmentationEditorWindow.xaml.cs">
+      <DependentUpon>AugmentationEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\BlobMaskWindow.xaml.cs">
+      <DependentUpon>BlobMaskWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\MultiBlobWindow.xaml.cs">
+      <DependentUpon>MultiBlobWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\Calibration\Calibration2Window.xaml.cs">
+      <DependentUpon>Calibration2Window.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\Calibration\ManualPage.xaml.cs">
+      <DependentUpon>ManualPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\ClassifierEditorWindow.xaml.cs">
+      <DependentUpon>ClassifierEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\CSharpScriptingWindow.xaml.cs">
+      <DependentUpon>CSharpScriptingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\DispGraphicsEditorWindow.xaml.cs">
+      <DependentUpon>DispGraphicsEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\DrawGraphicsWindow.xaml.cs">
+      <DependentUpon>DrawGraphicsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\DrawRegionWindow.xaml.cs">
+      <DependentUpon>DrawRegionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\EditNodeConnectionWindow.xaml.cs">
+      <DependentUpon>EditNodeConnectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\FilmstripWindow.xaml.cs">
+      <DependentUpon>FilmstripWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\FindLinesWindow.xaml.cs">
+      <DependentUpon>FindLinesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\EdgeAlignmentEditorWindow.xaml.cs">
+      <DependentUpon>EdgeAlignmentEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\EditMeasurementWindow.xaml.cs">
+      <DependentUpon>EditMeasurementWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\EditRegionSegment.xaml.cs">
+      <DependentUpon>EditRegionSegment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\EditRejectionClassWindow.xaml.cs">
+      <DependentUpon>EditRejectionClassWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\FeaturesClassifierWindow.xaml.cs" />
+    <Compile Include="Designer\Windows\FilterWindow.xaml.cs">
+      <DependentUpon>FilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\ExpressionWindow.xaml.cs">
+      <DependentUpon>ExpressionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\FindEdgeEditorWindow.xaml.cs">
+      <DependentUpon>FindEdgeEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\BlobWindow.xaml.cs">
+      <DependentUpon>BlobWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\GigeCameraUserControl\AcqussitionView.xaml.cs">
+      <DependentUpon>AcqussitionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\GigeCameraUserControl\DeviceListWindow.xaml.cs">
+      <DependentUpon>DeviceListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\GigeCameraUserControl\GigEVision2View.xaml.cs">
+      <DependentUpon>GigEVision2View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\GigeCameraUserControl\GigEVisionModel.cs" />
+    <Compile Include="Designer\Windows\GenerateRegionEditorWindow.xaml.cs">
+      <DependentUpon>GenerateRegionEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\IOMeasurementLinesEditor.xaml.cs">
+      <DependentUpon>IOMeasurementLinesEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\IOScriptingNodeEditor.xaml.cs">
+      <DependentUpon>IOScriptingNodeEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\LDCEdgeDetection.xaml.cs">
+      <DependentUpon>LDCEdgeDetection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\MaskEditorWindow.xaml.cs">
+      <DependentUpon>MaskEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\MeasureLinesWindow.xaml.cs">
+      <DependentUpon>MeasureLinesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\MoxaInput.xaml.cs">
+      <DependentUpon>MoxaInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\MoxaOutput.xaml.cs">
+      <DependentUpon>MoxaOutput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\NodeOutputSelectionWindow.xaml.cs">
+      <DependentUpon>NodeOutputSelectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\ObjectDetectionEditorWindow.xaml.cs">
+      <DependentUpon>ObjectDetectionEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\ObjectDetectionV2Window.xaml.cs">
+      <DependentUpon>ObjectDetectionV2Window.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\OCRClassifierEditorWindow.xaml.cs">
+      <DependentUpon>OCRClassifierEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\OCRGroupModelWindow.xaml.cs">
+      <DependentUpon>OCRGroupModelWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\OCRValidationWindow.xaml.cs">
+      <DependentUpon>OCRValidationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\OCRWindow.xaml.cs">
+      <DependentUpon>OCRWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\PaintImageWindow.xaml.cs">
+      <DependentUpon>PaintImageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\PatternWindow.xaml.cs">
+      <DependentUpon>PatternWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\DeepPrintInspectionWindow.xaml.cs">
+      <DependentUpon>DeepPrintInspectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\PrintInspectionWindow.xaml.cs">
+      <DependentUpon>PrintInspectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\RecoderViewerWindow.xaml.cs">
+      <DependentUpon>RecoderViewerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\RecordImageView.xaml.cs">
+      <DependentUpon>RecordImageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\RecordInputImageWindow.xaml.cs">
+      <DependentUpon>RecordInputImageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\RecordSettingWindow.xaml.cs">
+      <DependentUpon>RecordSettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\RectangleMetrologyWindow.xaml.cs">
+      <DependentUpon>RectangleMetrologyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\RegexEditorWindow\QuickRefItems.cs" />
+    <Compile Include="Designer\Windows\RegexEditorWindow\RegexWindow.xaml.cs" />
+    <Compile Include="Designer\Windows\RegionFilterWindow.xaml.cs">
+      <DependentUpon>RegionFilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\RYOLOEditorWindow.xaml.cs">
+      <DependentUpon>RYOLOEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\RYOLOv4Window.xaml.cs">
+      <DependentUpon>RYOLOv4Window.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\ScaleImageWindow.xaml.cs">
+      <DependentUpon>ScaleImageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\SegmentationWindow.xaml.cs">
+      <DependentUpon>SegmentationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\TextDetectionWindow.xaml.cs">
+      <DependentUpon>TextDetectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\TrainCheckDifferenceModelWindow.xaml.cs">
+      <DependentUpon>TrainCheckDifferenceModelWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\TrainColorMlpWindow.xaml.cs">
+      <DependentUpon>TrainColorMlpWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\TrainModeSelectionWindow.xaml.cs">
+      <DependentUpon>TrainModeSelectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\TypesSelectionWindow.xaml.cs">
+      <DependentUpon>TypesSelectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\USBInput.xaml.cs">
+      <DependentUpon>USBInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\USBOutput.xaml.cs">
+      <DependentUpon>USBOutput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\ViewModelViewHostWindow.xaml.cs">
+      <DependentUpon>ViewModelViewHostWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\WindowNurbs.xaml.cs">
+      <DependentUpon>WindowNurbs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\DrawRegionWindowV2.xaml.cs">
+      <DependentUpon>DrawRegionWindowV2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\WindowRegionWindowInteractive.xaml.cs">
+      <DependentUpon>WindowRegionWindowInteractive.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\TextRecognitionWindow.xaml.cs">
+      <DependentUpon>TextRecognitionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\Windows\YOLOv4EditorWindow.xaml.cs">
+      <DependentUpon>YOLOv4EditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\MXIO.cs" />
+    <Compile Include="Helper\NetworkConverterTest.cs" />
+    <Compile Include="Helper\VimbaHelpers\CameraInfo.cs" />
+    <Compile Include="Helper\VimbaHelpers\FrameEventArgs.cs" />
+    <Compile Include="Helper\VimbaHelpers\RingBitmap.cs" />
+    <Compile Include="Helper\User.cs" />
+    <Compile Include="Helper\VimbaHelpers\VimbaHelper.cs" />
+    <Compile Include="Services\ApplicationService.cs" />
+    <Compile Include="Services\ServiceInfo.cs" />
+    <Compile Include="Services\ViewModel\EthernetIPViewModel.cs" />
+    <Compile Include="Services\View\HostLinkUDPView.xaml.cs">
+      <DependentUpon>HostLinkUDPView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\View\RSLogixServiceView.xaml.cs">
+      <DependentUpon>RSLogixServiceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SplashScreen\SplashScreen1.xaml.cs">
+      <DependentUpon>SplashScreen1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AppCommunicationView.xaml.cs">
+      <DependentUpon>AppCommunicationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DesignerListView.xaml.cs">
+      <DependentUpon>DesignerListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FullKeyboard.xaml.cs">
+      <DependentUpon>FullKeyboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\GPUView.xaml.cs">
+      <DependentUpon>GPUView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\LicenceView.xaml.cs">
+      <DependentUpon>LicenceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PerformanceSettingView.xaml.cs">
+      <DependentUpon>PerformanceSettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\JobSettingView.xaml.cs">
+      <DependentUpon>JobSettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\GeneralSettingView.xaml.cs">
+      <DependentUpon>GeneralSettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\StatisticsUC.xaml.cs">
+      <DependentUpon>StatisticsUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SubCamera.xaml.cs">
+      <DependentUpon>SubCamera.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\DesignerViewModel.cs" />
+    <Compile Include="ViewModel\DetailStatisticsViewModel.cs" />
+    <Compile Include="Services\ViewModel\HostLinkUDPViewModel.cs" />
+    <Compile Include="ViewModel\GlobalTagManagerViewModel.cs" />
+    <Compile Include="ViewModel\LicenceManager.cs" />
+    <Compile Include="ViewModel\LoginScreenViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\NotificationViewModel.cs" />
+    <Compile Include="ViewModel\PrivilegeDatabase.cs" />
+    <Compile Include="ViewModel\PrivilegeViewModel.cs" />
+    <Compile Include="ViewModel\ServiceManagerViewModel.cs" />
+    <Compile Include="ViewModel\StaitsticsUCViewModel.cs" />
+    <Compile Include="ViewModel\StatisticsViewModel.cs" />
+    <Compile Include="ViewModel\SynchronizationModel.cs" />
+    <Compile Include="ViewModel\UserViewModel.cs" />
+    <Compile Include="ViewModel\VisionModel.cs" />
+    <Compile Include="ViewModel\UserDatabase.cs" />
+    <Compile Include="ViewModel\UserModel.cs" />
+    <Compile Include="ViewModel\VisionModelManager.cs" />
+    <Compile Include="Windows\AddToolWindow.xaml.cs">
+      <DependentUpon>AddToolWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AppSettingWindow.xaml.cs">
+      <DependentUpon>AppSettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DesignerListViewWindow.xaml.cs">
+      <DependentUpon>DesignerListViewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DesignerWindow.xaml.cs">
+      <DependentUpon>DesignerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DetailStatisticsWindow.xaml.cs">
+      <DependentUpon>DetailStatisticsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DiscoveryWindow.xaml.cs">
+      <DependentUpon>DiscoveryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\GlobalTagManagerWindow.xaml.cs">
+      <DependentUpon>GlobalTagManagerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\HelperWindows\ManualDialog.xaml.cs">
+      <DependentUpon>ManualDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\HelperWindows\SaveWindow.xaml.cs">
+      <DependentUpon>SaveWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\HelperWindows\TagManagerWindow.xaml.cs">
+      <DependentUpon>TagManagerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\JobControlWindow.xaml.cs">
+      <DependentUpon>JobControlWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\LoginScreen.xaml.cs">
+      <DependentUpon>LoginScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\LogWindow.xaml.cs">
+      <DependentUpon>LogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PrivilegeWindow.xaml.cs">
+      <DependentUpon>PrivilegeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PropertiesWindow.xaml.cs">
+      <DependentUpon>PropertiesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RecorderView.xaml.cs">
+      <DependentUpon>RecorderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RecordViewWindow.xaml.cs">
+      <DependentUpon>RecordViewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ServiceListWindow.xaml.cs">
+      <DependentUpon>ServiceListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SettingCameraWindow.xaml.cs">
+      <DependentUpon>SettingCameraWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SignUpScreen.xaml.cs">
+      <DependentUpon>SignUpScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\StatisticsWindow.xaml.cs">
+      <DependentUpon>StatisticsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DisplaySettingWindow.xaml.cs">
+      <DependentUpon>DisplaySettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TotalHMIWindow.xaml.cs">
+      <DependentUpon>TotalHMIWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\UserManagementWindow.xaml.cs">
+      <DependentUpon>UserManagementWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ValidateLicenceWindow.xaml.cs">
+      <DependentUpon>ValidateLicenceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Workspace\WorkspaceManager.cs" />
+    <Page Include="Designer\Accquisition\Views\AccquisitionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Accquisition\Views\CalibrationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Accquisition\Views\DeviceListWindow2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Accquisition\Views\EBUSView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Accquisition\Views\GigEVision2ScriptView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Accquisition\Views\GigEVision2View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Accquisition\Views\GigEVisionVimbaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Accquisition\Views\SaperaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Accquisition\Views\USB3VisionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Accquisition\Windows\CameraAdjustment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Accquisition\Windows\AcqScriptWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Accquisition\Windows\EbusSettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Accquisition\Windows\UniquaEbusWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Accquisition\Windows\UniquaView\UniquaLiveView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Controls\AddImageForNodeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Controls\AnomalyTrainConfigControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Controls\BlobDetectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Controls\ColorToStringEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Controls\ConfusionMatrixViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Controls\DeepPrintTrainConfigControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Controls\FullKeyboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Controls\MoxaDeviceList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Controls\NodeGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Controls\NodeList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Controls\NumericUpDown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Controls\OCRGroupModelViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Controls\ProgressControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Controls\RecorderItemGroup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Controls\RecorderItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Deeplearning\Windows\BrushWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Deeplearning\Windows\PPOCR\ModelSelectionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Diagram\DiagramDesigner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Diagram\Resources\DesignerItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Editors\EnumValueEditorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Editors\BoolValueEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Editors\BooleanValueEditorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Editors\GroupEndpointEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Editors\HHomMat2DValueEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Editors\DoubleValueEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Editors\HObjectStreamWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Editors\IntegerValueEditorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Editors\Output\HObjectOutputValueEditorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Editors\Output\NumberOutputValueEditorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Editors\RegionValueEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Editors\StringColorValueEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Editors\DateTimeValueEditorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Editors\StringEnumValueEditorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Editors\StringValueEditorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Editors\Windows\StringListEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\GeneralWindow\ImageGalleryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\NodeViews\GroupNodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Keyboards\VirtualFullKeyboardWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Keyboards\VirtualNumericKeyboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\NodeViews\GroupSubnetIONodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\NodeViews\MyNodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\NodeViews\MyPortView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\NodeViews\NodeViewAccquisition.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\NodeViews\NodeViewRegionFilter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\NodeViews\WebcamNodeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\NodeViews\CameraNodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\NodeViews\NodeViewWithEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\PropertiesViews\ColorDetectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\PropertiesViews\MeasureLineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\PropertiesViews\MeasurementView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\PropertiesViews\TimerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\SimpleView\DragAndResizeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\SimpleView\EditHMIPrivilegeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\SimpleView\HMISummaryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\SimpleView\PropertiesSelectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\SimpleView\SimpleViewHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\SimpleView\SimpleViewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\TestDesigner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\AddCharacterOrderWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\AddInputWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Windows\AddTypeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\AnomalyV3Window.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Windows\AnomalySegmentationDetectionEditorWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Windows\AnoNetWithWeaklySupervisedWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Windows\AugmentationEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\BlobMaskWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\MultiBlobWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Windows\Calibration\Calibration2Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\Calibration\ManualPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\ClassifierEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\CSharpScriptingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\DispGraphicsEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\DrawGraphicsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Windows\DrawRegionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Windows\EditNodeConnectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\FilmstripWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\FindLinesWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Windows\EdgeAlignmentEditorWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Windows\EditMeasurementWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Windows\EditRegionSegment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\ExpressionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\EditRejectionClassWindow.xaml" />
+    <Page Include="Designer\Windows\FilterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\FindEdgeEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\BlobWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\GigeCameraUserControl\AcqussitionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\GigeCameraUserControl\DeviceListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\GigeCameraUserControl\GigEVision2View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\GenerateRegionEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\IOMeasurementLinesEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\IOScriptingNodeEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\LDCEdgeDetection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\MaskEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\MeasureLinesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\MoxaInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\MoxaOutput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\NodeOutputSelectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\ObjectDetectionEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\ObjectDetectionV2Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\OCRClassifierEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\OCRGroupModelWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\OCRValidationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\OCRWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\PaintImageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\PatternWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\DeepPrintInspectionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Windows\PrintInspectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\RecoderViewerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\RecordImageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\RecordInputImageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\RecordSettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\RectangleMetrologyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\RegexEditorWindow\RegexWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Windows\RegionFilterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\RYOLOEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\RYOLOv4Window.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Windows\ScaleImageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\SegmentationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\TextDetectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\TrainCheckDifferenceModelWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\TrainColorMlpWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\TrainModeSelectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\TypesSelectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\USBInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\USBOutput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\ViewModelViewHostWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\WindowNurbs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\DrawRegionWindowV2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Windows\WindowRegionWindowInteractive.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Designer\Windows\TextRecognitionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Designer\Windows\YOLOv4EditorWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="ResourcesXAML\ResourcesXAML.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Services\View\HostLinkUDPView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Services\View\RSLogixServiceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SplashScreen\SplashScreen1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AppCommunicationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\DesignerListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\FullKeyboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\GPUView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\LicenceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PerformanceSettingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\JobSettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\GeneralSettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\StatisticsUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SubCamera.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddToolWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AppSettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DesignerListViewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DesignerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DetailStatisticsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DiscoveryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\GlobalTagManagerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\HelperWindows\ManualDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\HelperWindows\SaveWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\HelperWindows\TagManagerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\JobControlWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\LoginScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\LogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PrivilegeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PropertiesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RecorderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RecordViewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ServiceListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SettingCameraWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SignUpScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\StatisticsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DisplaySettingWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\TotalHMIWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\UserManagementWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ValidateLicenceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="eula.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Resource Include="Resources\password.ttf" />
+    <Resource Include="Icons\new_ocean_group_logo_18_cut_dqS_icon.ico" />
+    <Resource Include="Icons\new_ocean_group_logo_black_cut_G0P_icon.ico" />
+    <Resource Include="Icons\New Ocean Group logo-black_cut.png" />
+    <Resource Include="Icons\New Ocean Group logo-32_cut.png" />
+    <Resource Include="Icons\logo.png" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.manifest" />
+    <None Include="Designer\Python\AnomalySegmentationDetection\weights\vgg16_weights.h5">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\AnomalyV3\tools\anomalib\models\cflow\config.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\AnomalyV3\tools\anomalib\models\patchcore\config.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\AnomalyV3\tools\config.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\keras_segmentation_oneclass_train.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\ObjectDetection2\resnet.h5">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Resource Include="Designer\icons\icons8-slr-camera-60.png" />
+    <Resource Include="Designer\icons\icons8-abscissa-100.png" />
+    <Resource Include="Designer\icons\icons8-abscissa-96.png" />
+    <Resource Include="Designer\icons\icons8-color-palette-60.png" />
+    <Resource Include="Designer\icons\icons8-diagonal-lines-80.png" />
+    <Resource Include="Designer\icons\icons8-orange-100.png" />
+    <Resource Include="Designer\icons\icons8-width-100.png" />
+    <Resource Include="Designer\icons\icons8-picture-in-picture-96.png" />
+    <Resource Include="Designer\icons\icons8-brightness-100.png" />
+    <Resource Include="Designer\icons\icons8-cs-100.png" />
+    <Resource Include="Designer\icons\icons8-group-objects-80.png" />
+    <Resource Include="Designer\icons\icons8-objects-100.png" />
+    <Resource Include="Designer\icons\icons8-particle-editor-96.png" />
+    <Resource Include="Designer\icons\icons8-ungroup-objects-80.png" />
+    <Resource Include="Designer\icons\icons8-term-100.png" />
+    <Resource Include="Designer\icons\icons8-abc-96.png" />
+    <Resource Include="Designer\icons\shape-rectangle-plus-custom.png" />
+    <Resource Include="Designer\icons\shape-rectangle-plus-45d.png" />
+    <Resource Include="Designer\icons\shape-polygon-plus-custom.png" />
+    <Resource Include="Designer\icons\shape-circle-plus-custom.png" />
+    <Resource Include="Designer\icons\icons8-ellipse-32.png" />
+    <Content Include="Designer\Python\AnomalySegmentationDetection\check_gpu.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\AnomalySegmentationDetection\config.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\AnomalySegmentationDetection\dataset.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\AnomalySegmentationDetection\model.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\AnomalySegmentationDetection\train.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\AnomalySegmentationDetection\vgg16.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Designer\Python\AnomalyV3\requirements.txt" />
+    <Content Include="Designer\Python\AnomalyV3\tools\convertOnnx.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\AnomalyV3\tools\inference.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\AnomalyV3\tools\test.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\AnomalyV3\tools\train.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Designer\Python\AnomalyV3\tools\train_printing.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Designer\Python\OCRForDigitsAndCharacters\model.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\OCRForDigitsAndCharacters\trainv1.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\OCRForDigitsAndCharacters\train.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Designer\Python\OCRForDigitsAndCharacters\saved_model\keras_metadata.pb" />
+    <None Include="Designer\Python\OCRForDigitsAndCharacters\saved_model\model.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\OCRForDigitsAndCharacters\saved_model\saved_model.pb" />
+    <None Include="Designer\Python\OCRForDigitsAndCharacters\saved_model\variables\variables.data-00000-of-00001" />
+    <None Include="Designer\Python\OCRForDigitsAndCharacters\saved_model\variables\variables.index" />
+    <None Include="Designer\Python\OCRForDigitsAndCharacters\weights\ocr_resnet50_uint8.pb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\OCR\detection\craft\dataset.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\OCR\detection\craft\model.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\OCR\detection\craft\requirement.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\OCR\detection\craft\train.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\OCR\detection\craft\utils.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\OCR\detection\craft\models\mobilenetv2.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\OCR\detection\craft\models\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Designer\Python\segmentation\segdecnet\input_data\dataset.py" />
+    <Content Include="Designer\Python\segmentation\segdecnet\input_data\image_processing.py" />
+    <Content Include="Designer\Python\segmentation\segdecnet\input_data\input_data_build_image_data_with_mask.py" />
+    <Content Include="Designer\Python\segmentation\segdecnet\input_data\__init__.py" />
+    <Content Include="Designer\Python\segmentation\segdecnet\segdec_data.py" />
+    <Content Include="Designer\Python\segmentation\segdecnet\segdec_model.py" />
+    <Content Include="Designer\Python\segmentation\segdecnet\segdec_print_eval.py" />
+    <Content Include="Designer\Python\segmentation\segdecnet\segdec_train.py" />
+    <Content Include="Designer\Python\segmentation\segdecnet\__init__.py" />
+    <None Include="Designer\Python\OCR\detection\craft\weights\mobilenetv2\keras_metadata.pb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\OCR\detection\craft\weights\mobilenetv2\saved_model.pb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\OCR\detection\craft\weights\mobilenetv2\variables\variables.data-00000-of-00001">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\OCR\detection\craft\weights\mobilenetv2\variables\variables.index">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\OCR\detection\craft\weights\model.onnx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\segmentation\unet\backbone.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Designer\Python\segmentation\unet\config.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Designer\Python\segmentation\unet\configs\resnet50.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\segmentation\unet\configs\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Designer\Python\segmentation\unet\dataset.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Designer\Python\segmentation\unet\evaluate.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Designer\Python\segmentation\unet\model.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Designer\Python\segmentation\unet\requirement.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Designer\Python\segmentation\unet\train.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="Designer\Python\TrainPPOCR.cs" />
+    <Content Include="Designer\Python\WeaklySupervisedAnoNet\config.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\WeaklySupervisedAnoNet\dataset.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\WeaklySupervisedAnoNet\filters.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\WeaklySupervisedAnoNet\initialize_filters.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\WeaklySupervisedAnoNet\loss.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\WeaklySupervisedAnoNet\model.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\WeaklySupervisedAnoNet\optimizer.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\WeaklySupervisedAnoNet\test_initialize_filters.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\WeaklySupervisedAnoNet\train.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\YOLOv3\config.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\YOLOv3\utils.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\YOLOv3\model.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\YOLOv3\common_modules.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\YOLOv3\train.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\YOLOv3\dataset.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\YOLOv3\loss.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\YOLOv3\load_weight.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Designer\Python\segmentation\segdecnet\LICENSE.md" />
+    <None Include="Designer\Python\segmentation\segdecnet\README.md" />
+    <None Include="Designer\Python\segmentation\unet\configs\inceptionv3.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\segmentation\unet\configs\mobilenet.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\segmentation\unet\configs\mobilenetv2.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\segmentation\unet\configs\mobilenetv3large.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\segmentation\unet\configs\mobilenetv3small.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv6\builder_trainer.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv6\common_modules.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv6\config.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv6\dataset.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv6\backbone.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv6\loss.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv6\neck.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv6\head.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv6\model.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv6\optimizer.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv6\train.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv6\utils.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Icons\B TRANG%282%29.doc" />
+    <None Include="Icons\Huy WR-17-03-2017.xls" />
+    <None Include="Icons\Report Interface.docx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\" />
+    <Folder Include="Designer\Python\OCRForDigitsAndCharacters\saved_model\assets\" />
+    <Folder Include="Designer\Python\YOLOv3\weights\" />
+    <Folder Include="Designer\Python\YOLOv4\weights\" />
+    <Folder Include="Designer\Python\YOLOv6\weights\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\fast-forward.png" />
+    <Resource Include="Images\file.png" />
+    <Resource Include="Images\filmstrip.png" />
+    <Resource Include="Images\folder.png" />
+    <Resource Include="Images\gear.png" />
+    <Resource Include="Images\icons8-camera-100.png" />
+    <Resource Include="Images\icons8-change-user-96.png" />
+    <Resource Include="Images\icons8-checked-user-male-100.png" />
+    <Resource Include="Images\icons8-info-100.png" />
+    <Resource Include="Images\icons8-merge-git-100.png" />
+    <Resource Include="Images\icons8-power-off-button-100.png" />
+    <Resource Include="Images\icons8-save-as-100.png" />
+    <Resource Include="Images\icons8-sign-out-100.png" />
+    <Resource Include="Images\icons8-statistics-100.png" />
+    <Resource Include="Images\icons8-user-96.png" />
+    <Resource Include="Images\power-button.png" />
+    <Resource Include="Images\save.png" />
+    <Resource Include="Images\settings.png" />
+    <Resource Include="Images\zoom-in %281%29.png" />
+    <Resource Include="Images\zoom-out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DynamicData">
+      <Version>7.1.16</Version>
+    </PackageReference>
+    <PackageReference Include="Extended.Wpf.Toolkit">
+      <Version>4.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Fluent.Ribbon">
+      <Version>6.1.0.326</Version>
+    </PackageReference>
+    <PackageReference Include="Google.Apis.Drive.v3">
+      <Version>1.55.0.2566</Version>
+    </PackageReference>
+    <PackageReference Include="HalconDotNet">
+      <Version>13.0.4</Version>
+    </PackageReference>
+    <PackageReference Include="InputSimulator">
+      <Version>1.0.4</Version>
+    </PackageReference>
+    <PackageReference Include="MahApps.Metro">
+      <Version>1.6.5</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Data.Sqlite.Core">
+      <Version>3.1.21</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore">
+      <Version>3.1.21</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
+      <Version>3.1.21</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.ML.OnnxRuntime.Gpu">
+      <Version>1.14.0</Version>
+    </PackageReference>
+    <PackageReference Include="morelinq">
+      <Version>3.3.2</Version>
+    </PackageReference>
+    <PackageReference Include="MySql.EntityFrameworkCore">
+      <Version>3.1.19</Version>
+    </PackageReference>
+    <PackageReference Include="NetMQ">
+      <Version>4.0.1.9</Version>
+    </PackageReference>
+    <PackageReference Include="NuGet.CommandLine">
+      <Version>5.9.1</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="NumSharp">
+      <Version>0.30.0</Version>
+    </PackageReference>
+    <PackageReference Include="NvAPIWrapper.Net">
+      <Version>0.8.1.101</Version>
+    </PackageReference>
+    <PackageReference Include="OpenCvSharp4.Windows">
+      <Version>4.6.0.20220608</Version>
+    </PackageReference>
+    <PackageReference Include="ReactiveUI">
+      <Version>13.2.18</Version>
+    </PackageReference>
+    <PackageReference Include="ReactiveUI.WPF">
+      <Version>13.2.18</Version>
+    </PackageReference>
+    <PackageReference Include="RoslynPad.Editor.Windows">
+      <Version>1.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Splat">
+      <Version>11.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="squirrel.windows">
+      <Version>2.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.IO.Compression.ZipFile">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Windows.Interactivity.WPF">
+      <Version>2.0.20525</Version>
+    </PackageReference>
+    <PackageReference Include="WindowsAPICodePack-Shell">
+      <Version>1.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xceed.Wpf.AvalonDock.Themes.VS2013">
+      <Version>2.9.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="YamlDotNet">
+      <Version>11.2.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icons8-save-100.png" />
+    <Resource Include="Icons\icons8-save-100.png" />
+    <Resource Include="Cursors\eraser.cur" />
+    <Resource Include="Designer\icons\icons8-formula-fx-24.png" />
+    <Content Include="Designer\Python\ObjectDetection2\config.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\ObjectDetection2\utils.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\ObjectDetection2\model.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\ObjectDetection2\create_object_detection_model.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\anomalyTrain.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\anomaly_detection_main.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Designer\Python\create_a_new_model_classifier.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Designer\Python\YOLOv4\builder.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv4\common_modules.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv4\config.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv4\dataset.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv4\loss.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv4\model.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv4\optimizer.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv4\train.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Designer\Python\YOLOv4\utils.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DLL\AdvancedHMIDrivers.dll" />
+    <Content Include="DLL\Automation.BDaq4.dll" />
+    <Content Include="DLL\AxInterop.DATABUILDERAXLibEx.dll" />
+    <Content Include="DLL\DALSA.SaperaLT.SapClassBasic.dll" />
+    <Content Include="DLL\Interop.DATABUILDERAXLibEx.dll" />
+    <AdditionalFiles Include="DLL\MXIO_NET.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AdditionalFiles>
+    <Content Include="DLL\MfgControl.AdvancedHMI.Drivers.dll" />
+    <Content Include="DLL\PvDotNet.dll" />
+    <Content Include="DLL\PvGUIDotNet.dll" />
+    <Content Include="DLL\VimbaNET.dll" />
+    <Resource Include="Images\logoCty.png" />
+    <Resource Include="OfficeIcons\icons8-categorize-30.png" />
+    <Resource Include="OfficeIcons\icons8-Collapse-30.png" />
+    <Resource Include="OfficeIcons\icons8-Collapse-48.png" />
+    <Resource Include="OfficeIcons\icons8-color-wheel-40.png" />
+    <Resource Include="OfficeIcons\icons8-Data Backup-40.png" />
+    <Resource Include="OfficeIcons\icons8-Edit-64 %281%29.png" />
+    <Resource Include="OfficeIcons\icons8-Edit-64.png" />
+    <Resource Include="OfficeIcons\icons8-Fit to Width-48.png" />
+    <Resource Include="OfficeIcons\icons8-Fit to Width-50.png" />
+    <Resource Include="OfficeIcons\icons8-ios-app-icon-shape-48.png" />
+    <Resource Include="OfficeIcons\icons8-layer-mask-filled-50.png" />
+    <Resource Include="OfficeIcons\icons8-Lock-48.png" />
+    <Resource Include="OfficeIcons\icons8-particle-48.png" />
+    <Resource Include="OfficeIcons\icons8-Pincode Keyboard-48.png" />
+    <Resource Include="OfficeIcons\icons8-Plus Math-50.png" />
+    <Resource Include="OfficeIcons\icons8-Plus-48.png" />
+    <Resource Include="OfficeIcons\icons8-Refresh-26.png" />
+    <Resource Include="OfficeIcons\icons8-Refresh-50.png" />
+    <Resource Include="OfficeIcons\icons8-sun-50.png" />
+    <Resource Include="OfficeIcons\icons8-sun-filled-50.png" />
+    <Resource Include="OfficeIcons\icons8-support-30.png" />
+    <Resource Include="OfficeIcons\icons8-text-box-48.png" />
+    <Resource Include="OfficeIcons\icons8-Zoom In-50.png" />
+    <Resource Include="OfficeIcons\icons8-Zoom Out-50.png" />
+    <Resource Include="NewUI\close.png" />
+    <Resource Include="NewUI\export-icon.png" />
+    <Resource Include="NewUI\ic-check-box%402x.png" />
+    <Resource Include="NewUI\ic-find-replace%402x.png" />
+    <Resource Include="NewUI\ic-photo-size-select-large%402x.png" />
+    <Resource Include="NewUI\ic-zoom-in%402x.png" />
+    <Resource Include="NewUI\ic-zoom-out%402x.png" />
+    <Resource Include="NewUI\icons8-clear-symbol-filled-40.png" />
+    <Resource Include="NewUI\icons8-color-mode-50.png" />
+    <Resource Include="NewUI\icons8-color-palette-48.png" />
+    <Resource Include="NewUI\icons8-color-wheel-30.png" />
+    <Resource Include="NewUI\icons8-columns-100.png" />
+    <Resource Include="NewUI\icons8-columns-50.png" />
+    <Resource Include="NewUI\icons8-data-backup-48.png" />
+    <Resource Include="NewUI\icons8-data-recovery-48.png" />
+    <Resource Include="NewUI\icons8-line-80.png" />
+    <Resource Include="NewUI\icons8-particle-30.png" />
+    <Resource Include="NewUI\icons8-pull-down-filled-50.png" />
+    <Resource Include="NewUI\icons8-pulse-filled-40.png" />
+    <Resource Include="NewUI\icons8-text-box-50.png" />
+    <Resource Include="NewUI\icons8-wooden-floor-50.png" />
+    <Resource Include="NewUI\import-icon.png" />
+    <Resource Include="NewUI\left_arrow.png" />
+    <Resource Include="NewUI\live-icon.png" />
+    <Resource Include="NewUI\no-vision%402x.png" />
+    <Resource Include="NewUI\paint-brush-1.png" />
+    <Resource Include="NewUI\pencil-1.png" />
+    <Resource Include="NewUI\poligon-icon%402x.png" />
+    <Resource Include="NewUI\r-rectangle-icon%402x.png" />
+    <Resource Include="NewUI\rectangle-icon%402x.png" />
+    <Resource Include="NewUI\region%402x.png" />
+    <Resource Include="NewUI\right_arrow.png" />
+    <Resource Include="NewUI\set_image_to_view_icon.png" />
+    <Resource Include="NewUI\virtual-keyboard.png" />
+    <Resource Include="iOS_Icons\icons8-Add New-64.png" />
+    <Resource Include="iOS_Icons\icons8-Admin Settings Male-50.png" />
+    <Resource Include="iOS_Icons\icons8-administrative-tools-40.png" />
+    <Resource Include="iOS_Icons\icons8-back.png" />
+    <Resource Include="iOS_Icons\icons8-Circled Play-40.png" />
+    <Resource Include="iOS_Icons\icons8-delete-40_filled.png" />
+    <Resource Include="iOS_Icons\icons8-delete-40_new_filed.png" />
+    <Resource Include="iOS_Icons\icons8-forward.png" />
+    <Resource Include="iOS_Icons\icons8-keyboard-30.png" />
+    <Resource Include="iOS_Icons\icons8-learning-filled.png" />
+    <Resource Include="iOS_Icons\icons8-learning.png" />
+    <Resource Include="iOS_Icons\icons8-lipids.png" />
+    <Resource Include="iOS_Icons\icons8-Login-50.png" />
+    <Resource Include="iOS_Icons\icons8-Online-50.png" />
+    <Resource Include="iOS_Icons\icons8-open.png" />
+    <Resource Include="iOS_Icons\icons8-photo-editor.png" />
+    <Resource Include="iOS_Icons\icons8-plus-40.png" />
+    <Resource Include="iOS_Icons\icons8-polygon.png" />
+    <Resource Include="iOS_Icons\icons8-rectangle %281%29.png" />
+    <Resource Include="iOS_Icons\icons8-rectangle.png" />
+    <Resource Include="iOS_Icons\icons8-screenshot.png" />
+    <Resource Include="iOS_Icons\icons8-Shutdown-40.png" />
+    <Resource Include="iOS_Icons\icons8-Shutdown-50.png" />
+    <Resource Include="iOS_Icons\icons8-Sign Out-50 %281%29.png" />
+    <Resource Include="iOS_Icons\icons8-Start-50.png" />
+    <Resource Include="iOS_Icons\icons8-Stop-64.png" />
+    <Resource Include="iOS_Icons\icons8-submit-for-approval.png" />
+    <Resource Include="iOS_Icons\icons8-Tasks-50.png" />
+    <Resource Include="iOS_Icons\icons8-thumbs-down.png" />
+    <Resource Include="iOS_Icons\icons8-thumbs-up.png" />
+    <Resource Include="iOS_Icons\icons8-User Menu Male-64.png" />
+    <Resource Include="iOS_Icons\icons8-video-playlist.png" />
+    <Resource Include="Icons\ABC-40.png" />
+    <Resource Include="Icons\ABC-48.png" />
+    <Resource Include="Icons\About-64 %281%29.png" />
+    <Resource Include="Icons\Add Database-64.png" />
+    <Resource Include="Icons\Add Image-50.png" />
+    <Resource Include="Icons\Align Justify-64.png" />
+    <Resource Include="Icons\Approximately Equal-48.png" />
+    <Resource Include="Icons\Border Color-64.png" />
+    <Resource Include="Icons\Caliper-48.png" />
+    <Resource Include="Icons\Camera-80.png" />
+    <Resource Include="Icons\Camera-96.png" />
+    <Resource Include="Icons\Categorize-50.png" />
+    <Resource Include="Icons\Change User Male-64.png" />
+    <Resource Include="Icons\Checked-64.png" />
+    <Resource Include="Icons\Checkmark-50.png" />
+    <Resource Include="Icons\Checkmark-96.png" />
+    <Resource Include="Icons\Circle Thin-64 %282%29.png" />
+    <Resource Include="Icons\Circle Thin-64.png" />
+    <Resource Include="Icons\Circled Chevron Right Filled-100.png" />
+    <Resource Include="Icons\Close Window-64 %281%29.png" />
+    <Resource Include="Icons\Close Window-64.png" />
+    <Resource Include="Icons\Cloth-100 %282%29.png" />
+    <Resource Include="Icons\Cloth-100 %282%291.png" />
+    <Resource Include="Icons\Cloth-48.png" />
+    <Resource Include="Icons\Clothes Material-50.png" />
+    <Resource Include="Icons\Collage-48.png" />
+    <Resource Include="Icons\Collapse Arrow-96.png" />
+    <Resource Include="Icons\Connected-64.png" />
+    <Resource Include="Icons\Connection Status On-48 %281%29.png" />
+    <Resource Include="Icons\Connection Status On-48.png" />
+    <Resource Include="Icons\cornerstone-3-2016.png" />
+    <Resource Include="Icons\Cursor-64.png" />
+    <Resource Include="Icons\Define Location-48.png" />
+    <Resource Include="Icons\Delete Database-64 %281%29.png" />
+    <Resource Include="Icons\Delete Database-64.png" />
+    <Resource Include="Icons\Delete-50.png" />
+    <Resource Include="Icons\Delete-64.png" />
+    <Resource Include="Icons\Delete-641.png" />
+    <Resource Include="Icons\Delete-96 %281%29.png" />
+    <Resource Include="Icons\Delete-96.png" />
+    <Resource Include="Icons\Disconnected-64.png" />
+    <Resource Include="Icons\Documents Folder-40.png" />
+    <Resource Include="Icons\Down-64.png" />
+    <Resource Include="Icons\Drag List Down-48.png" />
+    <Resource Include="Icons\Edit-25.png" />
+    <Resource Include="Icons\Edit-50.png" />
+    <Resource Include="Icons\Ellipse Stroked-50.png" />
+    <Resource Include="Icons\Ellipse Stroked-64 %282%29.png" />
+    <Resource Include="Icons\Ellipse Stroked-64.png" />
+    <Resource Include="Icons\Error-50.png" />
+    <Resource Include="Icons\Fit to Width-64.png" />
+    <Resource Include="Icons\Full  Image-64.png" />
+    <Resource Include="Icons\Full Image-64 %281%29.png" />
+    <Resource Include="Icons\Full Image-64.png" />
+    <Resource Include="Icons\Full Screen-50.png" />
+    <Resource Include="Icons\full_image.png" />
+    <Resource Include="Icons\Gender Neutral User-64.png" />
+    <Resource Include="Icons\Generic Text-96.png" />
+    <Resource Include="Icons\Globe-104.png" />
+    <Resource Include="Icons\Google Images-96.png" />
+    <Resource Include="Icons\Google Play-64.png" />
+    <Resource Include="Icons\Help-26.png" />
+    <Resource Include="Icons\Help-64.png" />
+    <Resource Include="Icons\Home-64.png" />
+    <Resource Include="Icons\Hospital-64.png" />
+    <Resource Include="Icons\icons8-color-palette-48.png" />
+    <Resource Include="Icons\icons8-color-palette-96.png" />
+    <Resource Include="Icons\icons8-double-tick-48.png" />
+    <Resource Include="Icons\icons8-folder-48.png" />
+    <Resource Include="Icons\icons8-open-48.png" />
+    <Resource Include="Icons\icons8-synchronize-50.png" />
+    <Resource Include="Icons\icons8-unavailable-96.png" />
+    <Resource Include="Icons\Iris Scan-64 %281%29.png" />
+    <Resource Include="Icons\Iris Scan-64 %282%29.png" />
+    <Resource Include="Icons\Iris Scan-64.png" />
+    <Resource Include="Icons\Iris Scan-96.png" />
+    <Resource Include="Icons\Key 2-100.png" />
+    <Resource Include="Icons\Keyboard-64.png" />
+    <Resource Include="Icons\Left-64.png" />
+    <Resource Include="Icons\Line Chart-50.png" />
+    <Resource Include="Icons\Load_file.ico" />
+    <Resource Include="Icons\Maintenance-96.png" />
+    <Resource Include="Icons\mindnode-2-2016.png" />
+    <Resource Include="Icons\Minimize Window-100 %281%29.png" />
+    <Resource Include="Icons\Minimize Window-100.png" />
+    <Resource Include="Icons\Minimize Window-50.png" />
+    <Resource Include="Icons\Minimize Window-64.png" />
+    <Resource Include="Icons\Minus 2 Math-64.png" />
+    <Resource Include="Icons\Minus Math -64.png" />
+    <Resource Include="Icons\Multiple Devices-100.png" />
+    <Resource Include="Icons\NOLogo %281%29.png" />
+    <Resource Include="Icons\Ok-64 %281%29.png" />
+    <Resource Include="Icons\Order History-100.png" />
+    <Resource Include="Icons\Org Unit-48.png" />
+    <Resource Include="Icons\our-vision-cine-glam.ico" />
+    <Resource Include="Icons\our-vision-cine-glam.png" />
+    <Resource Include="Icons\our-vision-cine-glam_resize.ico" />
+    <Resource Include="Icons\our-vision-cine-glam_resize.png" />
+    <Resource Include="Icons\Phone-64.png" />
+    <Resource Include="Icons\Picture-64.png" />
+    <Resource Include="Icons\Play-48.png" />
+    <Resource Include="Icons\Play-64.png" />
+    <Resource Include="Icons\Plus Math-64.png" />
+    <Resource Include="Icons\Polygon-96.png" />
+    <Resource Include="Icons\Radar-48.png" />
+    <Resource Include="Icons\Rectangle Stroked-64 %282%29.png" />
+    <Resource Include="Icons\Rectangle Stroked-64.png" />
+    <Resource Include="Icons\Refresh-64 %282%29.png" />
+    <Resource Include="Icons\Refresh-64.png" />
+    <Resource Include="Icons\RGB Circle 1-48.png" />
+    <Resource Include="Icons\Right-64.png" />
+    <Resource Include="Icons\Rotate Left-64.png" />
+    <Resource Include="Icons\Rotate Right-64.png" />
+    <Resource Include="Icons\Ruler-50 %281%29.png" />
+    <Resource Include="Icons\Ruler-50.png" />
+    <Resource Include="Icons\Save-64.png" />
+    <Resource Include="Icons\Screenshot Filled-100.png" />
+    <Resource Include="Icons\Screenshot-100.png" />
+    <Resource Include="Icons\Screenshot-48.png" />
+    <Resource Include="Icons\Screenshot-64.png" />
+    <Resource Include="Icons\Search-48.png" />
+    <Resource Include="Icons\Search-64.png" />
+    <Resource Include="Icons\Search-96.png" />
+    <Resource Include="Icons\Settings-64 %281%29.png" />
+    <Resource Include="Icons\Settings-64.png" />
+    <Resource Include="Icons\Settings-96.png" />
+    <Resource Include="Icons\Statistics-64.png" />
+    <Resource Include="Icons\Stop-64.png" />
+    <Resource Include="Icons\Support-64.png" />
+    <Resource Include="Icons\Tangent-48.png" />
+    <Resource Include="Icons\Tangent-64.png" />
+    <Resource Include="Icons\Tangent-96.png" />
+    <Resource Include="Icons\Thunderbolt-64.png" />
+    <Resource Include="Icons\Toolbox-96.png" />
+    <Resource Include="Icons\Up-64.png" />
+    <Resource Include="Icons\User Group Man Man-104.png" />
+    <Resource Include="Icons\User Group Man Man-64.png" />
+    <Resource Include="Icons\Waypoint Map-64.png" />
+    <Resource Include="Icons\Whole Hand-64.png" />
+    <Resource Include="Icons\Zoom In-64.png" />
+    <Resource Include="Icons\Zoom Out-64.png" />
+    <Resource Include="Images\icon_reset.png" />
+    <Resource Include="Images\set_image_to_view_icon.png" />
+    <Resource Include="Images\right_arrow.png" />
+    <Resource Include="Images\left_arrow.png" />
+    <Resource Include="Images\icons8-clear-symbol-filled-40.png" />
+    <Resource Include="Images\icons8-data-backup-48.png" />
+    <Resource Include="Images\icons8-data-recovery-48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NodeNetworkToolkit\NodeNetworkToolkit.csproj">
+      <Project>{7bc2124f-8611-435e-97fe-f24f70c41711}</Project>
+      <Name>NodeNetworkToolkit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NodeNetwork\NodeNetwork.csproj">
+      <Project>{1c563f60-6351-49f8-971e-d92a016211b7}</Project>
+      <Name>NodeNetwork</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="BuiltProjectOutputGroupDependencies" DependsOnTargets="$(BuiltProjectOutputGroupDependenciesDependsOn)" Returns="@(BuiltProjectOutputGroupDependency)">
+    <ItemGroup>
+      <BuiltProjectOutputGroupDependency Include="@(ReferenceCopyLocalPaths->'%(FullPath)');&#xD;&#xA;                                          @(ReferenceDependencyPaths->'%(FullPath)');&#xD;&#xA;                                          @(NativeReferenceFile->'%(FullPath)');&#xD;&#xA;                                          @(_DeploymentLooseManifestFile->'%(FullPath)');&#xD;&#xA;                                          @(ResolvedIsolatedComModules->'%(FullPath)');&#xD;&#xA;                                          @(ReferenceComWrappersToCopyLocal->'%(FullPath)')" />
+    </ItemGroup>
+  </Target>
+  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
+    <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
+      <Output TaskParameter="Assemblies" ItemName="myAssemblyInfo" />
+    </GetAssemblyIdentity>
+    <Exec Command="nuget pack NOVisionDesigner.nuspec -Version %(myAssemblyInfo.Version) -Properties Configuration=Release -OutputDirectory $(OutDir) -BasePath $(OutDir)" />
+    <Exec Command="squirrel --releasify $(OutDir)NOVisionDesigner.$([System.Version]::Parse(%(myAssemblyInfo.Version)).ToString(3)).nupkg" />
+  </Target>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,166 @@
+﻿<Window x:Class="NOVisionDesigner.Windows.SettingCameraWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Windows" xmlns:halcon="clr-namespace:HalconDotNet;assembly=halcondotnet" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        SnapsToDevicePixels="True"
+        ResizeMode="NoResize" x:Name="MainWD"
+        WindowStartupLocation="CenterScreen"  WindowState="Normal" WindowStyle="None"
+        Title="SettingCameraWindow" Height="800" Width="1200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Button x:Name="btnStart" Content="{Binding BtnPlayName}" HorizontalAlignment="Left" Width="100"  Click="btnStart_Click"/>
+            <Button Content="X" HorizontalAlignment="Right" Width="100"  Click="btnExit_Click"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.4*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60*"/>
+                    <ColumnDefinition Width="797*"/>
+                </Grid.ColumnDefinitions>
+                <halcon:HSmartWindowControlWPF x:Name="window_display" HInitWindow="window_display_HInitWindow" Grid.ColumnSpan="2"/>
+            </Grid>
+            <Grid Grid.Column="1" Focusable="True" MouseDown="Setting_Grid_MouseDown" x:Name="Setting_Grid">
+                <TabControl>
+                    <TabItem Header="Param">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid Grid.Row="1" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.5*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="Exposure" Grid.Column="0" VerticalAlignment="Top" Margin="8,0,0,0"/>
+                                    <TextBox Text="{Binding Exposure}" Grid.Column="1" MaxHeight="30" VerticalAlignment="Top" MinWidth="100" HorizontalAlignment="Left"/>
+                                </Grid>
+                            </Grid>
+
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Gain" Grid.Column="0" VerticalAlignment="Top" Margin="8,0,0,0"/>
+                                <TextBox Grid.Column="1" MaxHeight="30" VerticalAlignment="Top" MinWidth="100" HorizontalAlignment="Left" Text="{Binding Gain}"/>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Mode">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="33*"/>
+                                    <ColumnDefinition Width="302*"/>
+                                </Grid.ColumnDefinitions>
+                                <GroupBox Header="Trigger" Grid.ColumnSpan="2">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="0.7*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Row="0" Grid.Column="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.5*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Content="Source" Grid.Column="0" VerticalAlignment="Top"/>
+                                            <ComboBox Grid.Column="1" MaxHeight="30" VerticalAlignment="Top" MinWidth="100" HorizontalAlignment="Left" ItemsSource="{Binding Path=SourceList}"  SelectedIndex="{Binding SourceIndex}" >
+
+                                            </ComboBox>
+                                        </Grid>
+
+                                        <Grid Grid.Row="0" Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.5*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Content="Activ" Grid.Column="0" VerticalAlignment="Top" Margin="8,0,0,0"/>
+                                            <ComboBox Grid.Column="1" MaxHeight="30" VerticalAlignment="Top" MinWidth="100" HorizontalAlignment="Left" ItemsSource="{Binding Path=ActivList}"  SelectedIndex="{Binding ActivIndex}">
+                                            </ComboBox>
+                                        </Grid>
+
+                                        <Grid Grid.Row="1" Grid.Column="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.5*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Content="Selector" Grid.Column="0" VerticalAlignment="Top"/>
+                                            <ComboBox Grid.Column="1" MaxHeight="30" VerticalAlignment="Top" MinWidth="100" HorizontalAlignment="Left" ItemsSource="{Binding Path=SelectorList}"  SelectedIndex="{Binding SelectorIndex}">
+                                            </ComboBox>
+                                        </Grid>
+
+                                        <Grid Grid.Row="1" Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.5*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Content="Mode" Grid.Column="0" VerticalAlignment="Top" Margin="8,0,0,0"/>
+                                            <ComboBox Name="cboxMode" IsEnabled="{Binding EnableBtn}" Grid.Column="1" MaxHeight="30" VerticalAlignment="Top" MinWidth="100" HorizontalAlignment="Left" ItemsSource="{Binding Path=TriggerModeList}"  SelectedIndex="{Binding TriggerModeIndex}">
+                                            </ComboBox>
+                                        </Grid>
+
+                                        <Button Click="btnSoftTrigger_Click" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="SW Trigger" HorizontalAlignment="Center" MinHeight="40" VerticalAlignment="Top" />
+
+                                    </Grid>
+                                </GroupBox>
+                            </Grid>
+
+                            <Grid Grid.Row="1">
+                                <GroupBox Header="Aquisition">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0">
+                                            <Grid Grid.Row="1" Grid.Column="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="0.5*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label Content="Mode" Grid.Column="0" VerticalAlignment="Top" Margin="8,0,0,0"/>
+                                                <ComboBox x:Name="cboxAcqMode" IsEnabled="{Binding EnableBtn}" Grid.Column="1" MaxHeight="30" VerticalAlignment="Top" MinWidth="100" HorizontalAlignment="Left" ItemsSource="{Binding Path=AcqModeList}"  SelectedIndex="{Binding AcqModeIndex}">
+                                                </ComboBox>
+                                            </Grid>
+                                        </Grid>
+
+                                        <Grid Grid.Row="1">
+                                        </Grid>
+                                    </Grid>
+                                </GroupBox>
+                            </Grid>
+                        </Grid>
+
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

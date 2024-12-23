@@ -1,0 +1,148 @@
+﻿<UserControl x:Class="NOVisionDesigner.UserControls.AppCommunicationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NOVisionDesigner.UserControls" 
+             xmlns:misc="clr-namespace:NOVisionDesigner.Designer.Misc"
+             xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:reactiveui="http://reactiveui.net"
+             xmlns:novisionService="clr-namespace:NOVisionDesigner.Services" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" FontSize="14">
+    <UserControl.Resources>
+        <misc:InvertBoolToVisibilityCollapse x:Key="BoolToVisibilityCollapse"/>
+        <Style TargetType="Label" x:Key="tagstyle">
+            <Setter Property="Background" Value="{DynamicResource GreenIOS}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=State}" Value="Stopped">
+                    <Setter Property="Background" Value="{DynamicResource RedIOS}"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=State}" Value="Runing">
+                    <Setter Property="Background" Value="WhiteSmoke"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Margin="0">
+                <UniformGrid Columns="2" Margin="0,5">
+                    <Label Content="Services"   Padding="0,5,5,5" />
+                <dx:DropDownButton Content="Add Service" Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Add.svg'}" 
+                                   GlyphHeight="25"
+                                   Padding="2"
+                                   VerticalAlignment="Center" HorizontalAlignment="Right" Cursor="Hand">
+                    <StackPanel Orientation="Vertical">
+
+                        <Button Content="RS Logix Service" Click="btn_add_new_service_Click" 
+                                HorizontalContentAlignment="Left"
+                                
+                                Padding="16,4"></Button>
+                        <Button Content="HostLink UDP Service" Click="btn_add_host_link_udp_Click"
+                                HorizontalContentAlignment="Left"
+                                
+                                Padding="16,4"></Button>
+                        
+                    </StackPanel>
+
+                </dx:DropDownButton>
+                
+
+                </UniformGrid>
+
+                <!--<Rectangle Height="1" Fill="{DynamicResource {x:Static SystemColors.MenuBrushKey}}" />-->
+
+                <Rectangle Height="1" Fill="#20000000" Opacity="0.2" Margin="0"></Rectangle>
+
+
+            </StackPanel>
+        <Border BorderThickness="1" Grid.Row="1" BorderBrush="#20000000">
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ListBox  VirtualizingPanel.IsVirtualizing="True" Padding="0" ScrollViewer.CanContentScroll="False"  
+                                ItemsSource="{Binding Services}"
+                              VirtualizingPanel.VirtualizationMode ="Standard" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  
+                              x:Name="lst_view"    Grid.Column="0" 
+                              BorderBrush="#20000000" Margin="4" VerticalAlignment="Stretch" >
+
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True" >
+                                    <Setter Property="Background" Value="#400082EE" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True" >
+                                    <Setter Property="Background" Value="#40108DF5" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+
+                        <DataTemplate >
+
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" 
+                                        HorizontalAlignment="Stretch" Background="Transparent" Margin="2">
+                                <Grid Background="{x:Null}" HorizontalAlignment="Stretch">
+                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Center" Margin="4,0,25,0">
+                                        <CheckBox 
+                                        VerticalAlignment="Center"
+                                            
+                                        IsChecked="{Binding IsEnabled}"
+                                            
+                                         Template="{DynamicResource CheckBoxControlTemplateFlat}" ></CheckBox>
+                                        <Label Content="{Binding Name}"></Label>
+                                        <Rectangle Width="12"></Rectangle>
+                                            <Label VerticalAlignment="Center" Padding="4,2" Margin="8,0" 
+                                               Style="{DynamicResource tagstyle}"                                               
+                                                Content="{Binding State}">
+
+                                        </Label>
+                                    </StackPanel>
+
+                                    <Button x:Name="btn_remove" Background="Transparent" Margin="2" 
+                                            Padding="4" BorderThickness="0" VerticalAlignment="Center"  
+                                            HorizontalAlignment="Right"  Click="btn_remove_Click">
+                                        <Viewbox Width="15" Height="15">
+                                            <Canvas Width="24" Height="24">
+                                                <Path Fill="{DynamicResource RedIOS}" Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                                            </Canvas>
+                                        </Viewbox>
+                                    </Button>
+                                </Grid>
+
+                            </StackPanel>
+
+
+
+
+                        </DataTemplate>
+
+                    </ListBox.ItemTemplate>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel HorizontalAlignment="Stretch" Margin="0" Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+                <Rectangle Width="1" Fill="Black" Opacity="0.2" Margin="0" HorizontalAlignment="Right"></Rectangle>
+                <reactiveui:ViewModelViewHost x:Name="host" ViewModel="{Binding SelectedItem,ElementName=lst_view}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2" VerticalContentAlignment ="Stretch" HorizontalContentAlignment="Stretch" Grid.Column="1">
+
+                </reactiveui:ViewModelViewHost>
+            </Grid>
+            </Border>
+    </Grid>
+    
+</UserControl>

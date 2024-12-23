@@ -1,0 +1,97 @@
+﻿<Window x:Class="NOVisionDesigner.Designer.Windows.IOMeasurementLinesEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.Windows" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        mc:Ignorable="d"
+        Title="IOMeasurementLinesEditor" Height="350" Width="300" Closed="Window_Closed">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="2">
+                <Label Margin="2" Content="Inputs" HorizontalAlignment="Left"/>
+                <StackPanel Margin="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <!--<Button Margin="2" Background="White" BorderThickness="0" Padding="5" >
+                        <Viewbox Width="18" Height="18">
+                            <Canvas Width="24" Height="24">
+                                <Path Fill="#1e1e1e" Data="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z" />
+                            </Canvas>
+                        </Viewbox>
+                    </Button >
+                    <Button Margin="2" Background="White" BorderThickness="0" Padding="5" >
+                        <Viewbox Width="18" Height="18">
+                            <Canvas Width="24" Height="24">
+                                <Path Fill="#1e1e1e" Data="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z" />
+                            </Canvas>
+                        </Viewbox>
+                    </Button>-->
+                    <Button Margin="2" Background="White" BorderThickness="0" Padding="4"  Click="btn_add_input_Click">
+                        <Viewbox Width="15" Height="15">
+                            <Canvas Width="24" Height="24">
+                                <Path Fill="Black" Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+                            </Canvas>
+                        </Viewbox>
+                    </Button>
+                    <Button Margin="2" Background="White" BorderThickness="0" Padding="4"  Click="btn_remove_input_Click">
+                        <Viewbox Width="15" Height="15">
+                            <Canvas Width="24" Height="24">
+                                <Path Fill="Black" Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                            </Canvas>
+                        </Viewbox>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <ListBox x:Name="lst_inputs" Grid.Row="1" Margin="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid IsEnabled="{Binding Path=IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem }}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <!--<ColumnDefinition Width="1.5*"/>-->
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Margin="0,0,3,0" Text="{Binding Name}"/>
+                            <!--<ComboBox Grid.Column="1"  SelectedItem="{Binding ItemType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=ListType}" DisplayMemberPath="." HorizontalAlignment="Stretch" SelectionChanged="ComboBox_SelectionChanged"/>-->
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+
+
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </Grid>
+        <StackPanel Grid.Row="2" Margin="2,0,2,2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="2,0,2,2" Content="OK" Click="btn_ok_Click"/>
+            <Button Margin="2,0,2,2" Content="Cancel" Click="btn_cancel_Click"/>
+        </StackPanel>
+        <Border x:Name="bd_message" Visibility="Hidden" Grid.Row="0" Grid.RowSpan="2" Width="250" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#fbfbfbfb">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="#ebebebeb">
+                    <TextBlock Margin="5,2,2,2" FontWeight="SemiBold" HorizontalAlignment="Left" Text="Message"/>
+                </Grid>
+                <TextBlock Grid.Row="1" TextWrapping="Wrap" Margin="20,10,20,10" 
+                           Text="Input/Ouput Type cannot be null. Please try again."/>
+                <StackPanel Margin="2" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Margin="2" Content="OK" x:Name="btn_ok_message" Click="btn_ok_message_Click" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

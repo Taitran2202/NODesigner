@@ -1,0 +1,295 @@
+﻿<UserControl x:Class="NOVisionDesigner.Designer.Accquisition.Views.GigEVisionHIKView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NOVisionDesigner.Designer.Accquisition.Views"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:misc="clr-namespace:NOVisionDesigner.Designer.Misc"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="300">
+    <UserControl.Resources>
+        <misc:IntToBoolConverter x:Key="IntToBoolConverter" />
+    </UserControl.Resources>
+    <StackPanel Background="white">
+        <WrapPanel>
+            <Button
+                x:Name="btn_software_trigger"
+                Height="26"
+                Margin="5"
+                Padding="8,2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Command="{Binding TriggerSoftwareCommand}"
+                Click="SoftwareTriggerClick"
+                Content="Software Trigger"
+                FontSize="13"
+                Style="{x:Null}" />
+            <Button
+                x:Name="btn_camera_setting"
+                Height="26"
+                Margin="5"
+                Padding="8,2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Click="btn_camera_setting_click"
+                Content="Camera Setting"
+                FontSize="13"
+                Style="{x:Null}" />
+            <Button
+                x:Name="btn_open_io_window"
+                Height="26"
+                Margin="5"
+                Padding="8,2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Click="btn_camera_setting_click"
+                Content="I/O Setting"
+                FontSize="13"
+                Style="{x:Null}" />
+            <Button
+                x:Name="btn_reload_camera_setting"
+                Height="26"
+                Margin="5"
+                Padding="8,2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Click="btn_reload_camera_setting_Click"
+                Content="Load camera Setting"
+                FontSize="13"
+                Style="{x:Null}" />
+            <Button
+                x:Name="btn_save_camera_setting"
+                Height="26"
+                Margin="5"
+                Padding="8,2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Click="btn_save_camera_setting_Click"
+                Content="Save camera Setting"
+                FontSize="13"
+                Style="{x:Null}" />
+        </WrapPanel>
+        <Grid>
+            <TextBox
+                Margin="5,5,120,5"
+                VerticalAlignment="Stretch"
+                Text="{Binding Device}" />
+            <Button
+                x:Name="btn_select_camera"
+                Height="26"
+                Margin="5"
+                Padding="8,2"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Click="Btn_select_camera_Click"
+                Content="Select Camera"
+                FontSize="13"
+                Style="{x:Null}" />
+
+        </Grid>
+        <Rectangle
+            Height="1"
+            Margin="10,0,0,2"
+            VerticalAlignment="Bottom"
+            Fill="#20000000" />
+        <StackPanel Margin="5,0,0,0" Orientation="Vertical">
+
+
+
+            <Grid>
+                <Label
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Trigger Mode" />
+
+                <dxe:ToggleSwitch
+                    MinWidth="100"
+                    Margin="0"
+                    HorizontalAlignment="Right"
+                    BorderBrush="#FFE4E4E4"
+                    CheckedStateContent="ON"
+                    IsChecked="{Binding TriggerMode, Converter={StaticResource IntToBoolConverter}}"
+                    UncheckedStateContent="OFF" />
+
+            </Grid>
+            
+            <Rectangle
+                Height="1"
+                Margin="5,0,0,0"
+                VerticalAlignment="Bottom"
+                Fill="#20000000" />
+            <Grid>
+                <Label
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Trigger Source" />
+                <dxe:ComboBoxEdit
+                    MinWidth="100"
+                    Margin="0"
+                    HorizontalAlignment="Right"
+                    IsTextEditable="False"
+                    ItemsSource="{Binding LstTriggerSource}"
+                    SelectedItem="{Binding TriggerSource}" />
+
+            </Grid>
+
+          
+            <Rectangle
+                Height="1"
+                Margin="5,0,0,0"
+                VerticalAlignment="Bottom"
+                Fill="#20000000" />
+            <Grid>
+
+                <Label
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Exposure (µs)" />
+                <misc:NumericUpDownWithKeyboard
+                    MinWidth="100"
+                    Margin="0"
+                    HorizontalAlignment="Right"
+                    Minimum="1"
+                    Value="{Binding Exposure}" />
+
+            </Grid>
+            <Rectangle
+                Height="1"
+                Margin="5,0,0,0"
+                VerticalAlignment="Bottom"
+                Fill="#20000000" />
+            <Grid>
+                <Label
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Gain" />
+                <misc:NumericUpDownWithKeyboard
+                    MinWidth="100"
+                    Margin="0"
+                    HorizontalAlignment="Right"
+                    Minimum="0.1"
+                    Value="{Binding Gain}" />
+
+            </Grid>
+            
+            <Grid>
+                <Label
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Top" />
+                <misc:NumericUpDownWithKeyboard
+                    MinWidth="100"
+                    Margin="0"
+                    HorizontalAlignment="Right"
+                    Minimum="0"
+                    Value="{Binding Top}" />
+
+            </Grid>
+            <Grid>
+                <Label
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Left" />
+                <misc:NumericUpDownWithKeyboard
+                    MinWidth="100"
+                    Margin="0"
+                    HorizontalAlignment="Right"
+                    Minimum="0"
+                    Value="{Binding Left}" />
+
+            </Grid>
+            <Grid>
+                <Label
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Width" />
+                <misc:NumericUpDownWithKeyboard
+                    MinWidth="100"
+                    Margin="0"
+                    HorizontalAlignment="Right"
+                    Minimum="1"
+                    Value="{Binding Width}" />
+
+            </Grid>
+            <Grid>
+                <Label
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Height" />
+                <misc:NumericUpDownWithKeyboard
+                    MinWidth="100"
+                    Margin="0"
+                    HorizontalAlignment="Right"
+                    Minimum="1"
+                    Value="{Binding Height}" />
+
+            </Grid>
+
+        </StackPanel>
+        <TextBlock
+            Margin="5,5,0,5"
+            FontFamily="Segoe UI Semibold"
+            FontSize="13"
+            Text="Record Option" />
+        <StackPanel Margin="10,0,0,0">
+
+            <Grid Margin="2,0">
+                <CheckBox
+                    x:Name="chk_sub_speed"
+                    Margin="0"
+                    Content="Record to sub folder base on speed"
+                    IsChecked="{Binding RecordOnSpeed}" />
+                <misc:NumericUpDownWithKeyboard
+                    x:Name="num_transition_speed"
+                    MinWidth="120"
+                    HorizontalAlignment="Right"
+                    Template="{DynamicResource NumericUpDownFlatWithKeyoard}"
+                    Value="{Binding TransitionSpeed}" />
+
+
+            </Grid>
+            <Grid Margin="2,0">
+
+                <CheckBox
+                    x:Name="chk_speed_low"
+                    Margin="0"
+                    HorizontalAlignment="Left"
+                    Content="Only record image when speed higher than "
+                    IsChecked="{Binding RecordOnMinimum}" />
+                <misc:NumericUpDownWithKeyboard
+                    x:Name="num_minimum_speed"
+                    MinWidth="120"
+                    HorizontalAlignment="Right"
+                    Template="{DynamicResource NumericUpDownFlatWithKeyoard}"
+                    Value="{Binding MinimumSpeed}" />
+            </Grid>
+            <Grid Margin="2,0">
+
+                <CheckBox
+                    x:Name="chk_speed_low_data"
+                    Margin="0,0,2,0"
+                    HorizontalAlignment="Left"
+                    Content="Only record Database when speed higher than"
+                    IsChecked="{Binding RecordDataOnMinimum}" />
+                <misc:NumericUpDownWithKeyboard
+                    x:Name="num_minimum_data_speed"
+                    MinWidth="120"
+                    HorizontalAlignment="Right"
+                    Template="{DynamicResource NumericUpDownFlatWithKeyoard}"
+                    Value="{Binding MinimumDataSpeed}" />
+            </Grid>
+        </StackPanel>
+
+
+    </StackPanel>
+</UserControl>

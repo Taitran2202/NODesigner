@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="NOVisionDesigner.Designer.PropertiesViews.TimerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.PropertiesViews"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+        xmlns:misc2="clr-namespace:NOVisionDesigner.Designer.Misc" 
+        xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+        mc:Ignorable="d"
+        d:DesignHeight="1000" d:DesignWidth ="600"  FontSize="14" Foreground="Black" MinWidth="300" Background="White">
+    <Grid Margin="0">
+        <StackPanel VerticalAlignment="Top">
+            <Border Background="#FFF3F3F3" Height="5" BorderBrush="#7FCFCFCF" BorderThickness="0,1" Margin="0,5"></Border> 
+            <Grid Margin="2,0,5,0">
+                <TextBlock Text="Timer Block" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                <dx:SimpleButton Click="Button_Click" Height="30" ToolTip="Add new timer" VerticalAlignment="Top" HorizontalAlignment="Right"  Width="30" Padding="2" Margin="0,0,2,0" Glyph="{dx:DXImage Office2013/Actions/Add_32x32.png}"/>
+            </Grid>
+        </StackPanel>
+        <ScrollViewer Margin="5,50,5,5" VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="lst_timer" FontFamily="Segoe UI Light" >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="{DynamicResource {x:Static SystemColors.MenuBrushKey}}" Background="#FFFBFBFB" BorderThickness="1" Margin="2">
+                            <Grid >
+                                <StackPanel>
+                                    <Grid Margin="5,0,0,0" >
+                                        <dx:SimpleButton x:Name="btn_remove" Width="30" Height="25" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Button_Remove_Click" Padding="6,2" Glyph="{dx:DXImage SvgImages/Outlook Inspired/Delete.svg}" Margin="0,-1,10,0"  />
+
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                            <!--<CheckBox IsChecked="{Binding IsEnabled}"   Margin="5,5,0,5" HorizontalAlignment="Left"/>-->
+                                            <Label Content="Timer name" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,5,5,5"/>
+                                            <misc2:TextboxWithKeyboard Text="{Binding TimerName, FallbackValue=Timer1}" IsEnabled="{Binding IsEditable, FallbackValue=IsEditable}" HorizontalContentAlignment="Left" Height="26" Foreground="Black"   VerticalAlignment="Center" Margin="0,5" Grid.ColumnSpan="1" FontWeight="Normal" TextOptions.TextHintingMode="Animated" MinHeight="0" VerticalContentAlignment="Center" BorderBrush="Gainsboro" MinWidth="150" />
+
+                                        </StackPanel>
+                                    </Grid>
+                                    <StackPanel Orientation="Horizontal" Margin="10,5,5,8" VerticalAlignment="Center">
+
+                                        <Label Content="Due Time" Margin="0,0,5,0"/>
+                                        <dxe:SpinEdit IsEnabled="{Binding isStop}" EditValueChanged="DueTime_EditValueChanged" Margin="0,0,150,0" Value="{Binding DueTime}" MinValue="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MinWidth="50" MaxWidth="100" MaxValue="100000" Increment="1" Width="Auto"/>
+
+                                        <Label Content="Period Time" Margin="0,0,5,0"/>
+                                        <dxe:SpinEdit IsEnabled="{Binding isStop}" EditValueChanged="PeriodTime_EditValueChanged" Value="{Binding PeriodTime}" MinValue="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MinWidth="50" MaxWidth="100" MaxValue="100000" Increment="1" Width="Auto"/>
+
+                                    </StackPanel>
+                                    <Grid Margin="10,5,5,10">
+                                        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal">
+                                            <Label Content="Timer Event" VerticalAlignment="Top" Margin="0,0,15,0" HorizontalAlignment="Left" FontFamily="Segoe UI Light"/>
+                                            <Button Content="Start" Click="btn_Start_Click" IsEnabled="{Binding isStop}">
+                                            </Button>
+                                            <Button Content="Stop" Foreground="Red" Click="btn_Stop_Click" IsEnabled="{Binding isStart}">
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid Margin="10,5,10,8">
+                                        <dxc:ChartControl x:Name="chart" BoundDataChanged="chart_BoundDataChanged">
+                                            <!--<dxc:ChartControl.DataContext>
+                                                <local:ChartViewModel/>
+                                            </dxc:ChartControl.DataContext>-->
+                                            <dxc:ChartControl.Titles>
+                                                <dxc:Title Content="Signal of Output" FontSize="15"/>
+                                            </dxc:ChartControl.Titles>
+                                            <dxc:XYDiagram2D x:Name="diagram" DependentAxesYRange="True">
+                                                <dxc:SplineSeries2D DisplayName="Series 1" DataSource="{Binding DataPoints}" ArgumentDataMember="Argument" ValueDataMember="Value" >
+                                                </dxc:SplineSeries2D>
+                                                <dxc:XYDiagram2D.AxisX>
+                                                    <dxc:AxisX2D>
+                                                        <dxc:AxisX2D.DateTimeScaleOptions>
+                                                            <dxc:ContinuousDateTimeScaleOptions/>
+                                                        </dxc:AxisX2D.DateTimeScaleOptions>
+                                                    </dxc:AxisX2D>
+                                                </dxc:XYDiagram2D.AxisX>
+                                                <dxc:XYDiagram2D.AxisY>
+                                                    <dxc:AxisY2D>
+                                                        <dxc:AxisY2D.WholeRange>
+                                                            <dxc:Range dxc:AxisY2D.AlwaysShowZeroLevel="False"/>
+                                                        </dxc:AxisY2D.WholeRange>
+                                                    </dxc:AxisY2D>
+                                                </dxc:XYDiagram2D.AxisY>
+                                            </dxc:XYDiagram2D>
+                                        </dxc:ChartControl>
+
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        
+    </Grid>
+ </UserControl>
+

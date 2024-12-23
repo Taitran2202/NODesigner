@@ -1,0 +1,127 @@
+﻿<dx:ThemedWindow x:Class="NOVisionDesigner.Designer.Windows.WindowNurbs"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.Windows"
+        mc:Ignorable="d"
+        xmlns:halcondotnet="clr-namespace:HalconDotNet;assembly=halcondotnet" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:misc="clr-namespace:NOVisionDesigner.Designer.ValueConverters"
+                 Title="WindowNurbs" Height="609.348" Width="658.499" 
+        FontSize="14"
+        WindowStyle="None"
+        WindowState="Maximized"
+        Closing="Window_Closing" 
+        ContentRendered="Window_ContentRendered">
+    <dx:ThemedWindow.Resources>
+        <misc:InverseBooleanConverter x:Key="InverseBooleanConverter"></misc:InverseBooleanConverter>
+    </dx:ThemedWindow.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" Width="250">
+            <Border Padding="16" >
+                <StackPanel>
+                    <UniformGrid Margin="4" Columns="2"  VerticalAlignment="Stretch" 
+                                 IsEnabled="{Binding IsDraw,Converter={StaticResource InverseBooleanConverter}}"
+                                 HorizontalAlignment="Center">
+                        <dx:SimpleButton Content="Zoom In"
+                                             Click="btn_zoom_in_Click"
+                                             Padding="16"
+                                             GlyphAlignment="Top"
+                                 Glyph="{dx:DXImage 'SvgImages/Zoom/ZoomIn.svg'}"
+                                 ></dx:SimpleButton>
+
+                        <dx:SimpleButton Content="Zoom Out"
+                                             Click="btn_zoom_out_Click"
+                                             Padding="16"
+                                             GlyphAlignment="Top"
+                                 Glyph="{dx:DXImage 'SvgImages/Zoom/ZoomOut.svg'}"
+                                 ></dx:SimpleButton>
+
+                       
+                    </UniformGrid>
+                    <UniformGrid Margin="4" IsEnabled="{Binding IsDraw}" Columns="2"  VerticalAlignment="Stretch" HorizontalAlignment="Center">
+                        <dx:SimpleButton 
+                                         Padding="16"
+                                             GlyphAlignment="Top"
+                                         
+                                         Glyph="{dx:DXImage 'SvgImages/Chart/ChartType_RadarLine.svg'}"
+                                             Click="btn_change_edit_mode_Click">
+                            <dx:SimpleButton.Content>
+                                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" 
+                                           HorizontalAlignment="Center" Text="Change Edit Mode" ></TextBlock>
+                            </dx:SimpleButton.Content>
+                        </dx:SimpleButton>
+                        <dx:SimpleButton 
+                                         Padding="16"
+                                             GlyphAlignment="Top"
+                                        
+                                         Glyph="{dx:DXImage 'SvgImages/Outlook Inspired/MarkComplete.svg'}"
+                                             Click="btn_finish_drawing_Click">
+                            <dx:SimpleButton.Content>
+                                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" 
+                                           HorizontalAlignment="Center" Text="Finish Draw" ></TextBlock>
+                            </dx:SimpleButton.Content>
+                        </dx:SimpleButton>
+                    </UniformGrid>
+                    <StackPanel IsEnabled="{Binding IsDraw,Converter={StaticResource InverseBooleanConverter}}">
+                        
+                        
+                        <Rectangle Height="16"></Rectangle>
+                        <TextBlock Foreground="{DynamicResource YellowIOS}" FontSize="18" Text="Right click to finish drawing."></TextBlock>
+                        <TextBlock FontSize="18" TextWrapping="Wrap" Text="Press Shift to toggle zoom and edit mode."></TextBlock>
+                        <Rectangle Height="16"></Rectangle>
+                        <UniformGrid Columns="2">
+                            <dx:SimpleButton 
+                                Glyph="{dx:DXImage 'SvgImages/XAF/Action_Inline_Edit.svg'}"
+                                Click="btn_edit_Click"
+                                GlyphAlignment="Top"
+                                Padding="16"
+                                Content="Edit"></dx:SimpleButton>
+                            
+                            <dx:SimpleButton
+                                 GlyphAlignment="Top"
+                                Click="btn_reset_Click"
+                                Padding="16"
+                                Glyph="{dx:DXImage 'SvgImages/Outlook Inspired/ResetView.svg'}"
+                                Content="Reset"></dx:SimpleButton>
+
+                        </UniformGrid>
+                        <Rectangle Height="1" Fill="#20ffffff" Margin="0,16"></Rectangle>
+                        <StackPanel Orientation="Vertical">
+                            <dx:SimpleButton 
+                                Glyph="{dx:DXImage 'SvgImages/XAF/Demo_Security_FullAccess.svg'}"
+                                Click="btn_accept_Click"
+                                GlyphAlignment="Top"
+                                Padding="16"
+                                Content="Accept and close"></dx:SimpleButton>
+                            <Rectangle Height="16"></Rectangle>
+                            <dx:SimpleButton
+                                 GlyphAlignment="Top"
+                                Click="btn_cancel_Click"
+                                Padding="16"
+                                Glyph="{dx:DXImage 'SvgImages/Outlook Inspired/Cancel.svg'}"
+                                Content="Cancel"></dx:SimpleButton>
+
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            
+
+            <halcondotnet:HWindowControlWPF x:Name="window_display" 
+                                            HMouseWheel="window_display_HMouseWheel"
+                                            Grid.Row="1"
+                                            HInitWindow="window_display_HInitWindow"  Margin="0,0,0,0"/>
+        </Grid>
+        
+    </Grid>
+</dx:ThemedWindow>

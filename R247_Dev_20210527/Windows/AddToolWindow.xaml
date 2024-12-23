@@ -1,0 +1,25 @@
+﻿<dx:ThemedWindow x:Class="NOVisionDesigner.Windows.AddToolWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Windows" xmlns:controls="clr-namespace:NOVisionDesigner.Designer.Controls" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        mc:Ignorable="d"
+        Title="AddToolWindow" Height="600" ShowGlow="False" Width="800" FontSize="14"  WindowStartupLocation="CenterScreen">
+    <dx:BackgroundPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <controls:NodeGrid Focusable="True" x:Name="nodeGrid"/>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="8">
+                <dx:SimpleButton x:Name="btn_add_node" 
+                             Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Add.svg'}"
+                             Content="Add" Margin="2" />
+
+            </StackPanel>
+        </Grid>
+    </dx:BackgroundPanel>
+    
+</dx:ThemedWindow>

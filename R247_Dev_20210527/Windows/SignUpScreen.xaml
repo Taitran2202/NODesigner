@@ -1,0 +1,50 @@
+﻿<Window x:Class="NOVisionDesigner.Windows.SignUpScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Windows" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:UserControls="clr-namespace:NOVisionDesigner.Designer.Controls"
+        mc:Ignorable="d"
+        SnapsToDevicePixels="True"
+        ResizeMode="NoResize" x:Name="MainWD"
+        WindowStartupLocation="CenterScreen"  WindowState="Normal" WindowStyle="None"
+        Title="LoginScreen"  Height="673.767" Width="400" AllowsTransparency="True"    Topmost="False">
+    <Border BorderThickness="0.5" BorderBrush="LightGray">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0"></ColumnDefinition>
+                <ColumnDefinition Width="400"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Background="#F2F2F2"></Grid>
+            <Grid Grid.Column="1" >
+                <Button x:Name="btn_expander" Click="btn_expander_Click" Cursor="Hand" Background="White" VerticalAlignment="Top" HorizontalAlignment="Right"  BorderBrush="{x:Null}" BorderThickness="0" Height="32"  >
+                    <Path Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" Fill="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Fill" Width="10" Height="10" />
+                </Button>
+                <Grid Margin="48">
+                    <StackPanel>
+                        <Grid Height="48" >
+                            <Image Width="50" RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Left" Source="/NOVISION Designer;component/Icons/New Ocean Group logo-black_cut.png" VerticalAlignment="Center" Margin="1,0,0,0"/>
+                            <TextBlock VerticalAlignment="Center" Margin="10,0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="14" Foreground="#1A1A1A" Text="NOVISION DESIGNER"></TextBlock>
+                        </Grid>
+                        <TextBlock Text="Sign Up Now" FontSize="20" FontWeight="Bold" LineHeight="28" Margin="0,16" HorizontalAlignment="Center"></TextBlock>
+                        <TextBlock Text="Name" LineHeight="12" FontSize="11"  Foreground="#333333" Margin="16,8"></TextBlock>
+                        <dxe:TextEdit Text="{Binding FullName}" Padding="16,0" TextBlock.LineHeight="20" FontSize="15" Height="48" NullText="Enter name"  Background="#F2F2F2" BorderBrush="#E5E5E5" BorderThickness="0.5"></dxe:TextEdit>
+                        <TextBlock Text="Username" LineHeight="12" FontSize="11"  Foreground="#333333" Margin="16,8"></TextBlock>
+                        <dxe:TextEdit Text="{Binding UserName}" Padding="16,0" TextBlock.LineHeight="20" FontSize="15" Height="48" NullText="Enter username"  Background="#F2F2F2" BorderBrush="#E5E5E5" BorderThickness="0.5"></dxe:TextEdit>
+                        <TextBlock Text="Password" LineHeight="12" FontSize="11"  Foreground="#333333" Margin="16,16,16,8"></TextBlock>
+                        <dxe:PasswordBoxEdit Text="{Binding Password}" EditValueChanged="PasswordBoxEdit_EditValueChanged"  Padding="16,0" TextBlock.LineHeight="20" Height="48" FontSize="15" NullText="Enter password" Background="#F2F2F2" BorderBrush="#E5E5E5" BorderThickness="0.5"></dxe:PasswordBoxEdit>
+                        <TextBlock Text="Enter Password Again" LineHeight="12" FontSize="11"  Foreground="#333333" Margin="16,16,16,8"></TextBlock>
+                        <dxe:PasswordBoxEdit x:Name="re_enter_password_edit" EditValueChanged="ReEnterPasswordBoxEdit_EditValueChanged" Text="{Binding ReEnterPassword, UpdateSourceTrigger=PropertyChanged}" Padding="16,0" TextBlock.LineHeight="20" Height="48" FontSize="15" NullText="Enter password again" Background="#F2F2F2" BorderBrush="#E5E5E5" BorderThickness="0.5"></dxe:PasswordBoxEdit>
+                        <Button x:Name="btn_sign_up" IsEnabled="False" Background="{DynamicResource BlueIOS}" Click="Button_Click" Style="{DynamicResource ButtonGlowNewNoBorder}" Foreground="White" Margin="0,16" Height="40" Content="Sign up" VerticalAlignment="Stretch"></Button>
+                        <Rectangle Height="0.5" Fill="#E5E5E5"></Rectangle>
+
+                        <dxe:HyperlinkEdit HorizontalAlignment="Center" RequestNavigation="HyperlinkEdit_RequestNavigation"  Foreground="#007AFF" Text="Back to Login" Grid.ColumnSpan="2"></dxe:HyperlinkEdit>
+                    </StackPanel>
+                    <Grid VerticalAlignment="Bottom" Margin="0,0">
+                        <TextBlock HorizontalAlignment="Right" Margin="4" FontSize="12" Foreground="#666666" LineHeight="16" Text="© New Ocean ICDC"></TextBlock>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

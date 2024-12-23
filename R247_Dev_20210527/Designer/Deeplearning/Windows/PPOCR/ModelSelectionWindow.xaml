@@ -1,0 +1,29 @@
+﻿<dx:ThemedWindow  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="NOVisionDesigner.Designer.Deeplearning.Windows.PPOCR.ModelSelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.Deeplearning.Windows.PPOCR" xmlns:nodes="clr-namespace:NOVisionDesigner.Designer.Nodes"
+        mc:Ignorable="d"
+        Title="ModelSelectionWindow" Height="200" Width="600" FontSize="14">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="Model" Padding="8,0" VerticalContentAlignment="Center" Background="{DynamicResource BlackIOS}" Foreground="White"/>
+            <Rectangle Width="2"></Rectangle>
+            <ComboBox x:Name="cmb_model" SelectedIndex="0" >
+                <nodes:PPOCRRecognitionModel>Small</nodes:PPOCRRecognitionModel>
+                <nodes:PPOCRRecognitionModel>Large</nodes:PPOCRRecognitionModel>
+                <nodes:PPOCRRecognitionModel>Parseg</nodes:PPOCRRecognitionModel>
+            </ComboBox>
+        </StackPanel>
+        <UniformGrid Grid.Row="1" Columns="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="btn_ok" BorderBrush="LightGray" BorderThickness="1"  Margin="2" Padding="16,4" Style="{DynamicResource ButtonHighContrast}" Content="OK" Click="btn_ok_Click"></Button>
+            <Button x:Name="btn_cancel"  BorderBrush="LightGray" Margin="2" BorderThickness="1" Padding="16,4" Style="{DynamicResource ButtonHighContrast}" Content="CANCEL" Click="btn_cancel_Click"></Button>
+        </UniformGrid>
+
+    </Grid>
+</dx:ThemedWindow>

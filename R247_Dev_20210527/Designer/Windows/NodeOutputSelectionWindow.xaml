@@ -1,0 +1,119 @@
+﻿<dx:ThemedWindow  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+                  x:Class="NOVisionDesigner.Designer.Windows.NodeOutputSelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.Windows"
+        xmlns:converters ="clr-namespace:NOVisionDesigner.Designer.ValueConverters"
+        xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+        mc:Ignorable="d"
+        FontSize="14"
+                  ShowGlow="False"
+                  WindowStyle="ToolWindow"
+        WindowStartupLocation="CenterScreen"
+        Title="NodeOutputSelectionWindow" Height="450" Width="800">
+    <dx:ThemedWindow.Resources>
+        <converters:BoolToVisibilityCollapse x:Key="BoolToVisibilityConverter"></converters:BoolToVisibilityCollapse>
+        <Style x:Key="TreeViewItemFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ExpandCollapseToggleStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Width" Value="19"/>
+            <Setter Property="Height" Value="13"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <!--<Border Width="19" Height="13" Background="Transparent">
+                            <Border Width="9" Height="9" SnapsToDevicePixels="true" BorderBrush="#FF7898B5" BorderThickness="1" CornerRadius="1">
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                                        <GradientStop Color="White" Offset=".2"/>
+                                        <GradientStop Color="#FFC0B7A6" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Path x:Name="ExpandPath" Fill="Black" Margin="1,1,1,1" Data="M11.303 8l11.394 7.997L11.303 24z"/>
+                            </Border>
+                        </Border>-->
+                        <Viewbox SnapsToDevicePixels="true" Width="13" Height="13" >
+                            <Canvas Width="24" Height="24"  >
+                                <Path x:Name="ExpandPath" Fill="Black" Margin="1,1,1,1" Data="M11.303 8l11.394 7.997L11.303 24z"/>
+                            </Canvas>
+                        </Viewbox>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Data" TargetName="ExpandPath" Value="M24 11.305l-7.997 11.39L8 11.305z"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type TreeViewItem}">
+
+        </Style>
+    </dx:ThemedWindow.Resources>
+    
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*">
+                
+            </RowDefinition>
+            <RowDefinition Height="auto">
+
+            </RowDefinition>
+        </Grid.RowDefinitions>
+        <TreeView Name="tv_search" >
+            
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type local:NodeInfo}"  ItemsSource="{Binding Members}">
+                    <StackPanel Orientation="Horizontal">
+                       
+                        <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="SemiBold"/>
+                       
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+                <DataTemplate DataType="{x:Type local:NodeOutputInfo}">
+                    <Border 
+                            
+                            Padding="4,2">
+                        
+                    
+                    <Grid >
+                        <Label Content="{Binding Name}" />
+                        <Border Margin="0,0"
+                                Padding="8,0"
+                                CornerRadius="5"
+                                Visibility="{Binding IsConnected,Converter={dxmvvm:BooleanToVisibilityConverter}}"
+                                Background="{DynamicResource GreenIOS}"
+                               HorizontalAlignment="Right">
+                            <Label Content="Connected" 
+                               
+                               Foreground="WhiteSmoke"
+                                ></Label>
+                        </Border>
+                        
+                    </Grid>
+                    </Border>
+                </DataTemplate>
+            </TreeView.Resources>
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="True" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                </Style>
+            </TreeView.ItemContainerStyle>
+        </TreeView>
+        <UniformGrid Grid.Row="1" Columns="2">
+            <Button x:Name="btn_ok" Click="btn_ok_Click" Content="OK" Padding="16,8"></Button>
+            <Button x:Name="btn_cancel" Click="btn_cancel_Click" Content="CANCEL"></Button>
+        </UniformGrid>
+    </Grid>
+</dx:ThemedWindow>

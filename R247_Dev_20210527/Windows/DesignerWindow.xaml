@@ -1,0 +1,204 @@
+﻿<dx:ThemedWindow xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"  x:Class="NOVisionDesigner.Windows.DesignerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:camera="clr-namespace:NOVisionDesigner.Designer.Windows.GigeCameraUserControl"
+        xmlns:vm="clr-namespace:NOVisionDesigner.ViewModel"
+        xmlns:local="clr-namespace:NOVisionDesigner.Windows" xmlns:nodeList="clr-namespace:NodeNetwork.Toolkit.NodeList;assembly=NodeNetworkToolkit" xmlns:halcon="clr-namespace:HalconDotNet;assembly=halcondotnet" xmlns:nodenetwork="clr-namespace:NodeNetwork.Views;assembly=NodeNetwork" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:controls="clr-namespace:NOVisionDesigner.Designer.Controls" xmlns:converters="clr-namespace:NOVisionDesigner.Designer.Misc"
+        xmlns:nodes="clr-namespace:NOVisionDesigner.Designer" xmlns:breadcrumbBar="clr-namespace:NodeNetwork.Toolkit.BreadcrumbBar;assembly=NodeNetworkToolkit" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxbt="clr-namespace:DevExpress.Xpf.Bars.Themes;assembly=DevExpress.Xpf.Core.v19.2" 
+        mc:Ignorable="d"
+        SnapsToDevicePixels="True"
+         x:Name="MainWD"
+        WindowStartupLocation="CenterScreen"  WindowState="Maximized"  ShowGlow="False"
+                 FontSize="14"
+        Title="DesignerWindow" Height="800" Width="1200">
+    <Window.Resources>
+        <Style TargetType="{x:Type dxb:BarButtonItem}" >
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontSize="14"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type dxb:BarSubItem}" >
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontSize="14"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type dxb:BarCheckItem}" >
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontSize="14"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="{dxbt:BarControlThemeKey ResourceKey=BarContentStyle,IsThemeIndependent=True}" TargetType="{x:Type ContentControl}">
+
+        </Style>
+        <Style x:Key="{dxbt:BarControlThemeKey ResourceKey=MainMenuContentStyle, IsThemeIndependent=True}" TargetType="{x:Type ContentControl}"/>
+        <Style x:Key="{dxbt:BarControlThemeKey ResourceKey=StatusBarContentStyle, IsThemeIndependent=True}" TargetType="{x:Type ContentControl}"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:TypeVisibilityCheck x:Key="TypeCheckToVisibility"/>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Ctrl" Key="C" Command="{Binding copygroupCommand}" CommandParameter="{Binding ElementName=MainWD}"/>
+        <KeyBinding Modifiers="Ctrl" Key="V" Command="{Binding pastegroupCommand}" CommandParameter="{Binding ElementName=MainWD}"/>
+    </Window.InputBindings>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}"  CommandParameter="{Binding ElementName=MainWD}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <dxb:BarManager>
+            <dxb:BarManager.Bars    >
+                <dxb:Bar Caption="File"  IsMainMenu="True" GlyphSize="Large">
+                    <dxb:BarSubItem Content="File" TextBlock.FontSize="14">
+                        <dxb:BarButtonItem  Content="Save" ItemClick="BarButtonItem_ItemClick_1" Glyph="{dx:DXImage Image=Save_16x16.png}"/>
+                        <dxb:BarButtonItem  Content="Reset position" ItemClick="btn_reset_position_Click" Glyph="{dx:DXImage Image=Save_16x16.png}"/>
+                        <dxb:BarButtonItem  Content="Clear unused nodes" ItemClick="btn_clean_unused_node_Click" Glyph="{dx:DXImage Image=Save_16x16.png}"/>
+                    </dxb:BarSubItem>
+                    <dxb:BarSubItem x:Name="lst_node" Content="Node" ItemLinksSource="{Binding}"   >
+
+                        <dxb:BarSubItem.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl>
+                                    <dxb:BarSubItem  Content="{Binding Name}" >
+                                        <dxb:BarCheckItem CloseSubMenuOnClick="False"
+                                   Content="Display"
+                                    IsChecked="{Binding ShowDisplay}"/>
+                                        <dxb:BarButtonItem Content="Export" ItemClick="btn_export_node_click"></dxb:BarButtonItem>
+                                        <dxb:BarButtonItem Content="Import" ItemClick="btn_import_node_click"></dxb:BarButtonItem>
+                                    </dxb:BarSubItem>
+
+                                </ContentControl>
+                            </DataTemplate>
+                        </dxb:BarSubItem.ItemTemplate>
+
+
+                    </dxb:BarSubItem>
+                    <dxb:BarSubItem Content="Run">
+                        <dxb:BarButtonItem  Content="New" Glyph="{dx:DXImage Image=Play_16x16.png}"/>
+                    </dxb:BarSubItem>
+                    <dxb:BarSubItem Content="Windows" ItemLinksSource="{Binding ElementName=dock,Path=ClosedPanels}">
+                        <dxb:BarSubItem.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl>
+                                    <dxb:BarButtonItem 
+                                    Content="{Binding Caption}" ItemClick="BarButtonItem_ItemClick"
+                                    />
+                                </ContentControl>
+                            </DataTemplate>
+                        </dxb:BarSubItem.ItemTemplate>
+                    </dxb:BarSubItem>
+                </dxb:Bar>
+            </dxb:BarManager.Bars>
+            <!--<dxb:ToolBarControl >
+                <dxb:BarCheckItem Content="Bold"/>
+                <dxb:BarCheckItem Content="Italic"/>
+                <dxb:BarCheckItem Content="Underline"/>
+            </dxb:ToolBarControl>-->
+        </dxb:BarManager>
+        <dxdo:DockLayoutManager x:Name="dock" Grid.Row="1"  AutoHideExpandMode="MouseDown">
+            
+            
+            <dxdo:LayoutGroup Caption="LayoutRoot" >
+
+
+                <dxdo:LayoutGroup ItemWidth="150"  Orientation="Vertical"  >
+                    
+                    
+                    <dxdo:LayoutPanel  Caption="Tools"  MinWidth="100"   AllowClose="False" ShowCloseButton="False" AllowMaximize="False" ShowMaximizeButton="False" >
+
+                        <controls:NodeList Focusable="True" LostFocus="nodeList_LostFocus" x:Name="nodeList"  />
+
+                    </dxdo:LayoutPanel>
+                </dxdo:LayoutGroup>
+                <dxdo:LayoutGroup Grid.Column="2" ItemWidth="*" ItemHeight="*" Orientation="Vertical">
+
+                    <dxdo:LayoutPanel Caption="Flow chart" >
+                        <Grid>
+
+                            <Grid.RowDefinitions >
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Rectangle Height="1" VerticalAlignment="Top" Fill="LightGray"></Rectangle>
+                            <breadcrumbBar:BreadcrumbBarView x:Name="breadcrumbBar" Grid.Row="0" MinHeight="30" Visibility="Collapsed" ViewModel="{Binding NetworkBreadcrumbBar}" Grid.ColumnSpan="2"/>
+                            <nodenetwork:NetworkView x:Name="networkView" Grid.Row="1"  ViewModel="{Binding Designer.Network}" Mouse.MouseMove="UpdateMousePosition" Grid.ColumnSpan="2">
+                                <nodenetwork:NetworkView.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Group nodes" Command="{Binding groupCommand}" CommandParameter="{Binding ElementName=MainWD}"/>
+                                        <MenuItem Header="Ungroup nodes" Command="{Binding ungroupCommand}" CommandParameter="{Binding ElementName=MainWD}" Visibility="Visible"/>
+                                        <MenuItem Header="Open group" Command="{Binding opengroupCommand}" CommandParameter="{Binding ElementName=MainWD}" Visibility="Visible"/>
+                                        <MenuItem Header="Copy group" Command="{Binding copygroupCommand}" CommandParameter="{Binding ElementName=MainWD}" Visibility="Visible"/>
+                                        <MenuItem Header="Paste group" Command="{Binding pastegroupCommand}" CommandParameter="{Binding ElementName=MainWD}" Visibility="Visible"/>
+                                        <!--<MenuItem Header="Change Name" Command="{Binding changeNameCommand}" CommandParameter="{Binding ElementName=MainWD}" Visibility="Visible"/>-->
+                                    </ContextMenu>
+                                </nodenetwork:NetworkView.ContextMenu>
+                            </nodenetwork:NetworkView>
+                            
+                            
+                        </Grid>
+
+                    </dxdo:LayoutPanel>
+                </dxdo:LayoutGroup>
+                <dxdo:LayoutGroup Grid.Column="4" ItemWidth="600" ItemHeight="*" Orientation="Vertical">
+                    <dxdo:LayoutGroup Orientation="Horizontal">
+                        <dxdo:LayoutPanel Caption="Display">
+                            <halcon:HSmartWindowControlWPF x:Name="display">
+                                <dxb:BarManager.DXContextMenu>
+                                    <dxb:PopupMenu>
+                                        <dxb:PopupMenu.Items>
+                                            <dxb:BarButtonItem 
+                                Content="Set 3D mode"
+                                ItemClick="btn_set_3d_click" />
+                                            <dxb:BarButtonItem 
+                                Content="Set 2D mode"
+                                ItemClick="btn_set_2d_click" />
+                                            
+                                        </dxb:PopupMenu.Items>
+                                    </dxb:PopupMenu>
+                                </dxb:BarManager.DXContextMenu>
+                            </halcon:HSmartWindowControlWPF>
+                        </dxdo:LayoutPanel>
+                        <dxdo:LayoutPanel Caption="Recorder" ItemWidth="80">
+
+                            <controls:RecorderItemGroup x:Name="recorder"></controls:RecorderItemGroup>
+
+                        </dxdo:LayoutPanel>
+                    </dxdo:LayoutGroup>
+                   
+                    <dxdo:LayoutPanel Caption="Properties" x:Name="LayoutProperties"  MinWidth="350">
+                        <Grid   x:Name="PropertiesGrid">
+
+                            <ContentControl Content="{Binding PropertiesView.PropertiesView}"/>
+                            <!--<halcon:HSmartWindowControlWPF x:Name="displayCamera"></halcon:HSmartWindowControlWPF>-->
+                        </Grid>
+                    </dxdo:LayoutPanel>
+                    
+                </dxdo:LayoutGroup>
+            </dxdo:LayoutGroup>
+        </dxdo:DockLayoutManager>
+
+        <dx:WaitIndicator Grid.ColumnSpan="2" Grid.RowSpan="2" DeferedVisibility="{Binding IsLoading}" Content="{Binding LoadingMessage}" d:IsHidden="True">
+               
+        </dx:WaitIndicator>
+    </Grid>
+</dx:ThemedWindow>

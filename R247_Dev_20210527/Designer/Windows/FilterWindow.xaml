@@ -1,0 +1,533 @@
+﻿<Window x:Class="NOVisionDesigner.Designer.Windows.FilterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.Windows" xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:HalconDotNet="clr-namespace:HalconDotNet;assembly=halcondotnet" xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:fluent="urn:fluent-ribbon" xmlns:mahapp="http://metro.mahapps.com/winfx/xaml/controls" xmlns:misc="clr-namespace:NOVisionDesigner.Designer.ValueConverters"
+        mc:Ignorable="d"
+        Title="FilterWindow" Height="700" Width="1200">
+    <Window.Resources>
+        <misc:UnionModeConverter x:Key="UnionModeConverter"/>
+        <ContextMenu x:Key="cmButton">
+            <MenuItem Header="Add Rectangle" Click="OnRectangle1_Click"/>
+            <MenuItem Header="Add Rotate Rectangle" Click="OnRectangle2_Click"/>
+            <MenuItem Header="Remove" Click="OnRemove" />
+        </ContextMenu>
+        <misc:StringToColor x:Key="StringToColor"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <misc:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        <SolidColorBrush x:Key="TabItemCloseButtonNormalBackgroundBrush" Color="#00000000" />
+        <SolidColorBrush x:Key="TabItemCloseButtonNormalBorderBrush" Color="#FFFFFFFF" />
+        <SolidColorBrush x:Key="TabItemCloseButtonNormalForegroundBrush" Color="#FF8f949b" />
+
+        <SolidColorBrush x:Key="TabItemCloseButtonHoverBackgroundBrush" Color="#FFc13535" />
+        <SolidColorBrush x:Key="TabItemCloseButtonHoverForegroundBrush" Color="#FFf9ebeb" />
+
+        <SolidColorBrush x:Key="TabItemCloseButtonPressedBackgroundBrush" Color="#FF431e20" />
+        <SolidColorBrush x:Key="TabItemCloseButtonPressedBorderBrush" Color="#FF110033" />
+        <SolidColorBrush x:Key="TabItemCloseButtonPressedForegroundBrush" Color="#FFf9ebeb" />
+
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="SnapsToDevicePixels" Value="false" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Focusable" Value="False" />
+
+            <!-- The control template. -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid Background="Transparent">
+
+                            <!-- The background of the button, as an ellipse. -->
+                            <Ellipse x:Name="backgroundEllipse" />
+
+                            <!-- A path that renders a cross. -->
+                            <Path x:Name="ButtonPath"
+                              Margin="3"
+                              Stroke="{StaticResource TabItemCloseButtonNormalForegroundBrush}"
+                              StrokeThickness="1.5"
+                              StrokeStartLineCap="Square"
+                              StrokeEndLineCap="Square"
+                              Stretch="Uniform"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center" Width="10" Height="10" Data="M0,0 L25,25 M0,25 L25,0"/>
+                        </Grid>
+
+                        <!-- The triggers. -->
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="backgroundEllipse" Property="Fill"
+                                    Value="{DynamicResource TabItemCloseButtonHoverBackgroundBrush}" />
+                                <Setter TargetName="ButtonPath" Property="Stroke" 
+                                    Value="{DynamicResource TabItemCloseButtonHoverForegroundBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="backgroundEllipse" Property="Fill"
+                                    Value="{DynamicResource TabItemCloseButtonPressedBackgroundBrush}" />
+                                <Setter TargetName="backgroundEllipse" Property="Stroke"
+                                    Value="{DynamicResource TabItemCloseButtonPressedBorderBrush}" />
+                                <Setter TargetName="ButtonPath" Property="Stroke" 
+                                    Value="{DynamicResource TabItemCloseButtonPressedForegroundBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="EditMouseOverBrush" Color="#FF3B78FB" />
+        <SolidColorBrush x:Key="BrushEditMousePress" Color="#FF04049B" />
+        <Style x:Key="ButtonStyleEdit" TargetType="{x:Type Button}">
+            <Setter Property="SnapsToDevicePixels" Value="false" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Focusable" Value="False" />
+
+            <!-- The control template. -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid Background="Transparent">
+
+                            <!-- The background of the button, as an ellipse. -->
+                            <Ellipse x:Name="backgroundEllipse" />
+
+                            <!-- A path that renders a cross. -->
+                        </Grid>
+
+                        <!-- The triggers. -->
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="backgroundEllipse" Property="Fill"
+                                    Value="{StaticResource EditMouseOverBrush}" />
+
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="backgroundEllipse" Property="Fill"
+                                    Value="{StaticResource BrushEditMousePress}" />
+
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <RadialGradientBrush x:Key="Brush2">
+            <GradientStop Color="#FF272727" Offset="1"/>
+            <GradientStop Color="#FF292828"/>
+        </RadialGradientBrush>
+        <Color x:Key="ColorGlow">#FF51EAFF</Color>
+        <Style x:Key="ButtonGlowNew" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle">
+                <Setter.Value>
+                    <Style>
+                        <Setter Property="Control.Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Rectangle StrokeDashArray="1 2" StrokeThickness="1" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="True" Margin="2"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="#FF20ACEE"/>
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="16,4"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Border x:Name="border" CornerRadius="4" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}"/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Border x:Name="border_glow" CornerRadius="4" BorderThickness="0">
+                                <Border.Effect>
+                                    <DropShadowEffect x:Name="drop_efect_glow" Color="{DynamicResource ColorGlow}" ShadowDepth="0"/>
+                                </Border.Effect>
+                                <Border.BorderBrush>
+                                    <RadialGradientBrush>
+                                        <GradientStop Color="#FF84C6FD" Offset="0"/>
+                                        <GradientStop Color="#FF00B9FF" Offset="1"/>
+                                    </RadialGradientBrush>
+                                </Border.BorderBrush>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <!--<Setter Property="Background" TargetName="border" Value="{StaticResource gradientbackground}"/>-->
+                                <Setter Property="BorderThickness" TargetName="border_glow" Value="1"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.23"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource gradientbackground_pressed}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ForceCursor" Value="True"/>
+        </Style>
+       
+        <ControlTemplate x:Key="DropDownButtonControlTemplate1" TargetType="{x:Type fluent:DropDownButton}">
+            <ControlTemplate.Resources>
+                <Style x:Key="{x:Type Separator}" TargetType="{x:Type Separator}">
+                    <Style.BasedOn>
+                        <Style TargetType="{x:Type Separator}">
+                            <Setter Property="Template" Value="{DynamicResource MenuSeparatorControlTemplate}"/>
+                        </Style>
+                    </Style.BasedOn>
+                </Style>
+            </ControlTemplate.Resources>
+            <Grid>
+                <Border x:Name="PART_ButtonBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" Height="Auto" VerticalAlignment="Stretch" CornerRadius="4">
+                    <Grid>
+                        <StackPanel x:Name="stackPanel" Orientation="Vertical" Width="Auto" HorizontalAlignment="Center">
+                            <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="Auto" Margin="0" SnapsToDevicePixels="True" VerticalAlignment="Center" Width="Auto">
+                                <ContentPresenter.Content>
+                                    <Binding Path="LargeIcon" RelativeSource="{RelativeSource TemplatedParent}">
+                                        <Binding.Converter>
+                                            <fluent:ObjectToImageConverter/>
+                                        </Binding.Converter>
+                                    </Binding>
+                                </ContentPresenter.Content>
+                            </ContentPresenter>
+                        </StackPanel>
+                        <fluent:TwoLineLabel x:Name="controlLabel" Focusable="False" HasGlyph="{TemplateBinding HasTriangle}" HorizontalAlignment="Right" Margin="2,0,5,2" Style="{DynamicResource TwoLineLabelStyle}" Text="{TemplateBinding Header}" VerticalAlignment="Center"/>
+
+                    </Grid>
+
+                </Border>
+                <Popup x:Name="PART_Popup" AllowsTransparency="True" Grid.ColumnSpan="2" IsOpen="{TemplateBinding IsDropDownOpen}" Margin="0,0,-4,0" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" Placement="Bottom" VerticalAlignment="Top">
+                    <Grid x:Name="DropDown" Margin="0" SnapsToDevicePixels="True" VerticalAlignment="Top">
+                        <Border x:Name="PART_DropDownBorder" BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}" BorderThickness="1" Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}" CornerRadius="1" HorizontalAlignment="Stretch" MinWidth="{TemplateBinding ActualWidth}" SnapsToDevicePixels="True" VerticalAlignment="Top">
+                            <Grid HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Top" Width="Auto">
+                                <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}" BorderThickness="1" CornerRadius="1" Height="Auto" VerticalAlignment="Top" Width="Auto"/>
+                                <Grid HorizontalAlignment="Stretch" Margin="1" VerticalAlignment="Top">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <ScrollViewer x:Name="PART_ScrollViewer" HorizontalScrollBarVisibility="Hidden" IsTabStop="False" MaxHeight="{TemplateBinding MaxDropDownHeight}" Margin="1" Style="{DynamicResource MenuScrollViewer}" SnapsToDevicePixels="True" VerticalScrollBarVisibility="Auto">
+                                        <StackPanel KeyboardNavigation.DirectionalNavigation="Local" IsItemsHost="True" Orientation="Vertical"/>
+                                    </ScrollViewer>
+                                    <Border x:Name="resizeBorder" BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}" BorderThickness="0,1,0,0" Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush}" CornerRadius="0,0,1,1" HorizontalAlignment="Stretch" Height="11" Grid.Row="1" VerticalAlignment="Top">
+                                        <Grid>
+                                            <Thumb x:Name="PART_ResizeVerticalThumb" Cursor="SizeNS" HorizontalAlignment="Stretch" Height="10" Margin="0,0,0,-90" Template="{DynamicResource ResizeVerticalThumbControlTemplate}" VerticalAlignment="Top" Width="Auto"/>
+                                            <Thumb x:Name="PART_ResizeBothThumb" Cursor="SizeNWSE" HorizontalAlignment="Right" Height="10" Margin="0,0,0,-90" Template="{DynamicResource ResizeBothThumbControlTemplate}" VerticalAlignment="Top" Width="10"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Popup>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="ResizeMode" Value="None">
+                    <Setter Property="Visibility" TargetName="resizeBorder" Value="Collapsed"/>
+                </Trigger>
+                <Trigger Property="ResizeMode" Value="Both">
+                    <Setter Property="Visibility" TargetName="PART_ResizeVerticalThumb" Value="Collapsed"/>
+                    <Setter Property="Visibility" TargetName="PART_ResizeBothThumb" Value="Visible"/>
+                    <Setter Property="Visibility" TargetName="resizeBorder" Value="Visible"/>
+                </Trigger>
+                <Trigger Property="ResizeMode" Value="Vertical">
+                    <Setter Property="Visibility" TargetName="PART_ResizeBothThumb" Value="Collapsed"/>
+                    <Setter Property="Visibility" TargetName="PART_ResizeVerticalThumb" Value="Visible"/>
+                    <Setter Property="Visibility" TargetName="resizeBorder" Value="Visible"/>
+                </Trigger>
+                <Trigger Property="Size" Value="Small">
+                    <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+                    <Setter Property="Content" TargetName="iconImage">
+                        <Setter.Value>
+                            <Binding Path="Icon" RelativeSource="{RelativeSource TemplatedParent}">
+                                <Binding.Converter>
+                                    <fluent:ObjectToImageConverter/>
+                                </Binding.Converter>
+                            </Binding>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
+                    <Setter Property="Text" TargetName="controlLabel" Value=""/>
+                    <!--<Setter Property="Width" TargetName="iconImage" Value="16"/>
+                    <Setter Property="Height" TargetName="iconImage" Value="16"/>
+                    <Setter Property="Margin" TargetName="iconImage" Value="2,0,0,0"/>-->
+                    <!--<Setter Property="Margin" TargetName="controlLabel" Value="-2,0,2,1"/>
+                    <Setter Property="Width" TargetName="controlLabel" Value="10"/>-->
+                    <Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Center"/>
+                </Trigger>
+                <Trigger Property="Size" Value="Middle">
+                    <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+                    <Setter Property="Content" TargetName="iconImage">
+                        <Setter.Value>
+                            <Binding Path="Icon" RelativeSource="{RelativeSource TemplatedParent}">
+                                <Binding.Converter>
+                                    <fluent:ObjectToImageConverter/>
+                                </Binding.Converter>
+                            </Binding>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Width" TargetName="stackPanel" Value="Auto"/>
+                    <Setter Property="VerticalAlignment" TargetName="iconImage" Value="Center"/>
+                    <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
+                    <!--<Setter Property="Margin" TargetName="controlLabel" Value="2,0,2,1"/>-->
+                    <Setter Property="VerticalAlignment" TargetName="PART_ButtonBorder" Value="Stretch"/>
+                    <!--<Setter Property="Width" TargetName="iconImage" Value="16"/>
+                    <Setter Property="Height" TargetName="iconImage" Value="16"/>
+                    <Setter Property="Margin" TargetName="iconImage" Value="2,0"/>-->
+                    <!--<Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Center"/>-->
+                </Trigger>
+                <Trigger Property="IsDropDownOpen" Value="True">
+                    <Setter Property="BorderBrush" TargetName="PART_ButtonBorder" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}"/>
+                    <Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" TargetName="iconImage" Value="0.5"/>
+                    <Setter Property="Opacity" TargetName="controlLabel" Value="0.5"/>
+                    <Setter Property="Effect" TargetName="iconImage">
+                        <Setter.Value>
+                            <fluent:GrayscaleEffect/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsMouseOver" Value="True"/>
+                        <Condition Property="IsDropDownOpen" Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"/>
+                    <Setter Property="BorderBrush" TargetName="PART_ButtonBorder" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"/>
+                </MultiTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <!--<Button Content="Edit" HorizontalAlignment="Right" Width="100" Click="Edit_Click"  />
+                <Button Content="Apply" HorizontalAlignment="Right" Width="100" Click="Apply_Click"/>
+                <Button Content="Run" HorizontalAlignment="Right" Width="100"  Click="Run_Click"/>
+                <Button Content="X" HorizontalAlignment="Right" Width="100" Click="X_Click"/>-->
+                <!--<Label Content="Value: "/>
+                <Label x:Name="lb_gray_value" Foreground="Black" Padding="6,3" Background="#CCFFFFFF" Margin="5,0,0,0"/>-->
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <HalconDotNet:HSmartWindowControlWPF Grid.Column="0" x:Name="window_display" HInitWindow="window_display_HInitWindow" HMouseMove="window_HMouseMove" ContextMenu="{DynamicResource cmButton}"></HalconDotNet:HSmartWindowControlWPF>
+            <Grid Grid.Column="1" Focusable="True" x:Name="Tab_Grid" MouseDown="Setting_Grid_MouseDown">
+                <StackPanel Orientation="Vertical" Margin="2,5,0,0">
+                    <Label Content="Parameters" Margin="5,0,0,0"/>
+                    <dxprg:PropertyGridControl x:Name="properties" Margin="2,0" Background="{x:Null}" BorderBrush="{DynamicResource {x:Static SystemColors.MenuBrushKey}}"  Height="250" ExpandCategoriesWhenSelectedObjectChanged="True"/>
+                    <Grid Margin="0,5,5,2">
+                        <Label Content="Preview" FontSize="13" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
+                        <dxe:ToggleSwitch  UncheckedStateContent="Only selected" CheckedStateContent="All" Checked="ToggleSwitch_Checked" Unchecked="ToggleSwitch_Unchecked" FontSize="13" HorizontalAlignment="Right"/>
+                    </Grid>
+                    <Grid Margin="0,5">
+                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                            <Button x:Name="btn_up"   Height="Auto" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" Click="btn_up_Click" >
+                                <Viewbox Width="15" Height="15">
+                                    <Canvas Width="24" Height="24">
+                                        <Path Data="M15,20H9V12H4.16L12,4.16L19.84,12H15V20Z" Fill="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}" />
+                                    </Canvas>
+                                </Viewbox>
+                            </Button>
+
+                            <Button x:Name="btn_down"   Height="Auto" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" Margin="5,0,0,0" Click="btn_down_Click" >
+                                <Viewbox Width="15" Height="15">
+                                    <Canvas Width="24" Height="24">
+                                        <Path Data="M9,4L15,4 15,12 19.84,12 12,19.84 4.16,12 9,12 9,4z" Fill="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}" />
+                                    </Canvas>
+                                </Viewbox>
+                            </Button>
+
+                            <dx:DropDownButton Foreground="#FF0F0F0F"   BorderBrush="{x:Null}" ToolTip="Add new measure" HorizontalAlignment="Right" Padding="2" Margin="5,0" BorderThickness="0" IsPopupOpen="True" Content="Add">
+                                <StackPanel>
+
+
+                                    <Button x:Name="btn_add_gauss" Content="Gauss" Height="Auto" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Padding="10,4" Click="btn_add_gauss_Click" Foreground="Black" HorizontalContentAlignment="Left"  >
+                                        <!--Fluent:Button.LargeIcon>
+                            <Image Source="iOS_Icons/icons8-Login-50.png" Width="25" Height="25"/>
+                        </Fluent:Button.LargeIcon>-->
+
+                                    </Button>
+                                    <Button x:Name="btn_dilation_rec"  Content="Dilation Rectangle" Height="Auto"  FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Padding="10,4" Foreground="Black" HorizontalContentAlignment="Left" Click="btn_dilation_rec_Click"  >
+                                        <!--Fluent:Button.LargeIcon>
+                            <Image Source="iOS_Icons/icons8-Login-50.png" Width="25" Height="25"/>
+                        </Fluent:Button.LargeIcon>-->
+
+                                    </Button>
+                                    <Button x:Name="btn_add_erode" Content="Erode" Height="Auto" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Padding="10,4" Click="btn_add_erode_Click" Foreground="Black" HorizontalContentAlignment="Left"  >
+                                        <!--Fluent:Button.LargeIcon>
+                            <Image Source="iOS_Icons/icons8-Login-50.png" Width="25" Height="25"/>
+                        </Fluent:Button.LargeIcon>-->
+
+                                    </Button>
+                                    <Button x:Name="btn_binominal"  Content="Binomial" Height="Auto"  FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Padding="10,4" Foreground="Black" Click="btn_binominal_Click" HorizontalContentAlignment="Left"  >
+                                        <!--Fluent:Button.LargeIcon>
+                            <Image Source="iOS_Icons/icons8-Login-50.png" Width="25" Height="25"/>
+                        </Fluent:Button.LargeIcon>-->
+
+                                    </Button>
+                                    <Button x:Name="btn_canny"  Content="Canny" Height="Auto"  FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Padding="10,4" Foreground="Black" Click="btn_canny_Click" HorizontalContentAlignment="Left"  >
+                                        <!--Fluent:Button.LargeIcon>
+                            <Image Source="iOS_Icons/icons8-Login-50.png" Width="25" Height="25"/>
+                        </Fluent:Button.LargeIcon>-->
+
+                                    </Button>
+                                    <Button x:Name="btn_laplace"  Content="Laplace" Height="Auto"  FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Padding="10,4" Foreground="Black" Click="btn_laplace_Click" HorizontalContentAlignment="Left"  >
+                                        <!--Fluent:Button.LargeIcon>
+                            <Image Source="iOS_Icons/icons8-Login-50.png" Width="25" Height="25"/>
+                        </Fluent:Button.LargeIcon>-->
+
+                                    </Button>
+                                    <Button x:Name="btn_median_rect" Content="Median Rectangle" Height="Auto" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Padding="10,4" Foreground="Black" Click="btn_median_rect_Click" HorizontalContentAlignment="Left"  >
+                                        <!--Fluent:Button.LargeIcon>
+                            <Image Source="iOS_Icons/icons8-Login-50.png" Width="25" Height="25"/>
+                        </Fluent:Button.LargeIcon>-->
+
+                                    </Button>
+                                    <Button x:Name="btn_deriche1" Content="Deriche 1" Height="Auto"  FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Padding="10,4" Foreground="Black" Click="btn_deriche1_Click" HorizontalContentAlignment="Left"  >
+                                        <!--Fluent:Button.LargeIcon>
+                            <Image Source="iOS_Icons/icons8-Login-50.png" Width="25" Height="25"/>
+                        </Fluent:Button.LargeIcon>-->
+
+                                    </Button>
+                                    <Button x:Name="btn_deriche2" Content="Deriche 2" Height="Auto"  FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Padding="10,4" Foreground="Black" Click="btn_deriche2_Click" HorizontalContentAlignment="Left"  >
+                                        <!--Fluent:Button.LargeIcon>
+                            <Image Source="iOS_Icons/icons8-Login-50.png" Width="25" Height="25"/>
+                        </Fluent:Button.LargeIcon>-->
+
+                                    </Button>
+                                    <Button x:Name="btn_shen" Content="Shen" Height="Auto"  FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Padding="10,4" Foreground="Black" Click="btn_shen_Click" HorizontalContentAlignment="Left"  >
+                                        <!--Fluent:Button.LargeIcon>
+                            <Image Source="iOS_Icons/icons8-Login-50.png" Width="25" Height="25"/>
+                        </Fluent:Button.LargeIcon>-->
+
+                                    </Button>
+                                    <Button x:Name="btn_invert_image" Content="Invert" Height="Auto"  FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Padding="10,4" Foreground="Black" Click="btn_invert_image_Click" HorizontalContentAlignment="Left"  >
+                                        <!--Fluent:Button.LargeIcon>
+                            <Image Source="iOS_Icons/icons8-Login-50.png" Width="25" Height="25"/>
+                        </Fluent:Button.LargeIcon>-->
+
+                                    </Button>
+                                    <Button x:Name="btn_laplace_2" Content="Laplace" Height="Auto"  FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Padding="10,4" Foreground="Black" Click="Btn_laplace_2_Click" HorizontalContentAlignment="Left"  >
+                                        <!--Fluent:Button.LargeIcon>
+                            <Image Source="iOS_Icons/icons8-Login-50.png" Width="25" Height="25"/>
+                        </Fluent:Button.LargeIcon>-->
+
+                                    </Button>
+                                    <Button x:Name="btn_select_channel" Content="Select Channel" Height="Auto"  FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Padding="10,4" Foreground="Black"  HorizontalContentAlignment="Left" Click="btn_select_channel_Click"  >
+                                        <!--Fluent:Button.LargeIcon>
+                            <Image Source="iOS_Icons/icons8-Login-50.png" Width="25" Height="25"/>
+                        </Fluent:Button.LargeIcon>-->
+
+                                    </Button>
+                                    <!--<Button x:Name="btn_extract_color" Content="Extract Color" Height="Auto"  FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" Padding="10,4" Foreground="Black"  HorizontalContentAlignment="Left" Click="Btn_extract_color_Click"  >
+                                        --><!--Fluent:Button.LargeIcon>
+                            <Image Source="iOS_Icons/icons8-Login-50.png" Width="25" Height="25"/>
+                        </Fluent:Button.LargeIcon>--><!--
+
+                                    </Button>-->
+
+                                </StackPanel>
+                            </dx:DropDownButton>
+
+                        </StackPanel>
+
+                        <Label Content="Object List" Margin="5,0,0,0" FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <ListBox x:Name="lst_region" Margin="5,2,5,0" BorderThickness="1" MinHeight="100" BorderBrush="{x:Null}" Background="{x:Null}" SelectionChanged="lst_region_SelectionChanged">
+                        <ListBox.Resources>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                            <Border x:Name="Bd"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                Padding="{TemplateBinding Padding}"
+                                                SnapsToDevicePixels="true" CornerRadius="5" Background="White" BorderThickness="2" >
+                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Selector.IsSelectionActive"
+                                                            Value="False" />
+                                                        <Condition Property="IsSelected"
+                                                            Value="True" />
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter Property="BorderBrush"
+                                                        TargetName="Bd"
+                                                        Value="#FF059ECB" />
+                                                </MultiTrigger>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Selector.IsSelectionActive"
+                                                            Value="True" />
+                                                        <Condition Property="IsSelected"
+                                                            Value="True" />
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter Property="BorderBrush"
+                                                        TargetName="Bd"
+                                                        Value="#FF059ECB" />
+                                                </MultiTrigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="Bd" Property="BorderBrush" Value="#FF64D7F9" />
+                                                </Trigger>
+
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.Resources>
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="5" Background="White">
+                                    <Grid Height="30" MinWidth="250">
+                                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="Black"/>
+                                        <Button x:Name="btn_remove_item" Content="X" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Rockwell" FontSize="12" Margin="0,0,4,0" Click="btn_remove_Click" Width="20" Height="20"/>
+
+                                    </Grid>
+                                </Border>
+
+
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                </StackPanel>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

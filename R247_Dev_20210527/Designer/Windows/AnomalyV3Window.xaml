@@ -1,0 +1,1277 @@
+﻿<dx:ThemedWindow
+        xmlns:HalconDotNet="clr-namespace:HalconDotNet;assembly=halcondotnet"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.Windows" 
+        xmlns:local1="clr-namespace:NOVisionDesigner.Designer.ValueConverters" 
+        xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+        xmlns:Misc="clr-namespace:NOVisionDesigner.Designer.Misc" 
+        xmlns:System="clr-namespace:System;assembly=mscorlib" 
+        xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid" 
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
+        xmlns:segmentation="clr-namespace:NOVisionDesigner.Designer.Nodes" 
+        xmlns:controls="clr-namespace:NOVisionDesigner.Designer.Controls" 
+        
+        x:Class="NOVisionDesigner.Designer.Windows.AnomalyV3Window"
+        xmlns:local2="NOVisionDesigner.Designer.Windows"
+        xmlns:dxbt="clr-namespace:DevExpress.Xpf.Bars.Themes;assembly=DevExpress.Xpf.Core.v19.2" 
+        xmlns:dxt="http://schemas.devexpress.com/winfx/2008/xaml/core/themekeys" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    mc:Ignorable="d"
+        Title="Anomaly Detection" Height="900" Width="1600" FontSize="14" WindowStartupLocation="CenterScreen" ShowGlow="False">
+    <Window.Resources>
+        <local:PropertyDefinitionTemplateSelector x:Key="PropertyDefinitionTemplateSelector"/>
+        
+        <DataTemplate x:Key="PropertyTemplate">
+            <dxprg:PropertyDefinition Path="{Binding Name}" />
+        </DataTemplate>
+        <DataTemplate x:Key="CollectionTemplate">
+            <dxprg:CollectionDefinition Path="{Binding CollectionName}" />
+        </DataTemplate>
+        <sys:Double x:Key="{dxt:ThemedWindowThemeKey ResourceKey=WindowTitleFontSize, IsThemeIndependent=true}">14</sys:Double>
+        <dx:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <local1:BoolToVisibilityCollapse x:Key="BoolToVisibilityCollapse"/>
+        <local1:AnomalyModelNameConverter x:Key="AnomalyModelNameConverter"/>
+        <Style TargetType="{x:Type dxb:BarButtonItem}" >
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontSize="14"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type dxb:BarSubItem}" >
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontSize="14"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="{dxbt:BarControlThemeKey ResourceKey=BarContentStyle,IsThemeIndependent=True}" TargetType="{x:Type ContentControl}">
+
+        </Style>
+        <Style x:Key="{dxbt:BarControlThemeKey ResourceKey=MainMenuContentStyle, IsThemeIndependent=True}" TargetType="{x:Type ContentControl}"/>
+        <Style x:Key="{dxbt:BarControlThemeKey ResourceKey=StatusBarContentStyle, IsThemeIndependent=True}" TargetType="{x:Type ContentControl}"/>
+        <Misc:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        <local1:StringToColor x:Key="StringToColor"/>
+        <Style TargetType="Label" x:Key="tagstyle">
+            <Setter Property="Background" Value="{DynamicResource GreenIOS}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Tag}" Value="bad">
+                    <Setter Property="Background" Value="{DynamicResource RedIOS}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Tag}" Value="unknown">
+                    <Setter Property="Background" Value="WhiteSmoke"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Label" x:Key="datasetstyle">
+            <Setter Property="Background" Value="{DynamicResource BlueIOS}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=MetaData.Dataset}" Value="{x:Static Misc:DatasetSplit.train}">
+                    <Setter Property="Background" Value="{DynamicResource BlueIOS}"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=MetaData.Dataset}" Value="{x:Static Misc:DatasetSplit.test}">
+                    <Setter Property="Background" Value="WhiteSmoke"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style  TargetType="{x:Type RadioButton}">
+            <Style.BasedOn>
+                <Style TargetType="{x:Type RadioButton}">
+                    <Setter Property="Background"  Value="#FFFDFDFD"/>
+
+
+                    <Setter Property="FontFamily" Value="{DynamicResource ContentFontFamily}"/>
+                    <Setter Property="FontFamily" Value="{DynamicResource ContentFontFamily}"/>
+                    <Setter Property="FontSize" Value="{DynamicResource ContentFontSize}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource LabelTextBrush}"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="Padding" Value="6,0,0,0"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type RadioButton}">
+                                <Grid>
+
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal"/>
+                                            <VisualState x:Name="Disabled">
+                                                <Storyboard>
+                                                    <DoubleAnimation Duration="0" To="0.55" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="contentPresenter"/>
+
+                                                </Storyboard>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                        <VisualStateGroup x:Name="CheckStates">
+                                            <VisualState x:Name="Checked"/>
+                                            <VisualState x:Name="Unchecked"/>
+                                            <VisualState x:Name="Indeterminate"/>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    <Border x:Name="border" Background="{TemplateBinding Background}"  CornerRadius="2">
+                                        <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+
+                                    </Border>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True"/>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter Property="Background" TargetName="border" Value="#FF0086E2"/>
+                                        <Setter Property="Foreground" Value="White"/>
+
+                                    </Trigger>
+                                    <Trigger Property="IsFocused" Value="True"/>
+
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </Style.BasedOn>
+        </Style>
+
+        <!--<Style TargetType="{x:Type Button}" >
+            <Style.BasedOn>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Padding" Value="8,4"/>
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="BorderBrush" Value="#FFE2E2E2"/>
+                </Style>
+            </Style.BasedOn>
+        </Style>-->
+    </Window.Resources>
+    <dx:DXTabControl Padding="0" SelectedIndex="0" >
+        <dx:DXTabItem Header="Gallery" >
+            <Grid >
+                <Grid Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="260"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <StackPanel Margin="0" VerticalAlignment="Top">
+
+
+                            <Border  CornerRadius="4" Margin="8" Padding="8,8">
+                                <StackPanel >
+                                    <StackPanel Orientation="Vertical">
+                                        <dx:SimpleButton Content="Open Directory" 
+                                                         Glyph="{dx:DXImage 'SvgImages/Business Objects/BO_Folder.svg'}"
+                                                         Cursor="Hand" ToolTip="Open folder" 
+                                                Click="btn_open_folder" HorizontalAlignment="Left">
+                                           
+                                        </dx:SimpleButton>
+                                        <Rectangle Height="4"></Rectangle>
+                                        <dx:SimpleButton  Content="Export dataset"  
+                                                           
+                                         Cursor="Hand"  HorizontalAlignment="Left"  
+                                         
+                                                 Click="btn_open_exportdataset_menu_Click"  />
+                                    </StackPanel>
+                                    <Rectangle Height="4"></Rectangle>
+                                    <Grid Margin="0,0,0,8">
+                                        <Label Content="Image" Margin="0,0"  FontSize="15"  FontWeight="SemiBold" ></Label>
+                                        
+                                    </Grid>
+
+                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,0">
+                                        <TextBlock Text="Image " HorizontalAlignment="Center" VerticalAlignment="Center"  FontWeight="Normal" FontSize="14" ></TextBlock>
+                                        <TextBlock Text="{Binding SelectedIndex,ElementName=lst_view}" HorizontalAlignment="Center" VerticalAlignment="Center"  FontWeight="Normal" FontSize="14" ></TextBlock>
+                                        <TextBlock Text=" of " HorizontalAlignment="Center" VerticalAlignment="Center"  FontWeight="Normal" FontSize="14" ></TextBlock>
+                                        <TextBlock Text="{Binding Items.Count,ElementName=lst_view}" HorizontalAlignment="Center" VerticalAlignment="Center"  FontWeight="Normal" FontSize="14" ></TextBlock>
+                                    </StackPanel>
+                                    <Label Content="Name:" Margin="0,8,0,0" Foreground="#FF656565"></Label>
+                                    <dxe:TextEdit IsReadOnly="True" ShowBorder="False" HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Center" Text="{Binding SelectedItem.FileName,FallbackValue=Imagename,ElementName=lst_view}" FontWeight="SemiBold"  />
+                                    <Label Content="ROI:" Margin="0,8,0,0" FontWeight="SemiBold" ></Label>
+
+                                    <StackPanel x:Name="stack_roi"      
+                                                Orientation="Vertical" Margin="4,8,0,0" 
+                                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                        <UniformGrid Columns="4" HorizontalAlignment="Stretch">
+                                            <Label  Padding="4,6" 
+                                                   HorizontalContentAlignment="Center"  
+                                                   VerticalContentAlignment="Center">X</Label>
+                                            <Label  Padding="4,4" 
+                                                   HorizontalContentAlignment="Center"  
+                                                   VerticalContentAlignment="Center" >Y</Label>
+                                            <Label  Padding="4,4" 
+                                                   HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" >Width</Label>
+                                            <Label  Padding="4,4" 
+                                                   HorizontalContentAlignment="Center"  VerticalContentAlignment="Center">Height</Label>
+                                        </UniformGrid>
+                                        <UniformGrid Columns="4" TextBlock.FontWeight="SemiBold" Margin="0,0" HorizontalAlignment="Stretch">
+
+
+                                            <dxe:TextEdit   BorderBrush="WhiteSmoke" ShowBorder="True" BorderThickness="1" Background="Transparent"  IsReadOnly="True" MinWidth="40"   Text="{Binding ROIY}"  VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" Padding="4,4"/>
+                                            <dxe:TextEdit BorderBrush="WhiteSmoke" ShowBorder="True" BorderThickness="1" Background="Transparent"  IsReadOnly="True" MinWidth="40"  Text="{Binding ROIX}"  VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" Padding="4,4"/>
+                                            <dxe:TextEdit BorderBrush="WhiteSmoke" ShowBorder="True" BorderThickness="1" Background="Transparent"  IsReadOnly="True" MinWidth="40"   Text="{Binding ROIW}"  VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" Padding="4,4"/>
+                                            <dxe:TextEdit BorderBrush="WhiteSmoke" ShowBorder="True" BorderThickness="1" Background="Transparent"  IsReadOnly="True" MinWidth="40"   Text="{Binding ROIH}"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="4,4"/>
+
+                                        </UniformGrid>
+                                        <UniformGrid Columns="2">
+
+
+                                        </UniformGrid>
+                                        <UniformGrid Columns="2">
+
+
+                                        </UniformGrid>
+
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </Border>
+                            <Rectangle Height="1"  Margin="0" Fill="#20000000" HorizontalAlignment="Stretch"></Rectangle>
+                            <Label Content="Filter" Margin="0,0" Padding="16,8" FontSize="15"  FontWeight="SemiBold" ></Label>
+                            <StackPanel Margin="16,0">
+                                
+                                <dxe:ListBoxEdit  x:Name="lst_display_filter"  
+                                                      EditValueChanged="lst_display_filter_EditValueChanged"  
+                                                       
+                                                       Background="Transparent"  
+                                                      BorderThickness="0" BorderBrush="Transparent" 
+                                                      HorizontalAlignment="Left" >
+                                    <dxe:ListBoxEdit.StyleSettings>
+                                        
+                                        <dxe:CheckedListBoxEditStyleSettings   >
+                                           
+                                        </dxe:CheckedListBoxEditStyleSettings>
+                                    </dxe:ListBoxEdit.StyleSettings>
+                                </dxe:ListBoxEdit>
+                            </StackPanel>
+
+                            <Label Content="Category" Margin="0,0" Padding="16,8" FontSize="15"  FontWeight="SemiBold" ></Label>
+                            <ListBox BorderThickness="0" Grid.Column="0" Margin="8,0"   SelectedValue="{Binding SelectedTag}"  HorizontalContentAlignment="Stretch">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Label Content="{Binding}" Padding="8,4" VerticalAlignment="Center"></Label>
+                                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                                <!--<Button  Padding="4" Margin="4,0"  BorderBrush="Transparent" Cursor="Hand" Background="Transparent"   Click="btn_add_image_camera_category_Click">
+                                                    <Viewbox Width="24" Height="24">
+                                                        <Canvas Width="24" Height="24">
+                                                            <Path Fill="{DynamicResource OrangeIOS}" Data="M3 4V1H5V4H8V6H5V9H3V6H0V4M6 10V7H9V4H16L17.8 6H21C22.1 6 23 6.9 23 8V20C23 21.1 22.1 22 21 22H5C3.9 22 3 21.1 3 20V10M13 19C17.45 19 19.69 13.62 16.54 10.46C13.39 7.31 8 9.55 8 14C8 16.76 10.24 19 13 19M9.8 14C9.8 16.85 13.25 18.28 15.26 16.26C17.28 14.25 15.85 10.8 13 10.8C11.24 10.8 9.8 12.24 9.8 14Z" />
+                                                        </Canvas>
+                                                    </Viewbox>
+                                                </Button>-->
+                                                <Button HorizontalAlignment="Right"   ToolTip="Add images"  
+                                                        Padding="4" Style="{DynamicResource ButtonHighContrast}"  
+                                                          Cursor="Hand" 
+                                                        Background="Transparent"  Click="btn_add_image_category_Click">
+                                                    <Viewbox Width="24" Height="24" >
+                                                        <Canvas Width="24" Height="24">
+                                                            <Path  Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}},Path=Foreground}" Data="M14 2H6C4.89 2 4 2.89 4 4V20C4 21.11 4.89 22 6 22H13.81C13.28 21.09 13 20.05 13 19C13 15.69 15.69 13 19 13C19.34 13 19.67 13.03 20 13.08V8L14 2M13 9V3.5L18.5 9H13M23 20H20V23H18V20H15V18H18V15H20V18H23V20Z" />
+                                                        </Canvas>
+                                                    </Viewbox>
+                                                </Button>
+                                            </StackPanel>
+
+                                        </Grid>
+
+
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                                <System:String>All</System:String>
+                                <System:String>Good</System:String>
+                                <System:String>Bad</System:String>
+                                <System:String>Unknown</System:String>
+                            </ListBox>
+                            <GroupBox Header="Help" Margin="8" Padding="4">
+                                <StackPanel>
+                                    <Label Content="Mask:"  Padding="8,0" FontWeight="SemiBold"></Label>
+                                    <TextBlock   Text="Object that contain anomalies (allow to only detect anomaly in product and not in background)" Margin="12,0,4,0" TextWrapping="Wrap"></TextBlock>
+                                    <Label Padding="8,0" Content="Annotation:" FontWeight="SemiBold" Margin="0,8,0,0"></Label>
+                                    <TextBlock  Text="Anomaly objects (only need for semi-supervied)" Margin="12,0,4,0" TextWrapping="Wrap"></TextBlock>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Rectangle Width="1"  Margin="0"  HorizontalAlignment="Right"></Rectangle>
+
+
+                    <Grid Grid.Row="1" Grid.Column="1" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="250" />
+                        </Grid.ColumnDefinitions>
+                        <Grid Margin="5" MinWidth="900" PreviewKeyDown="Grid_PreviewKeyDown" Focusable="True" ClipToBounds="True" Background="Black" >
+                            <HalconDotNet:HSmartWindowControlWPF Focusable="True" KeyUp="window_display_KeyUp" SizeChanged="window_display_SizeChanged" HMouseDoubleClick="window_display_HMouseDoubleClick" HMouseWheel="window_display_HMouseWheel" HMouseMove="window_display_HMouseMove"     HMoveContent="True" HMouseDown="window_display_HMouseDown" PreviewKeyUp="window_display_PreviewKeyUp"  HInitWindow="window_display_HInitWindow" KeyDown="window_display_KeyDown" PreviewKeyDown="window_display_PreviewKeyDown"   x:Name="window_display" Margin="0,34,0,0" >
+                                <dxb:BarManager.DXContextMenu>
+                                    <dxb:PopupMenu>
+                                        <dxb:PopupMenu.Items>
+                                            <dxb:BarButtonItem IsVisible="False"
+                                Content="Edit Region of Interest"
+                                ItemClick="btn_edit_roi_click" />
+                                            <dxb:BarButtonItem IsVisible="False" 
+                                Content="Apply region of interest to all"
+                                ItemClick="btn_apply_roi_all" />
+                                            <dxb:BarButtonItem
+                                Content="Apply mask to all"
+                                ItemClick="btn_apply_mask_all" />
+                                            <dxb:BarButtonItem
+                                Content="Clear Region of Interest" IsVisible="False" 
+                                ItemClick="btn_clear_roi" />
+                                            <dxb:BarButtonItem
+                                Content="Edit with paint" IsVisible="True" 
+                                ItemClick="btn_edit_paint_Click" />
+                                        </dxb:PopupMenu.Items>
+                                    </dxb:PopupMenu>
+                                </dxb:BarManager.DXContextMenu>
+                            </HalconDotNet:HSmartWindowControlWPF>
+                            <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="Black"  >
+                                <StackPanel HorizontalAlignment="Left" Margin="2" Orientation="Horizontal">
+                                    <Button Content="View"  Visibility="Collapsed" Background="WhiteSmoke" Foreground="Black"  Margin="4,2,4,2" Style="{DynamicResource ButtonDarkMode}"></Button>
+                                    <Label Content="Mask mode" Margin="8,4,0,4" Foreground="White" HorizontalAlignment="Center" 
+                                           VerticalAlignment="Stretch" Padding="8,4,8,4" 
+                                           Background="{DynamicResource BlueIOS}" 
+                                           VerticalContentAlignment="Center"></Label>
+                                    <ComboBox x:Name="cmb_mask_mode" BorderBrush="{DynamicResource BlueIOS}" Background="Black" Foreground="White" VerticalContentAlignment="Center" 
+                                              VerticalAlignment="Stretch" HorizontalAlignment="Center" 
+                                              SelectionChanged="cmb_mask_mode_SelectionChanged" SelectedIndex="0" Padding="8,0" Margin="0,4,0,4">
+                                        <sys:String>Manual</sys:String>
+                                        <sys:String>Auto</sys:String>
+                                    </ComboBox>
+                                    <Button VerticalAlignment="Center" x:Name="btn_edit_mask" Padding="8,4"  Margin="4,2,4,2"
+                                            Content="Edit mask" Style="{DynamicResource ButtonDarkMode}" 
+                                            Background="{DynamicResource BlackIOS}"  Click="btn_edit_mask_Click" VerticalContentAlignment="Center"></Button>
+                                    <!--<Button x:Name="btn_auto_mask" Padding="8,4" Margin="2,0"  Content="Auto mask" Style="{DynamicResource ButtonDarkMode}" Background="{DynamicResource BlackIOS}"  Click="btn_auto_mask_Click"></Button>-->
+
+                                    <Button VerticalAlignment="Center" x:Name="btn_auto_mask_all" 
+                                            Padding="8,4"  Content="Apply mask to all" 
+                                            Style="{DynamicResource ButtonDarkMode}" Background="{DynamicResource BlackIOS}"  
+                                            Click="btn_auto_mask_all_Click" Margin="0,2,0,2" VerticalContentAlignment="Center"/>
+                                    <Rectangle Width="1" Fill="#20000000" Margin="12,0"></Rectangle>
+                                    <Label Content="Anomalies" Margin="0,0,0,0" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource RedIOS}" Padding="8,4,8,4"></Label>
+                                    <Button VerticalAlignment="Center"  Padding="8,4,8,4"  Margin="0,0,4,0"
+                                            Content="Draw anomalies" Style="{DynamicResource ButtonDarkMode}" 
+                                            Background="{DynamicResource BlackIOS}"  Click="btn_edit_annotation_Click"></Button>
+                                </StackPanel>
+
+                                <Border Margin="0,2,4,2" Padding="4" HorizontalAlignment="Right" VerticalAlignment="Center"   >
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Opacity" VerticalAlignment="Center" Margin="10,0,4,0" Padding="0,0,0,0" Foreground="White"/>
+                                        <Slider x:Name="slider_opacity" Margin="5,0" Minimum="0" Value="{Binding ColorOpacity}" Maximum="100" Width="100" VerticalAlignment="Center" SmallChange="1" />
+                                        <Label Content="{Binding ColorOpacity}"  VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="40"   ContentStringFormat="{}{0:0} %" Foreground="White"/>
+                                    </StackPanel>
+                                </Border>
+                                <Rectangle VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="0.5" Fill="#20000000"></Rectangle>
+                                <!--<Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding SelectedItem.FileName,FallbackValue=Imagename,ElementName=lst_view}" Background="#FFFFFFFF" Padding="16,3" />-->
+                            </Grid>
+                        </Grid>
+                        <Grid Margin="0,5,5,5" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="36"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Margin="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                
+                                    <TextBox x:Name="txt_search"  VerticalContentAlignment="Center" Grid.Column="0">
+                                        
+                                    </TextBox>
+                                <dx:SimpleButton x:Name="btn_search" Grid.Column="1" Margin="2,0" 
+                                                 Click="btn_search_Click"
+                                                 Padding="4" Glyph="{dx:DXImage 'SvgImages/Dashboards/EnableSearch.svg'}">
+                                        
+                                    </dx:SimpleButton>
+                                
+                            </Grid>
+                            <ListBox  VirtualizingPanel.IsVirtualizing="True" 
+                                      Grid.Row="1"
+                                      Padding="0" HorizontalContentAlignment="Stretch"  
+                                      VirtualizingPanel.VirtualizationMode ="Standard"  ScrollViewer.HorizontalScrollBarVisibility="Disabled"  
+                                      x:Name="lst_view"  ItemsSource="{Binding ListImage}" 
+                                      SelectionChanged="lst_view_SelectionChanged" BorderThickness="0"  Margin="0,0,0,0" Grid.RowSpan="2">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="{x:Type ListBoxItem}">
+                                        <Setter Property="Padding" Value="0"/>
+                                        <Setter Property="Margin" Value="2"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                       
+                                        <Style.Triggers>
+                                            <Trigger Property="IsSelected" Value="True" >
+                                                <Setter Property="Background" Value="{DynamicResource BlueIOS}" />
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="True" >
+                                                <Setter Property="Background" Value="{DynamicResource BlueIOS}" />
+                                            </Trigger>
+
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate >
+                                        <dx:BackgroundPanel Margin="4" >
+                                            <Border BorderThickness="1" BorderBrush="#20000000">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  >
+                                                    <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="{Binding Tag}" Style="{DynamicResource tagstyle}" 
+                                                                   VerticalAlignment="Center" Margin="2"  Padding="6,2"></Label>
+                                                            <Label Content="{Binding MetaData.Dataset}" 
+                                                                   Style="{DynamicResource datasetstyle}" 
+                                                                   VerticalAlignment="Center" Margin="2"  Padding="6,2"></Label>
+                                                            <Label VerticalAlignment="Center">
+                                                                <TextBlock TextTrimming="CharacterEllipsis" Margin="6,2"   
+                                                                           HorizontalAlignment="Left" Text="{Binding FileName}" />
+                                                            </Label>
+                                                        </StackPanel>
+
+
+                                                        <Button Grid.Column="1" x:Name="btn_remove" Background="{DynamicResource RedIOS}" Margin="0,0,2,0" Padding="2" Style="{DynamicResource ButtonDarkMode}" BorderThickness="0" VerticalAlignment="Center"  HorizontalAlignment="Right"  Click="btn_remove_Click">
+                                                            <Viewbox Width="15" Height="15">
+                                                                <Canvas Width="24" Height="24">
+                                                                    <Path Fill="White" Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                                                                </Canvas>
+                                                            </Viewbox>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Rectangle Height="1" Fill="#20000000"></Rectangle>
+                                                    <Grid>
+                                                        <Image   RenderOptions.BitmapScalingMode="LowQuality" MaxHeight="200"  Source="{Binding Image,IsAsync=True}"   >
+
+
+                                                        </Image>
+                                                        <!--<Label Content="{Binding Path=Score}" Opacity="0.8" ContentStringFormat="{}{0:F3}" Style="{DynamicResource tagstyle}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="2"  Padding="6,2"></Label>-->
+
+                                                    </Grid>
+
+                                                    <dxb:BarManager.DXContextMenu>
+                                                        <dxb:PopupMenu>
+                                                            <dxb:PopupMenu.Items>
+                                                                <dxb:BarSubItem Content="Change label" >
+                                                                    <dxb:BarButtonItem ItemClick="btn_change_label_good_click" Content="Good"></dxb:BarButtonItem>
+                                                                    <dxb:BarButtonItem ItemClick="btn_change_label_bad_click" Content="Bad"></dxb:BarButtonItem>
+                                                                </dxb:BarSubItem>
+                                                                <dxb:BarSubItem Content="Change dataset" >
+                                                                    <dxb:BarButtonItem ItemClick="btn_change_dataset_train_click" Content="Train"></dxb:BarButtonItem>
+                                                                    <dxb:BarButtonItem ItemClick="btn_change_dataset_test_click" Content="Test"></dxb:BarButtonItem>
+                                                                </dxb:BarSubItem>
+                                                            </dxb:PopupMenu.Items>
+                                                        </dxb:PopupMenu>
+                                                    </dxb:BarManager.DXContextMenu>
+                                                </StackPanel>
+                                            </Border>
+                                            
+                                        </dx:BackgroundPanel>
+                                       
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel  VirtualizingPanel.IsContainerVirtualizable="True"
+    VirtualizingPanel.IsVirtualizing="True"  HorizontalAlignment="Stretch" Margin="0" Orientation="Vertical" />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                            </ListBox>
+                        </Grid>
+                        <GridSplitter Grid.Column="1" 
+                      
+              
+              HorizontalAlignment="Left" 
+              VerticalAlignment="Stretch"
+              Background="Transparent" 
+              ShowsPreview="False"
+              Width="2"/>
+                    </Grid>
+                    <GridSplitter Grid.Column="0" 
+                      
+              
+              HorizontalAlignment="Right" 
+              VerticalAlignment="Stretch"
+              Background="Transparent" 
+              ShowsPreview="true"
+              Width="1"/>
+
+                </Grid>
+                <Border x:Name="box_export" IsEnabled="{Binding IsExportDataset,Converter={StaticResource InverseBooleanConverter}}" Grid.RowSpan="2" MinWidth="400" BorderThickness="1" Background="White" Visibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{DynamicResource WhiteBrush}" d:IsHidden="True">
+                    <Grid  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Background="White" >
+                            <StackPanel Margin="16" Orientation="Vertical">
+                                <TextBlock  FontSize="16" FontWeight="SemiBold" Margin="0,0,0,5" HorizontalAlignment="Left" VerticalAlignment="Bottom" >Export dataset</TextBlock>
+                                <Grid  Margin="0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock FontWeight="Normal"  HorizontalAlignment="Left" VerticalAlignment="Center">Format</TextBlock>
+                                    <ComboBox Grid.Column="1" SelectedIndex="0" Padding="5" MinWidth="100" HorizontalAlignment="Right">
+                                        <System:String>Folder format</System:String>
+
+                                    </ComboBox>
+                                </Grid>
+                                <Grid  Margin="0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock FontWeight="Normal"  HorizontalAlignment="Left" VerticalAlignment="Center">Directory</TextBlock>
+                                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                                        <Misc:TextboxWithKeyboard Padding="8,4" Text="{Binding ExportDatasetDirectory}" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" MinWidth="100"  HorizontalAlignment="Right" Margin="5,0"></Misc:TextboxWithKeyboard>
+                                        <dx:SimpleButton Click="change_export_directory_Click" GlyphHeight="24" Padding="2"  Cursor="Hand" Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_FolderClose.svg'}" ></dx:SimpleButton>
+                                    </StackPanel>
+
+                                </Grid>
+                                <Grid  Margin="0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock FontWeight="Normal"  HorizontalAlignment="Left" VerticalAlignment="Center">Export folder name</TextBlock>
+
+                                    <Misc:TextboxWithKeyboard HorizontalAlignment="Stretch" Text="{Binding ExportDatasetName}"  Grid.Column="1" Padding="8,4"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" MinWidth="100"   Margin="5,0"></Misc:TextboxWithKeyboard>
+
+
+
+                                </Grid>
+
+                            </StackPanel>
+
+                            <Rectangle Height="1"  Margin="0" Fill="#20000000" ></Rectangle>
+
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,8,0">
+
+                        </StackPanel>
+
+                        <UniformGrid Margin="8,8" Grid.Row="1" Columns="2"   Background="White">
+                            <Button x:Name="btn_export_ok" Content="OK" Click="btn_export_dataset_click" Padding="16,8" Margin="8"   FontSize="14" FontWeight="SemiBold"/>
+                            <Button x:Name="btn_export_cancel" Click="btn_cancel_dataset_click" Content="CANCEL" Padding="12,8" Margin="8"    FontSize="14" FontWeight="SemiBold"/>
+                        </UniformGrid>
+                        <dx:WaitIndicator x:Name="wait_export" DeferedVisibility="{Binding IsExportDataset}" Grid.RowSpan="2" ></dx:WaitIndicator>
+                    </Grid>
+                </Border>
+
+                <Border x:Name="box_add_images" Visibility="Hidden" Width="auto" CornerRadius="8" Height="auto" Background="White" Padding="16" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Content="Add images from" FontSize="18" FontWeight="SemiBold" Margin="2,0,0,8"></Label>
+                        <UniformGrid Columns="4" Grid.Row="1">
+                            <Button x:Name="btn_add_image_from_files" Margin="2" Width="150" Height="150" BorderThickness="2" Click="btn_add_image_from_files_Click" 
+                                    
+                                    
+                                    >
+                                
+                                <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <Viewbox Width="48" Height="48">
+                                        <Canvas Width="24" Height="24">
+                                            <Path Fill="{DynamicResource BlueIOS}" Data="M15,7H20.5L15,1.5V7M8,0H16L22,6V18A2,2 0 0,1 20,20H8C6.89,20 6,19.1 6,18V2A2,2 0 0,1 8,0M4,4V22H20V24H4A2,2 0 0,1 2,22V4H4Z" />
+                                        </Canvas>
+                                    </Viewbox>
+                                    <Label Margin="0,32,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Files" FontSize="18"></Label>
+                                </StackPanel>
+                                
+                            </Button>
+                            <Button x:Name="btn_add_image_from_files_input" Margin="2" Width="150" Height="150" BorderThickness="2" Click="btn_add_image_from_files_input_Click" 
+                                    
+                                    
+                                    >
+
+                                <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <Viewbox Width="48" Height="48">
+                                        <Canvas Width="24" Height="24">
+                                            <Path Fill="{DynamicResource BlueIOS}" Data="M15,7H20.5L15,1.5V7M8,0H16L22,6V18A2,2 0 0,1 20,20H8C6.89,20 6,19.1 6,18V2A2,2 0 0,1 8,0M4,4V22H20V24H4A2,2 0 0,1 2,22V4H4Z" />
+                                        </Canvas>
+                                    </Viewbox>
+                                    <Label Margin="0,32,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Files cropped" FontSize="18"></Label>
+                                </StackPanel>
+
+                            </Button>
+                            <Button x:Name="btn_add_image_input" Margin="2"  BorderThickness="2" Click="btn_add_image_input_Click" 
+                                    
+                                   >
+
+                                <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <Viewbox Width="48" Height="48">
+                                        <Canvas Width="24" Height="24">
+                                            <Path Fill="{DynamicResource BlueIOS}" Data="M14,12L10,8V11H2V13H10V16M20,18V6C20,4.89 19.1,4 18,4H6A2,2 0 0,0 4,6V9H6V6H18V18H6V15H4V18A2,2 0 0,0 6,20H18A2,2 0 0,0 20,18Z" />
+                                        </Canvas>
+                                    </Viewbox>
+                                    <Label Margin="0,32,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Input" FontSize="18"></Label>
+                                    
+                                </StackPanel>
+
+                            </Button>
+                            <Button x:Name="btn_record_input" Margin="2"  BorderThickness="2" Click="btn_record_input_Click"   
+                                    
+                                    >
+
+                                <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <Viewbox Width="48" Height="48">
+                                        <Canvas Width="24" Height="24">
+                                            <Path Fill="{DynamicResource BlueIOS}" Data="M12.5,5A7.5,7.5 0 0,0 5,12.5A7.5,7.5 0 0,0 12.5,20A7.5,7.5 0 0,0 20,12.5A7.5,7.5 0 0,0 12.5,5M7,10H9A1,1 0 0,1 10,11V12C10,12.5 9.62,12.9 9.14,12.97L10.31,15H9.15L8,13V15H7M12,10H14V11H12V12H14V13H12V14H14V15H12A1,1 0 0,1 11,14V11A1,1 0 0,1 12,10M16,10H18V11H16V14H18V15H16A1,1 0 0,1 15,14V11A1,1 0 0,1 16,10M8,11V12H9V11" />
+                                        </Canvas>
+                                    </Viewbox>
+                                    <Label Margin="0,32,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Record" FontSize="18"></Label>
+                                </StackPanel>
+
+                            </Button>
+                        </UniformGrid>
+                        <Button x:Name="btn_close_add_images" Content="Close" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="16,8" Click="btn_close_add_images_Click"></Button>
+                    </Grid>
+                </Border>
+                <dx:WaitIndicator x:Name="label_wait" DeferedVisibility="False" Content="Loading.." d:IsHidden="True" ></dx:WaitIndicator>
+            </Grid>
+        </dx:DXTabItem>
+        <dx:DXTabItem Header="Trainning"  >
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                        
+                        <Border x:Name="toolbar_grid"  Grid.Row="0" Padding="16" >
+                            <Grid>
+
+                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal"  VerticalAlignment="Center" >
+                                    <Button x:Name="btn_train"  Content="Start trainning" Visibility="{Binding IsTraining,Converter={StaticResource BoolToVisibilityCollapse}}" FontSize="14"  Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="14,8,14,8" Background="{DynamicResource BlackBrush}" BorderBrush="{x:Null}" Foreground="White" Style="{DynamicResource ButtonDarkMode}"></Button>
+                                    <Button x:Name="btn_stop_train"  Content="Stop trainning" Visibility="{Binding IsTraining,Converter={StaticResource BoolToVisibilityConverter}}" FontSize="14"  Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="14,8,14,8" Background="{DynamicResource RedIOS}" BorderBrush="{x:Null}" Foreground="{DynamicResource WhiteBrush}" Style="{DynamicResource ButtonDarkMode}"></Button>
+                                </StackPanel>
+
+                            </Grid>
+
+                        </Border>
+                    <Rectangle Height="1"  Margin="0" VerticalAlignment="Bottom" Fill="#20000000" ></Rectangle>
+                    <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,8,0,0" >
+                            <StackPanel x:Name="stack_train_parameter" >
+                                <StackPanel Margin="16,10,16,16" Orientation="Vertical">
+                                    <Grid>
+                                        <Label  FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0">Trainning parameters</Label>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,0,0">
+                                        <dx:SimpleButton x:Name="btn_train_cmd" Padding="2" 
+                                                             GlyphHeight="22"
+                                                             Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Window.svg'}"
+                                                    VerticalAlignment="Center" Margin="0,0,2,0" 
+                                                    Cursor="Hand" ToolTip="Start console trainning"
+                                                    Click="btn_train_cmd_Click">
+
+                                        </dx:SimpleButton>
+                                        <dx:SimpleButton x:Name="btn_option" Padding="2" 
+                                                             GlyphHeight="22"
+                                                             Glyph="{dx:DXImage 'SvgImages/PDF Viewer/SearchSettingButton.svg'}"
+                                                             HorizontalAlignment="Right"  
+                                                             Click="btn_option_Click" 
+                                                             VerticalAlignment="Center" Cursor="Hand" ToolTip="Advance options">
+
+                                        </dx:SimpleButton>
+                                    </StackPanel>
+                                </Grid>
+
+                                    <UniformGrid Columns="2" Margin="4,8,0,0">
+                                        <TextBlock FontWeight="Normal"  HorizontalAlignment="Left" VerticalAlignment="Center">Epochs</TextBlock>
+                                        <Misc:NumericUpDownWithKeyboard Interval="1" Value="{Binding Epoch}"  HorizontalAlignment="Right"></Misc:NumericUpDownWithKeyboard>
+                                    </UniformGrid>
+                                    <UniformGrid Columns="2" Margin="4,8,0,0" Visibility="Visible">
+                                    <TextBlock FontWeight="Normal"  HorizontalAlignment="Left" VerticalAlignment="Center">Batch size</TextBlock>
+                                        <Misc:NumericUpDownWithKeyboard Interval="1" Value="{Binding BATCH_SIZE}"  HorizontalAlignment="Right"></Misc:NumericUpDownWithKeyboard>
+                                    </UniformGrid>
+
+
+                                </StackPanel>
+
+
+                            <StackPanel Margin="16,0,16,16" Orientation="Vertical">
+                                    <TextBlock  FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,8">Model</TextBlock>
+                                    <Grid  Margin="4,4,0,0">
+                                        
+                                        <TextBlock FontWeight="Normal"  HorizontalAlignment="Left" VerticalAlignment="Center">Name</TextBlock>
+                                        <ComboBox   HorizontalAlignment="Right" SelectionChanged="cmb_model_name_SelectionChanged" SelectedItem="{Binding ModelName,Converter={StaticResource AnomalyModelNameConverter}}">
+                                        <System:String>Memory Segmentation 3</System:String>
+                                        <System:String>Diffusion AD</System:String>
+                                        <System:String>Efficient AD</System:String>
+                                        <System:String>Memory Segmentation 2</System:String>
+                                            <System:String>Memory Segmentation</System:String>
+                                            <System:String>Fast Flow</System:String>
+                                            <System:String>Fast Adaptive Patches Memory</System:String>
+                                        <System:String>Fast Adaptive Patches Memory 2</System:String>
+                                        <System:String>RD</System:String>
+                                        <System:String>CFA</System:String>
+                                        <System:String>Auto Encoder</System:String>
+                                    </ComboBox>
+                                    </Grid>
+                                    <UniformGrid Columns="2" Margin="4,8,0,0">
+                                        <TextBlock FontWeight="Normal"  HorizontalAlignment="Left" VerticalAlignment="Center">Width</TextBlock>
+                                        <Misc:NumericUpDownWithKeyboard Interval="1" Value="{Binding INPUT_WIDTH}" HorizontalAlignment="Right"></Misc:NumericUpDownWithKeyboard>
+                                    </UniformGrid>
+                                    <UniformGrid Columns="2" Margin="4,8,0,0">
+                                        <TextBlock FontWeight="Normal"  HorizontalAlignment="Left" VerticalAlignment="Center">Height</TextBlock>
+                                        <Misc:NumericUpDownWithKeyboard Interval="1" Value="{Binding INPUT_HEIGHT}"  HorizontalAlignment="Right"></Misc:NumericUpDownWithKeyboard>
+                                    </UniformGrid>
+                                <TextBlock  FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,8,0,0">Advance parameter</TextBlock>
+                                <dxprg:PropertyGridControl
+                                    ShowDescriptionIn="Panel"
+                                    
+                                    VerticalContentAlignment="Center"
+                                   
+                                    x:Name="grid_model_prop"
+                                    FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                                           HorizontalContentAlignment="Right" 
+                                                           ExpandCategoriesWhenSelectedObjectChanged="True" 
+                                    ShowProperties="WithPropertyDefinitions"
+                                                           ShowCategories="Hidden" Margin="0,8,0,0" 
+                                                           ShowToolPanel="False" ShowSearchBox="False" 
+                                    PropertyDefinitionTemplateSelector="{StaticResource PropertyDefinitionTemplateSelector}"
+                                    >
+                                    <dxprg:PropertyGridControl.DescriptionTemplate>
+                                        <DataTemplate>
+                                            <TextBox Background="Transparent"
+                             BorderThickness="0"
+                             Text="{Binding Mode=OneWay}"
+                             IsReadOnly="True"
+                             TextWrapping="Wrap" />     
+                                        </DataTemplate>
+                                    </dxprg:PropertyGridControl.DescriptionTemplate>
+
+                                    <dxprg:PropertyDefinition >
+                                        <dxprg:PropertyDefinition.CellTemplate>
+                                            <DataTemplate>
+                                                <dxe:TextEdit Name="PART_Editor" HorizontalContentAlignment="Right"/>
+                                            </DataTemplate>
+                                        </dxprg:PropertyDefinition.CellTemplate>
+                                    </dxprg:PropertyDefinition>
+                                </dxprg:PropertyGridControl>
+                                
+                            </StackPanel>
+                            <Rectangle Height="1"  Margin="0" Fill="#20000000" ></Rectangle>
+                                <StackPanel  Margin="16" Orientation="Vertical">
+                                    <TextBlock  FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,8">Augmentation</TextBlock>
+                                <CheckBox Content="Enable image augmentation" Margin="4,8,0,0" IsChecked="{Binding EnableAugmentation}" Template="{DynamicResource CheckBoxControlTemplateFlat}"></CheckBox>
+
+
+                                <StackPanel x:Name="stack_augmentation">
+                                    <UniformGrid Columns="2" Margin="4,8,0,0">
+                                        <CheckBox IsChecked="{Binding EnableRandomRotate90}" Template="{DynamicResource CheckBoxControlTemplateFlat}" FontWeight="Normal"  HorizontalAlignment="Left" VerticalAlignment="Center">Random rotation 90</CheckBox>
+                                        <Misc:NumericUpDownWithKeyboard Interval="1" Value="{Binding RandomRotate90Factor}" HorizontalAlignment="Right"></Misc:NumericUpDownWithKeyboard>
+                                    </UniformGrid>
+                                    <UniformGrid Columns="2" Margin="4,8,0,0">
+                                        <CheckBox IsChecked="{Binding EnableRotation}" Template="{DynamicResource CheckBoxControlTemplateFlat}" FontWeight="Normal"  HorizontalAlignment="Left" VerticalAlignment="Center">Random rotation</CheckBox>
+                                        <Misc:NumericUpDownWithKeyboard Interval="1" Value="{Binding RotationVariation}" HorizontalAlignment="Right"></Misc:NumericUpDownWithKeyboard>
+                                    </UniformGrid>
+                                    <UniformGrid Columns="1" Margin="4,8,0,0">
+                                        <CheckBox IsChecked="{Binding VerticalFlip}" Content="Vertical flip (X axis)" Template="{DynamicResource CheckBoxControlTemplateFlat}"  HorizontalAlignment="Left" VerticalAlignment="Center"></CheckBox>
+
+                                    </UniformGrid>
+                                    <UniformGrid Columns="1" Margin="4,8,0,0">
+                                        <CheckBox IsChecked="{Binding HorizontalFlip}" Content="Horizontal flip (Y axis)" Template="{DynamicResource CheckBoxControlTemplateFlat}"  HorizontalAlignment="Left" VerticalAlignment="Center"></CheckBox>
+
+                                    </UniformGrid>
+                                    <Grid  Margin="4,8,0,0">
+                                        <CheckBox IsChecked="{Binding EnableBrightness}" Content="Brightness variation (%)" Template="{DynamicResource CheckBoxControlTemplateFlat}"   HorizontalAlignment="Left" VerticalAlignment="Center"></CheckBox>
+                                        <Misc:NumericUpDownWithKeyboard Interval="1" Value="{Binding Brightness}"  HorizontalAlignment="Right"></Misc:NumericUpDownWithKeyboard>
+                                    </Grid>
+                                    <Grid Margin="4,8,0,0">
+                                        <CheckBox Content="Contrast variation (%)" IsChecked="{Binding EnableBrightness}" Template="{DynamicResource CheckBoxControlTemplateFlat}"  HorizontalAlignment="Left" VerticalAlignment="Center"></CheckBox>
+                                        <Misc:NumericUpDownWithKeyboard Interval="1" Value="{Binding Contrast}"  HorizontalAlignment="Right"></Misc:NumericUpDownWithKeyboard>
+                                    </Grid>
+                                    <StackPanel Margin="4,8,0,0" >
+                                        <CheckBox Content="Random resize scale" IsChecked="{Binding EnableRandomResizedCrop}" Template="{DynamicResource CheckBoxControlTemplateFlat}"  HorizontalAlignment="Left" VerticalAlignment="Center"></CheckBox>
+                                        <UniformGrid Columns="2" Margin="0,8,2,0">
+                                            <Label Content="Start"  HorizontalAlignment="Center"></Label>
+                                            <Label Content="Stop"  HorizontalAlignment="Center"></Label>
+                                        </UniformGrid>
+                                        <UniformGrid Columns="2" >
+                                            <Misc:NumericUpDownWithKeyboard Interval="0.1" Value="{Binding RandomCropResizeScale.Start}"  HorizontalAlignment="Center"></Misc:NumericUpDownWithKeyboard>
+                                            <Misc:NumericUpDownWithKeyboard Interval="0.1" Value="{Binding RandomCropResizeScale.Stop}"  HorizontalAlignment="Center"></Misc:NumericUpDownWithKeyboard>
+                                        </UniformGrid>
+
+                                    </StackPanel>
+                                    <StackPanel Margin="4,16,0,0" >
+                                        <CheckBox Content="Random resize ratio" IsChecked="{Binding EnableRandomResizedCrop}" Template="{DynamicResource CheckBoxControlTemplateFlat}"  HorizontalAlignment="Left" VerticalAlignment="Center"></CheckBox>
+                                        <UniformGrid Columns="2" Margin="0,8,2,0">
+                                            <Label Content="Start"  HorizontalAlignment="Center"></Label>
+                                            <Label Content="Stop"  HorizontalAlignment="Center"></Label>
+                                        </UniformGrid>
+                                        <UniformGrid Columns="2" >
+                                            <Misc:NumericUpDownWithKeyboard Interval="0.1" Value="{Binding RandomCropResizeRatio.Start}"  HorizontalAlignment="Center"></Misc:NumericUpDownWithKeyboard>
+                                            <Misc:NumericUpDownWithKeyboard Interval="0.1" Value="{Binding RandomCropResizeRatio.Stop}"  HorizontalAlignment="Center"></Misc:NumericUpDownWithKeyboard>
+                                        </UniformGrid>
+
+                                    </StackPanel>
+                                </StackPanel>
+                                    
+
+                                </StackPanel>
+                            </StackPanel>
+
+
+                            <!--<UniformGrid Grid.Row="1" Columns="2"   Background="White">
+                                <Button x:Name="btn_step_ok" Content="Ok" Padding="16,8" Margin="8" Style="{DynamicResource ButtonIOSBar}" Foreground="White" Background="{DynamicResource BlueIOS}" FontSize="14" FontWeight="SemiBold"/>
+                                <Button x:Name="btn_step_cancel" Content="Cancel" Padding="12,8" Margin="8" Style="{DynamicResource ButtonIOSBar}" Foreground="White" Background="{DynamicResource BlackIOS}" FontSize="14" FontWeight="SemiBold"/>
+                            </UniformGrid>-->
+                        </ScrollViewer>
+                        <Border Grid.Row="2"   >
+                            <Grid>
+                                <StackPanel>
+                                <Rectangle Height="1"  Margin="0" VerticalAlignment="Bottom" Fill="#20000000" ></Rectangle>
+                                <StackPanel x:Name="stack_workspace"  Orientation="Vertical" >
+                                        <Grid x:Name="grid_runtime" Margin="16">
+                                            <StackPanel >
+                                                <TextBlock Text="Runtime Options" FontWeight="SemiBold" FontSize="14" Opacity="0.9"/>
+                                                <dxprg:PropertyGridControl FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                                                           HorizontalContentAlignment="Right" x:Name="propertiesGrid" 
+                                                                           ExpandCategoriesWhenSelectedObjectChanged="True" 
+                                                                           ShowCategories="Hidden" Margin="0,8,0,0" 
+                                                                           ShowToolPanel="False" ShowSearchBox="False" 
+                                                                           ShowGridLines="False">
+                                                    <dxprg:PropertyDefinition Type="{x:Type sys:Double}">
+                                                        <dxprg:PropertyDefinition.CellTemplate>
+                                                            <DataTemplate>
+
+                                                                <Misc:NumericUpDownWithKeyboard x:Name="PART_Editor" Value="{Binding Value}" BorderThickness="1" />
+                                                            </DataTemplate>
+                                                        </dxprg:PropertyDefinition.CellTemplate>
+                                                    </dxprg:PropertyDefinition>
+                                                </dxprg:PropertyGridControl>
+                                            </StackPanel>
+                                        </Grid>
+                                        
+
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                    
+
+
+                </Grid>
+                <Grid Grid.Column="1" x:Name="grid_trainning_status">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Width="1"  Margin="0" Fill="#20000000" HorizontalAlignment="Right"></Rectangle>
+                    <Border Padding="16" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <GroupBox Header="Trainning status" VerticalAlignment="Top" MinWidth="300"  >
+                                <StackPanel TextBlock.FontWeight="SemiBold" Margin="16">
+                                    <Grid>
+                                        <Label Content="Epoch:" ></Label>
+                                        <Label Content="{Binding Epoch}" HorizontalAlignment="Right"></Label>
+                                    </Grid>
+                                    <Grid>
+                                        <Label Content="Learning rate:" ></Label>
+                                        <Label Content="{Binding LearningRate}" ContentStringFormat="e2" Margin="100,0,0,0" HorizontalAlignment="Right"></Label>
+                                    </Grid>
+                                    <Grid>
+                                        <Label Content="Loss:" ></Label>
+                                        <Label Content="{Binding Loss}" HorizontalAlignment="Right"></Label>
+                                    </Grid>
+                                    <Rectangle Height="1" HorizontalAlignment="Stretch" Fill="#20000000" Margin="0,8"></Rectangle>
+                                    <Grid>
+                                        <Label Content="Time elapsed:" ></Label>
+                                        <Label Content="{Binding TimeExlapsed}" HorizontalAlignment="Right"></Label>
+                                    </Grid>
+                                    <Grid>
+                                        <Label Content="Time left:" ></Label>
+                                        <Label Content="{Binding TimeLeft}" HorizontalAlignment="Right"></Label>
+                                    </Grid>
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Margin="0,8,0,0" Grid.Row="1" Header="Trainning logs" VerticalAlignment="Stretch" MinWidth="300" MaxWidth="500" >
+                                <ScrollViewer  Margin="8,0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                                    <ItemsControl BorderThickness="0" ItemsSource="{Binding Logs}"  >
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <TextBlock
+                                                        Text="{Binding}"
+                                                        TextWrapping="Wrap"
+                                                        />              
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </GroupBox>
+                        </Grid>
+                    </Border>
+                    <Border Padding="0" Grid.Column="1">
+                        <Grid>
+                            <StackPanel>
+                                <dxc:ChartControl Margin="0,0" BorderThickness="0" BorderBrush="Transparent" >
+                                    <dxc:ChartControl.Titles>
+                                        <dxc:Title Content="Loss" FontWeight="SemiBold" Foreground="#FF505050" >
+
+                                        </dxc:Title>
+                                    </dxc:ChartControl.Titles>
+                                    <dxc:XYDiagram2D >
+                                        <dxc:XYDiagram2D.AxisY>
+                                            <dxc:AxisY2D TitlePosition="Inside"  LabelPosition="Inside">
+                                                <dxc:AxisY2D.Label>
+                                                    <dxc:AxisLabel ></dxc:AxisLabel>
+                                                </dxc:AxisY2D.Label>
+                                            </dxc:AxisY2D>
+                                        </dxc:XYDiagram2D.AxisY>
+                                        <dxc:LineSeries2D  DisplayName="Loss" DataSource="{Binding LossData}"
+                                                          ArgumentDataMember="X"
+                                                          ValueDataMember="Y"
+                                                          />
+                                    </dxc:XYDiagram2D>
+                                </dxc:ChartControl>
+
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                </Grid>
+                <Rectangle Width="1"  Margin="0" Fill="#20000000" HorizontalAlignment="Right"></Rectangle>
+            </Grid>
+        </dx:DXTabItem>
+        <dx:DXTabItem x:Name="tab_eval" Header="Evaluation" >
+            <Grid x:Name="grid_eval">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Rectangle Width="1"  Margin="0" Fill="#20000000" HorizontalAlignment="Right"></Rectangle>
+                <Grid>
+                    <StackPanel>
+                        <Border x:Name="toolbar_grid_eval"  Grid.ColumnSpan="2" Padding="16" BorderBrush="#20000000">
+                            <Grid>
+
+                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal"  VerticalAlignment="Center" >
+                                    <Button x:Name="btn_eval"  Content="Start evaluation" Visibility="{Binding IsEvaluation,Converter={StaticResource BoolToVisibilityCollapse}}" FontSize="14"  Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="14,8,14,8" Background="{DynamicResource BlackBrush}" BorderBrush="{x:Null}" Foreground="White" Style="{DynamicResource ButtonDarkMode}" Click="btn_eval_Click"></Button>
+                                    <Button x:Name="btn_stop_eval"  Content="Stop evaluation" Visibility="{Binding IsEvaluation,Converter={StaticResource BoolToVisibilityConverter}}" FontSize="14"  Cursor="Hand" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="14,8,14,8" Background="{DynamicResource RedIOS}" BorderBrush="{x:Null}" Foreground="{DynamicResource WhiteBrush}" Style="{DynamicResource ButtonDarkMode}" Click="btn_stop_eval_Click" ></Button>
+
+                                </StackPanel>
+
+                            </Grid>
+
+                        </Border>
+                        <dxe:ProgressBarEdit Margin="16,0,16,8" Value="{Binding EvaluationProgress}" Maximum="100" Minimum="0" Height="25" ContentDisplayMode="Value" DisplayFormatString="{}{0}%" ></dxe:ProgressBarEdit>
+                        <Grid  >
+                            <StackPanel x:Name="stack_eval_parameter" >
+                                <StackPanel Margin="16,0,16,16" Orientation="Vertical">
+                                    <StackPanel  >
+                                        <Label  FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0">Dataset</Label>
+                                        <UniformGrid Columns="2" Margin="8,0,0,0">
+                                            <Label Content="Total samples:"  ></Label>
+                                            <Label Content="{Binding TotalSamples}" FontWeight="SemiBold" HorizontalAlignment="Center"></Label>
+                                        </UniformGrid>
+                                        <Rectangle Height="4"></Rectangle>
+                                        <StackPanel>
+                                            <Label Content="Class list" FontWeight="SemiBold"  ></Label>
+                                            
+                                                <ItemsControl ItemsSource="{Binding ClassSummaryList}" Margin="8,0,0,0">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate >
+                                                            <UniformGrid Columns="2">
+                                                                <Label   VerticalContentAlignment="Center"
+                                                                    HorizontalContentAlignment="Left" Content="{Binding Name}"></Label>
+                                                                <Label   VerticalContentAlignment="Center" 
+                                                                    HorizontalContentAlignment="Center" Content="{Binding Value}"></Label>
+                                                            </UniformGrid>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                                
+                                            
+                                            
+                                        </StackPanel>
+                                       
+                                    </StackPanel>
+
+
+
+                                </StackPanel>
+                                <Rectangle Height="1"  Margin="0" Fill="#20000000" ></Rectangle>
+                                <Grid>
+
+                                    <StackPanel  Margin="16">
+                                        <Label Content="Overall" FontWeight="SemiBold" Margin="4,0" ></Label>
+                                        <Rectangle Height="4"></Rectangle>
+                                        <UniformGrid Margin="8,0,0,0" Columns="2" >
+                                            <Label Padding="0,4"  
+                                                   VerticalContentAlignment="Center" 
+                                                    Margin="1" HorizontalAlignment="Stretch" 
+                                                   HorizontalContentAlignment="Left" Content="Accuracy:"  ></Label>
+                                            <Label  Content="{Binding Acc}" ContentStringFormat="P1" 
+                                                    VerticalContentAlignment="Center" 
+                                                    Margin="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></Label>
+                                        </UniformGrid>
+                                        <UniformGrid Margin="8,0,0,0" Columns="2">
+                                            <Label Padding="0,4" 
+                                                   VerticalContentAlignment="Center"  Margin="1" 
+                                                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Content="F1 Score:"  ></Label>
+                                            <Label Content="{Binding F1Score}" ContentStringFormat="P1" 
+                                                   VerticalContentAlignment="Center"  
+                                                   Margin="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></Label>
+                                        </UniformGrid>
+                                        <Rectangle Height="16"></Rectangle>
+                                        <Label Content="Invidiual" FontWeight="SemiBold" Margin="4,0" ></Label>
+                                        <Rectangle Height="4"></Rectangle>
+                                        <!--<UniformGrid Columns="4" Margin="4,0">
+                                            <Label    Padding="0,4" VerticalContentAlignment="Center"  HorizontalAlignment="Stretch" Margin="1" HorizontalContentAlignment="Center" Content="Class"></Label>
+                                            <Label   ContentStringFormat="P1" VerticalContentAlignment="Center" FontWeight="SemiBold" Margin="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Content="Precision"></Label>
+                                            <Label   ContentStringFormat="P1" VerticalContentAlignment="Center" FontWeight="SemiBold" Margin="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Content="Recall"></Label>
+                                            <Label   ContentStringFormat="P1" VerticalContentAlignment="Center" FontWeight="SemiBold" Margin="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Content="F1"></Label>
+                                        </UniformGrid>-->
+                                        <dxg:GridControl 
+                                                Margin="8,0,0,0"
+                                                Height="100"
+                                                AutoGenerateColumns="None"
+                                                VerticalAlignment="Top"
+                                                ItemsSource="{Binding PrecisionList}">
+                                            <dxg:GridControl.Columns >
+                                                <dxg:GridColumn Header="Name" FieldName="Name"  />
+                                                <dxg:GridColumn Header="Precision" FieldName="Precision" ReadOnly="True"/>
+                                                <dxg:GridColumn Header="Recall" FieldName="Recall" />
+                                                <dxg:GridColumn Header="F1" FieldName="F1" />
+                                            </dxg:GridControl.Columns>
+                                            <dxg:GridControl.View >
+                                                <dxg:TableView x:Name="gridcontrol_evaluation"
+                                                               ShowIndicator="False"
+                                                               
+                                                    AllowBestFit="True"
+                                                    
+                                                    AutoWidth="True"
+                                                    ShowSearchPanelMode="Never" 
+                                                               ShowFilterPanelMode="Never"
+                                                               ShowGroupPanel="False"
+                                                               ShowAutoFilterRow="False" />
+                                            </dxg:GridControl.View>
+                                        </dxg:GridControl>
+                                        <!--<ItemsControl ItemsSource="{Binding PrecisionList}" Margin="4,0">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate >
+                                                    <UniformGrid Columns="4">
+                                                        <Label 
+                                                            Padding="0,4" VerticalContentAlignment="Center"  HorizontalAlignment="Stretch" Margin="1" HorizontalContentAlignment="Center" Content="{Binding Name}"></Label>
+                                                        <Label 
+                                                            ContentStringFormat="P1" VerticalContentAlignment="Center" FontWeight="SemiBold" Margin="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Content="{Binding Precision}"></Label>
+                                                        <Label 
+                                                            ContentStringFormat="P1" VerticalContentAlignment="Center" FontWeight="SemiBold" Margin="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Content="{Binding Recall}"></Label>
+                                                        <Label
+                                                             ContentStringFormat="P1" VerticalContentAlignment="Center" FontWeight="SemiBold" Margin="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Content="{Binding F1}"></Label>
+                                                    </UniformGrid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>-->
+                                    </StackPanel>
+
+                                </Grid>
+                                <Rectangle Height="1"  Margin="0" Fill="#20000000" ></Rectangle>
+                                <StackPanel Margin="16" Orientation="Vertical">
+                                    <TextBlock  FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,8">Confusion matrix</TextBlock>
+
+                                    <controls:ConfusionMatrixViewer x:Name="confusionMatrix"></controls:ConfusionMatrixViewer>
+                                    <StackPanel Margin="0,16">
+                                        <Grid>
+                                            <Label Content="Threshold"></Label>
+                                            <Label Content="{Binding EvalThreshold}" ContentStringFormat="P2" HorizontalAlignment="Right"></Label>
+                                        </Grid>
+                                        <Slider x:Name="sld_eval_threshold" Minimum="0" SmallChange="0.01" LargeChange="0.01" Maximum="1" Value="{Binding EvalThreshold}" ValueChanged="sld_eval_threshold_ValueChanged"></Slider>
+                                        <TextBox Text="{Binding EvalThreshold}" PreviewKeyDown="TextBox_PreviewKeyDown"></TextBox>
+                                        <Button Margin="0,16,0,0" VerticalAlignment="Center" Click="Button_Click" HorizontalAlignment="Center" Content="Update confusion matrix"></Button>
+                                    </StackPanel>
+
+
+                                </StackPanel>
+
+                            </StackPanel>
+                        </Grid>
+                        <Border Grid.Row="0"   >
+                            <Grid>
+
+                            </Grid>
+                        </Border>
+
+                    </StackPanel>
+
+
+                </Grid>
+                <Grid Grid.Column="1" x:Name="grid_eval_status">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="600"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <GridSplitter Width="1" VerticalAlignment="Stretch" HorizontalAlignment="Right"></GridSplitter>
+                    <Rectangle Width="1"  Margin="0" Fill="#20000000" HorizontalAlignment="Right"></Rectangle>
+                    <Border Padding="16,12" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel>
+                                <Label Content="Images" FontSize="18" FontWeight="SemiBold">
+
+                                </Label>
+                                <!--<StackPanel Orientation="Horizontal">
+                                <Label Content="Label: " FontSize="16"></Label>
+                                <Label Content="OK" FontSize="16"></Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Predict: " FontSize="16"></Label>
+                                <Label Content="OK" FontSize="16"></Label>
+                            </StackPanel>-->
+
+
+
+                            </StackPanel>
+                            <ListBox x:Name="lst_evaluation_image" SelectionChanged="lst_evaluation_image_SelectionChanged" 
+                                     VirtualizingPanel.IsVirtualizing="True" HorizontalContentAlignment="Center" 
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="1">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="{x:Type ListBoxItem}">
+                                        <Setter Property="Padding" Value="5"/>
+                                        <Setter Property="Margin" Value="2"/>
+                                        <Setter Property="BorderThickness" Value="2"/>
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsSelected" Value="True" >
+                                                <Setter Property="BorderBrush" Value="{DynamicResource BlueIOS}" />
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="True" >
+                                                <Setter Property="BorderBrush" Value="{DynamicResource BlueIOS}" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate >
+                                        <StackPanel>
+                                            <Label Content="{Binding Probability}" Padding="8,4" ContentStringFormat="P1" 
+                                                   Foreground="White" Background="{DynamicResource BlueIOS}"  
+                                                   HorizontalAlignment="Stretch" ></Label>
+                                            <Rectangle Height="1" HorizontalAlignment="Stretch" Fill="#20000000"></Rectangle>
+                                            <Image   Height="100" Stretch="Uniform"  HorizontalAlignment="Center" Source="{Binding ImageBitmap,IsAsync=true}"  >
+
+                                                <!--<Image.Source>
+
+                                                    <BitmapImage DecodePixelHeight="100"  CacheOption="OnLoad" 
+                                            UriSource="{Binding Image}"  />
+                                                </Image.Source>-->
+                                            </Image>
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel VirtualizingPanel.IsVirtualizing="True"  VerticalAlignment="Stretch" Orientation="Horizontal">
+
+                                        </WrapPanel>
+                                    </ItemsPanelTemplate>
+
+                                </ListBox.ItemsPanel>
+                            </ListBox>
+                        </Grid>
+
+                    </Border>
+                    <Border Padding="16,12" Grid.Column="1"  >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel>
+                                <Label Content="Detail" FontSize="18" FontWeight="SemiBold"></Label>
+                                <Grid Margin="0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <dx:SimpleButton  Click="btn_zoom_in_click"  HorizontalAlignment="Left" Padding="2"  Margin="0,0,4,0" Glyph="{dx:DXImage 'Office2013/Zoom/ZoomIn_32x32.png'}" ></dx:SimpleButton>
+                                        <dx:SimpleButton  Click="btn_zoom_out_click" HorizontalAlignment="Left" Padding="2" Margin="2,0" Glyph="{dx:DXImage 'Office2013/Zoom/ZoomOut_32x32.png'}" ></dx:SimpleButton>
+                                        <dx:SimpleButton  Click="btn_zoom_fit_click" HorizontalAlignment="Left" Padding="2" Margin="2,0" Glyph="{dx:DXImage 'Office2013/Zoom/Zoom100_32x32.png'}" ></dx:SimpleButton>
+
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  Grid.Column="1">
+                                        <!--<Button x:Name="btn_go_to_original_source" Click="btn_go_to_original_source_Click" Padding="12,0" Content="Go to original source" HorizontalAlignment="Left" ></Button>-->
+                                        <CheckBox x:Name="chk_heatmap"   VerticalAlignment="Center" 
+                                                  
+                                                  Template="{DynamicResource CheckBoxControlTemplateXboxSetting}" 
+                                                  Content="Heatmap" Checked="chk_heatmap_Checked" Unchecked="chk_heatmap_Unchecked"></CheckBox>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Margin="0,0,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" DataContext="{Binding SelectedItem,ElementName=lst_evaluation_image}">
+                                        <dxe:TextEdit IsReadOnly="True" ShowBorder="False" Text="{Binding FileName}" FontWeight="SemiBold"></dxe:TextEdit>
+
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  Grid.Column="1">
+                                        <Label Content="{Binding PixelScore}" ContentStringFormat="P2" FontWeight="SemiBold"></Label>
+                                    </StackPanel>
+                                </Grid>
+
+                            </StackPanel>
+                            <Grid Grid.Row="1" >
+                                <HalconDotNet:HSmartWindowControlWPF HMouseMove="image_detail_HMouseMove"   
+                                                                     BorderThickness="1"  
+                                                                     HKeepAspectRatio="True"
+                                                                     BorderBrush="LightGray" 
+                                                                     x:Name="image_detail" 
+                                                                     HInitWindow="image_detail_HInitWindow"
+                                                                     HMouseDown="image_detail_HMouseDown"
+                                                                     HMouseUp="image_detail_HMouseUp">
+                                    <dxb:BarManager.DXContextMenu>
+                                        <dxb:PopupMenu>
+                                            <dxb:PopupMenu.Items>
+                                                <dxb:BarButtonItem 
+                                                    Content="Edit with Paint"
+                                                    ItemClick="btn_edit_eval_paint_click" />
+                                                
+                                            </dxb:PopupMenu.Items>
+                                        </dxb:PopupMenu>
+                                    </dxb:BarManager.DXContextMenu>
+                                </HalconDotNet:HSmartWindowControlWPF>
+                            </Grid>
+
+                        </Grid>
+
+
+                    </Border>
+
+                </Grid>
+            </Grid>
+        </dx:DXTabItem>
+    </dx:DXTabControl>
+
+</dx:ThemedWindow>

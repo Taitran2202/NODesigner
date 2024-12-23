@@ -1,0 +1,14 @@
+﻿<Window x:Class="NOVisionDesigner.Designer.Windows.EditRegionSegment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.Windows"
+        mc:Ignorable="d"
+        xmlns:HalconDotNet="clr-namespace:HalconDotNet;assembly=halcondotnet"
+        Title="EditRegionSegment" Height="450" Width="800">
+    <Grid>
+        <HalconDotNet:HSmartWindowControlWPF x:Name="window_display"  HInitWindow="window_display_HInitWindow" HMouseMove="Window_display_HMouseMove" Loaded="window_display_Loaded" Margin="2">
+        </HalconDotNet:HSmartWindowControlWPF>
+    </Grid>
+</Window>

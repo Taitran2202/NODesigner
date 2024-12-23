@@ -1,0 +1,17 @@
+﻿<UserControl xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NOVisionDesigner.Designer.Editors"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" x:Class="NOVisionDesigner.Designer.Editors.EnumValueEditorView"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="120" >
+    <Grid>
+
+        <ComboBox x:Name="valueUpDown" SelectedValue="{Binding StringValue}" 
+                  FontWeight="Bold" Margin="0" 
+                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+        
+    </Grid>
+</UserControl>

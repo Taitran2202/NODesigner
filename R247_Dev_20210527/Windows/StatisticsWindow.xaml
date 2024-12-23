@@ -1,0 +1,28 @@
+﻿<Window x:Class="NOVisionDesigner.Windows.StatisticsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Windows" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d" x:Name="MainWD"
+        Title="Statistics"   Height="{Binding SystemParameters.PrimaryScreenHeight}" 
+        Closing="OnClosing"
+    Width="{Binding SystemParameters.PrimaryScreenWidth}">
+    <!--<i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}"  CommandParameter="{Binding ElementName=MainWD}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>-->
+
+    <Grid x:Name="MainStatisticsWindow" Background="#F7F7F7">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+    </Grid>
+</Window>

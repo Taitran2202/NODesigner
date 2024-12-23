@@ -1,0 +1,168 @@
+﻿<Window x:Class="NOVisionDesigner.Windows.DetailStatisticsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Windows" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        x:Name="MainWD"
+        WindowStartupLocation="CenterScreen"
+        Title="DetailStatisticsWindow" Height="450" Width="450">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".4*"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="2,2">
+            <Grid Grid.Column="0" >
+                <Label Content="{Binding NameCamera}" FontSize="20" FontFamily="Roboto" Margin="5,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            </Grid>
+        </Border>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="5,2" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Margin="0,0,5,0" Background="#FF107CD6">
+                        <Label Grid.Column="0"  Foreground="White"  Content="Loại lỗi" FontFamily="Roboto" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="1" Margin="0,0,0,0" Background="#FF107CD6">
+                        <Label Grid.Column="1" Foreground="White" Content="Số lượng"  FontFamily="Roboto" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"   Content="Mẻ góc" FontFamily="Roboto" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Grid.Column="1" Content="{Binding designer.ListStatistics.List_me_goc}"  FontFamily="Roboto" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Rectangle Height="2" Width="auto" VerticalAlignment="Bottom" Grid.ColumnSpan="2" >
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                <GradientStop Color="#FFFDFDFD" Offset="1"/>
+                                <GradientStop Color="#FF00AEFF"/>
+                                <GradientStop Color="#FFC0E5F5" Offset="0.321"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+
+                <Grid Grid.Row="2" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Mẻ cạnh" FontFamily="Roboto" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Grid.Column="1" Content="{Binding designer.ListStatistics.List_me_canh}" FontFamily="Roboto" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Rectangle Height="2" Width="auto" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                <GradientStop Color="#FFFDFDFD" Offset="1"/>
+                                <GradientStop Color="#FF00AEFF"/>
+                                <GradientStop Color="#FFC0E5F5" Offset="0.321"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+
+                <Grid Grid.Row="3" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Mẻ cổ" FontFamily="Roboto" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Grid.Column="1" Content="{Binding designer.ListStatistics.List_me_co}"   FontFamily="Roboto" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Rectangle Height="2" Width="auto" VerticalAlignment="Bottom" Grid.ColumnSpan="2" >
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                <GradientStop Color="#FFFDFDFD" Offset="1"/>
+                                <GradientStop Color="#FF00AEFF"/>
+                                <GradientStop Color="#FFC0E5F5" Offset="0.321"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+
+                <Grid Grid.Row="4" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Xước" FontFamily="Roboto" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Grid.Column="1" Content="{Binding designer.ListStatistics.List_xuoc}"   FontFamily="Roboto" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Rectangle Height="2" Width="auto" VerticalAlignment="Bottom" Grid.ColumnSpan="2" >
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                <GradientStop Color="#FFFDFDFD" Offset="1"/>
+                                <GradientStop Color="#FF00AEFF"/>
+                                <GradientStop Color="#FFC0E5F5" Offset="0.321"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+
+                <Grid Grid.Row="5" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Dơ cổ" FontFamily="Roboto" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Grid.Column="1" Content="{Binding designer.ListStatistics.List_do_co}"  FontFamily="Roboto" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Rectangle Height="2" Width="auto" VerticalAlignment="Bottom" Grid.ColumnSpan="2" >
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                <GradientStop Color="#FFFDFDFD" Offset="1"/>
+                                <GradientStop Color="#FF00AEFF"/>
+                                <GradientStop Color="#FFC0E5F5" Offset="0.321"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+
+                <Grid Grid.Row="6" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Keo to" FontFamily="Roboto" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Grid.Column="1" Content="{Binding designer.ListStatistics.List_keo_to}"   FontFamily="Roboto" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Rectangle Height="2" Width="auto" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                <GradientStop Color="#FFFDFDFD" Offset="1"/>
+                                <GradientStop Color="#FF00AEFF"/>
+                                <GradientStop Color="#FFC0E5F5" Offset="0.321"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+
+                <Grid Grid.Row="7" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Đốm đồng" FontFamily="Roboto" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Grid.Column="1" Content="{Binding designer.ListStatistics.List_dom_dong}"  FontFamily="Roboto" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </Grid>
+
+    </Grid>
+</Window>
+    

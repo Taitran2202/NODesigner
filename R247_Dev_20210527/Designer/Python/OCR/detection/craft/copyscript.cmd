@@ -1,0 +1,1 @@
+xcopy * "..\..\..\..\..\bin\Debug\Designer\Python\OCR\detection\craft" /Y /I /E /EXCLUDE:copyscript.cmd

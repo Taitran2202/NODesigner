@@ -1,0 +1,21 @@
+﻿<dx:ThemedWindow x:Class="NOVisionDesigner.Designer.Accquisition.Views.DeviceListWindow2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.Accquisition.Views" xmlns:Misc="clr-namespace:NOVisionDesigner.Designer.Misc" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        mc:Ignorable="d" ContentRendered="Window_ContentRendered"
+        Title="Camera List" Height="300" Width="400" WindowStartupLocation="CenterOwner" ShowGlow="False">
+    <Window.Resources>
+        <Misc:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+    </Window.Resources>
+    <StackPanel Margin="0" IsEnabled="{Binding DeferedVisibility, Converter={StaticResource InverseBooleanConverter}, ElementName=loading}">
+        <ListBox x:Name="lst_device" Margin="5,5,5,5" Height="220"/>
+        <StackPanel Margin="0,0,0,0" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <Button x:Name="btn_ok" Content="OK" Style="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Padding="11,4" Width="80" Height="30" Click="Btn_ok_Click" Margin="2,0,0,0"/>
+            <Button x:Name="btn_refresh" Content="Refresh" Style="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Padding="11,4" Width="80" Height="30" Click="btn_refresh_Click" Margin="2,0,0,0"/>
+        </StackPanel>
+        <dx:WaitIndicator x:Name="loading" Content="Checking cameras, please wait!" Grid.Row="1" />
+    </StackPanel>
+
+</dx:ThemedWindow>

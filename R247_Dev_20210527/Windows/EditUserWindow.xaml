@@ -1,0 +1,92 @@
+﻿<dx:ThemedWindow  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="NOVisionDesigner.Windows.EditUserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Windows" xmlns:templateselector="clr-namespace:NOVisionDesigner.Designer.Windows" xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+                  mc:Ignorable="d" ShowGlow="False" FontSize="14"
+        Title="EditUserWindow" Height="400" Width="400">
+    <Window.Resources>
+        <ControlTemplate x:Key="validationErrorTemplate">
+            <DockPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                    <TextBlock Foreground="Red" FontSize="12" 
+                               Text="{Binding ElementName=ErrorAdorner, 
+                        Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"/>
+                </StackPanel>
+                <AdornedElementPlaceholder x:Name="ErrorAdorner" />
+            </DockPanel>
+        </ControlTemplate>
+        <Style x:Key="labelStyle" TargetType="dxlc:LayoutItemLabel">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+        </Style>
+        <Style x:Key="itemStyle" TargetType="dxlc:LayoutItem">
+            <Setter Property="Margin" Value="0,10"/>
+            <Setter Property="LabelPosition" Value="Left"/>
+            <Setter Property="LabelStyle" Value="{StaticResource labelStyle}"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+
+        </StackPanel>
+        <Grid>
+            <!--<Label Content="User" FontSize="20" FontWeight="SemiBold" Margin="5,0"/>-->
+        </Grid>
+        <dxlc:LayoutControl Grid.Row="1" x:Name="container" dxe:ValidationService.IsValidationContainer="True"
+                            Orientation="Vertical" ItemStyle="{StaticResource itemStyle}" ItemSpace="0">
+            <dxlc:LayoutItem Label="Username" IsEnabled="{Binding IsEdit, Converter={dxmvvm:BooleanNegationConverter}}">
+                <dxe:TextEdit x:Name="txt_username" Margin="1" VerticalContentAlignment="Center" 
+                                          EditValue="{Binding Username, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                          Validation.ErrorTemplate="{StaticResource validationErrorTemplate}"
+                                          HorizontalAlignment="Stretch" ></dxe:TextEdit>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Name">
+                <dxe:TextEdit x:Name="txt_name" Margin="1" VerticalContentAlignment="Center" 
+                                          EditValue="{Binding Name, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                          Validation.ErrorTemplate="{StaticResource validationErrorTemplate}"
+                                          HorizontalAlignment="Stretch" ></dxe:TextEdit>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Password">
+                <dxe:PasswordBoxEdit x:Name="txt_password" Margin="1" VerticalContentAlignment="Center" 
+                                                 Text="{Binding Password, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                 Validation.ErrorTemplate="{StaticResource validationErrorTemplate}"
+
+                                          HorizontalAlignment="Stretch" ></dxe:PasswordBoxEdit>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Confirm Password">
+                <dxe:PasswordBoxEdit x:Name="txt_confirm_password" Margin="1" VerticalContentAlignment="Center" 
+                                                 Text="{Binding ConfirmPassword, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                 Validation.ErrorTemplate="{StaticResource validationErrorTemplate}"
+                                                 ValidateOnEnterKeyPressed="True" ValidateOnTextInput="True"
+                                          HorizontalAlignment="Stretch" ></dxe:PasswordBoxEdit>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Role">
+                <dxe:ComboBoxEdit x:Name="cmb_role" Margin="1" VerticalContentAlignment="Center" 
+                                              SelectedItem="{Binding Role}" DisplayMember="Name" SelectedIndex="0"
+                                          HorizontalAlignment="Stretch" ></dxe:ComboBoxEdit>
+
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="Description">
+                <dxe:TextEdit x:Name="txt_description" Margin="1" VerticalContentAlignment="Center" EditValue="{Binding Description}"
+                                          HorizontalAlignment="Stretch" ></dxe:TextEdit>
+
+            </dxlc:LayoutItem>
+        </dxlc:LayoutControl>
+        <Grid Grid.Row="2" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Margin="5" Padding="0,10" Content="Submit" Click="btn_submit_Click" IsEnabled="{Binding ElementName=container, Path=(dxe:ValidationService.HasValidationError), Converter={dxmvvm:BooleanNegationConverter}}"/>
+            <Button Grid.Column="1" Margin="5"  Content="Cancel" Click="btn_cancel_Click"/>
+        </Grid>
+    </Grid>
+</dx:ThemedWindow>

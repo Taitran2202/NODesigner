@@ -1,0 +1,147 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:System="clr-namespace:System;assembly=mscorlib" 
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.Windows.Calibration"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
+    xmlns:Custom="clr-namespace:NOVisionDesigner.Designer.Misc" 
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+    xmlns:HalconDotNet="clr-namespace:HalconDotNet;assembly=halcondotnet" 
+    x:Class="NOVisionDesigner.Designer.Windows.Calibration.Calibration2Window"
+        mc:Ignorable="d"
+        Title="Calibration" FontSize="14" Height="600" Width="1200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="grid_title">
+            <TextBlock FontSize="18" FontWeight="Normal" Text="Calibration" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI" Foreground="#FF333333"/>
+        </Grid>
+        <Grid x:Name="grid_step" Grid.Row="1">
+            <Rectangle  HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="5" Fill="{DynamicResource GrayBrush8}"/>
+            <Grid>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Rectangle  HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="5" Fill="{DynamicResource BlueIOS}"/>
+                <Rectangle Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="5" Fill="{DynamicResource GrayBrush8}"/>
+                <Rectangle Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="5" Fill="{DynamicResource GrayBrush8}"/>
+                <Rectangle Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="5" Fill="{DynamicResource GrayBrush8}"/>
+                <Rectangle Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="5" Fill="{DynamicResource GrayBrush8}"/>
+            </Grid>
+
+            <UniformGrid Columns="4">
+                <Grid HorizontalAlignment="Center" Width="40" Height="40">
+                    <Ellipse  Fill="{DynamicResource BlueIOS}"/>
+                    <TextBlock Text="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                </Grid>
+                <Grid HorizontalAlignment="Center" Width="60" Height="60">
+                    <Ellipse  Fill="{DynamicResource GrayBrush8}" Width="40" Height="40"/>
+                    <TextBlock Text="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                </Grid>
+                <Grid HorizontalAlignment="Center" Width="60" Height="60">
+                    <Ellipse  Fill="{DynamicResource GrayBrush8}" Width="40" Height="40"/>
+                    <TextBlock Text="3" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                </Grid>
+                <Grid HorizontalAlignment="Center" Width="60" Height="60">
+                    <Ellipse  Fill="{DynamicResource GrayBrush8}" Width="40" Height="40"/>
+                    <TextBlock Text="4" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                </Grid>
+
+            </UniformGrid>
+
+        </Grid>
+        <Grid x:Name="grid_content" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding HeaderMessage,FallbackValue=Message}" Margin="24,0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"></TextBlock>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Rectangle Grid.ColumnSpan="2" VerticalAlignment="Top" Height="1" Fill="#FFD8D8D8"></Rectangle>
+                <Grid x:Name="grid_display">
+                    <HalconDotNet:HSmartWindowControlWPF x:Name="window_display" HInitWindow="window_display_HInitWindow" HImagePart="0,0,1624,1234" Margin="2,2,2,2" Grid.Row="1" />
+
+                </Grid>
+                <Grid x:Name="grid_side_content" Grid.Column="1">
+                    <Rectangle HorizontalAlignment="Left" Width="1" Fill="#FFD6D6D6"></Rectangle>
+                    <ScrollViewer VerticalScrollBarVisibility="Disabled" Margin="16" HorizontalScrollBarVisibility="Auto">
+                        <Grid Margin="0">
+
+                            <StackPanel Orientation="Vertical" ScrollViewer.CanContentScroll="True" CanHorizontallyScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible" CanVerticallyScroll="True" Margin="0" HorizontalAlignment="Stretch">
+                                <UniformGrid Columns="2" Margin="0,4,0,4">
+                                    <Label Content="Distance Mode" VerticalContentAlignment="Center" Opacity="0.5" FontSize="14" VerticalAlignment="Center" />
+                                    <ComboBox x:Name="cmb_mode" SelectedValue="{Binding Mode}" Style="{x:Null}" MinWidth="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Right">
+                                        <System:String>PointToPoint</System:String>
+                                        <System:String>PointToLine</System:String>
+                                        <System:String>LineToPoint</System:String>
+                                    </ComboBox>
+                                </UniformGrid>
+
+
+
+
+                                <!--<Rectangle Height="24" Width="1" Fill="#FF979797" Opacity="0.5" Margin="10,10,5,10" VerticalAlignment="Center" />-->
+                                <StackPanel x:Name="stack_edge" Orientation="Vertical">
+                                    <UniformGrid Columns="2" Margin="0,4,0,4">
+                                        <Label Content="Threshold" VerticalContentAlignment="Center" Opacity="0.5" FontSize="14" VerticalAlignment="Center" />
+                                        <Custom:NumericUpDownWithKeyboard  
+                                            
+                                            Value="{Binding Threshold}" VerticalAlignment="Center" />
+
+                                    </UniformGrid>
+                                    <UniformGrid Columns="2" Margin="0,4,0,4">
+                                        <Label Content="Sigma" VerticalContentAlignment="Center" Opacity="0.5" FontSize="14" VerticalAlignment="Center" />
+                                        <Custom:NumericUpDownWithKeyboard Value="{Binding Sigma}" VerticalAlignment="Center" />
+
+                                    </UniformGrid>
+                                    <!--<Rectangle Height="1" Fill="#FF979797" Opacity="0.5" Margin="5,4,0,4" VerticalAlignment="Top" />-->
+                                    <!--<Rectangle Height="24" Width="1" Fill="#FF979797" Opacity="0.5" Margin="5,4,0,4" VerticalAlignment="Center" />-->
+                                    <UniformGrid Columns="2" Margin="0,4,0,4">
+                                        <Label Content="Transition" VerticalContentAlignment="Center" Opacity="0.5" FontSize="14" VerticalAlignment="Center" />
+                                        <ComboBox SelectedValue="{Binding Transition}" Style="{x:Null}" MinWidth="100" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">
+                                            <System:String>all</System:String>
+                                            <System:String>negative</System:String>
+                                            <System:String>positive</System:String>
+                                        </ComboBox>
+                                    </UniformGrid>
+                                    <UniformGrid Columns="2" Margin="0,4,0,4">
+                                        <Label Content="Edge detection mode" VerticalContentAlignment="Center" Opacity="0.5" FontSize="14" VerticalAlignment="Center" />
+                                        <dxe:ToggleSwitch x:Name="checkBox1" UncheckedStateContent="Auto" IsChecked="{Binding Manual}" CheckedStateContent="Manual" HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Right" ContentPlacement="Inside" />
+                                    </UniformGrid>
+
+
+
+                                </StackPanel>
+
+                            </StackPanel>
+
+                        </Grid>
+
+                    </ScrollViewer>
+
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid x:Name="grid_footer" Grid.Row="3"  Background="{DynamicResource NodeButtonBorderBrush}">
+            <StackPanel Margin="8" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button x:Name="btn_pre" HorizontalAlignment="Left" MinWidth="100" Content="Previous" Style="{DynamicResource ButtonGlowNewNoBorder}" Background="#FF191919" Margin="0,0,10,0" Click="btn_pre_Click"/>
+                <Button x:Name="btn_next" HorizontalAlignment="Right" MinWidth="100" Content="Next" Style="{DynamicResource ButtonGlowNewNoBorder}" Background="#FF1B1B1B" Click="btn_next_Click"/>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</Window>

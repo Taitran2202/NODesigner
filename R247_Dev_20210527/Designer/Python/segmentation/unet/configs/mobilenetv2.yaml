@@ -1,0 +1,3 @@
+skip_connection_names : ["converted_input", "block_1_expand_relu", "block_3_expand_relu", "block_6_expand_relu"]
+encoder_output_name: "block_13_expand_relu"
+f : [16, 32, 48, 64]

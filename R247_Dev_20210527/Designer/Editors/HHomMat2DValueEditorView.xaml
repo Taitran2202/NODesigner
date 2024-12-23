@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="NOVisionDesigner.Designer.Editors.HHomMat2DValueEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NOVisionDesigner.Designer.Editors" xmlns:control="clr-namespace:NOVisionDesigner.Designer.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="100">
+    <StackPanel Orientation="Horizontal">
+        <TextBox  x:Name="valueUpDown" IsReadOnly="True" MaxWidth="100" ></TextBox>
+        <Button Content="Edit" Margin="2,0,2,0"></Button>
+    </StackPanel>
+</UserControl>

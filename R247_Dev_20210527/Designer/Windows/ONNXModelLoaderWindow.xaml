@@ -1,0 +1,60 @@
+﻿<dx:ThemedWindow x:Class="NOVisionDesigner.Designer.Windows.ONNXModelLoaderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.Windows"
+        xmlns:provider="clr-namespace:NOVisionDesigner.Designer.Nodes"
+        mc:Ignorable="d"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:Misc="clr-namespace:NOVisionDesigner.Designer.Misc"
+                 Title="Model Loader" 
+                 ShowGlow="False"
+                 WindowStartupLocation="CenterScreen"
+                 FontSize="14"
+                 WindowStyle="ToolWindow"
+                 Height="450" Width="800">
+    <dx:ThemedWindow.Resources>
+        <Misc:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+    </dx:ThemedWindow.Resources>
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid>
+
+
+            <Label Content="Execution Provider"></Label>
+            <ComboBox x:Name="cmb_provider" HorizontalAlignment="Right" SelectedItem="{Binding Provider}" >
+                <provider:ONNXProvider>TensorRT</provider:ONNXProvider>
+                <provider:ONNXProvider>CUDA</provider:ONNXProvider>
+                <provider:ONNXProvider>CPU</provider:ONNXProvider>
+            </ComboBox>
+
+        </Grid>
+        <Grid Grid.Row="1">
+            <ScrollViewer  Margin="8,0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <ItemsControl BorderThickness="0" ItemsSource="{Binding Logs}" Margin="0,5,0,5"  >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock
+                                                        Text="{Binding}"
+                                                        TextWrapping="Wrap"
+                                                        />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+        <Grid Grid.Row="2" IsEnabled="{Binding IsLoading,Converter={StaticResource InverseBooleanConverter}}">
+            <UniformGrid Columns="1" HorizontalAlignment="Center">
+                <Button x:Name="btn_load" Content="Load" Click="btn_load_Click"></Button>
+               
+            </UniformGrid>
+        </Grid>
+        <dx:WaitIndicator Grid.RowSpan="3" DeferedVisibility="{Binding IsLoading}"></dx:WaitIndicator>
+    </Grid>
+</dx:ThemedWindow>

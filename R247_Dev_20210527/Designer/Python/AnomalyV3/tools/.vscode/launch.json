@@ -1,0 +1,19 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: printing",
+            "type": "python",
+            "request": "launch",
+            "program": "train_printing.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--model","fastflow","--config2","C:/Users/Nam/AppData/Roaming/R247/Jobs/printest2/VisionManager/6ae02a82-b340-4560-9528-03dce6f2a575/designer/e93e7183-3705-4133-88df-7915f867ca58/TrainConfig.txt"
+            ],
+        }
+    ]
+}

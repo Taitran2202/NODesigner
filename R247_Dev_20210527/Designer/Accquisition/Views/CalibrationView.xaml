@@ -1,0 +1,154 @@
+﻿<dx:ThemedWindow x:Class="NOVisionDesigner.Designer.Accquisition.Views.CalibrationView"  mc:Ignorable="d" Title="Calibration Window" Height="600" Width="1124" Loaded="Window_Loaded" Initialized="Window_Initialized" 
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:local="clr-namespace:NOVisionDesigner.Designer.Accquisition.Views" 
+    xmlns:System="clr-namespace:System;assembly=mscorlib" 
+    xmlns:Misc="clr-namespace:NOVisionDesigner.Designer.Misc" 
+    xmlns:HalconDotNet="clr-namespace:HalconDotNet;assembly=halcondotnet" 
+    xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls" 
+    xmlns:UserControls="clr-namespace:NOVisionDesigner.UserControls" 
+                 FontSize="14"
+                 ShowGlow="False" >
+    <dx:ThemedWindow.Resources>
+        <Misc:DoubleToIntConverter x:Key="DoubleToIntConverter" />
+        <Color x:Key="ColorGlow">#FF51EAFF</Color>
+        
+        
+    </dx:ThemedWindow.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="40" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="323" />
+        </Grid.ColumnDefinitions>
+        <Border Grid.Row="0" Grid.ColumnSpan="2" >
+            <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+                <Grid Margin="0">
+
+                    <StackPanel Orientation="Horizontal" ScrollViewer.CanContentScroll="True" CanHorizontallyScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible" CanVerticallyScroll="True" Margin="0" HorizontalAlignment="Left">
+                        <Label Content="Distance Mode" VerticalContentAlignment="Center" Opacity="0.9" FontSize="14" VerticalAlignment="Center" Margin="5,0" />
+                        <ComboBox x:Name="cmb_mode" SelectedValue="{Binding Mode}" 
+                                  MinWidth="120" VerticalContentAlignment="Center" 
+                                  VerticalAlignment="Center"
+                                  HorizontalContentAlignment="Right" Margin="0,5">
+                            <System:String>PointToPoint</System:String>
+                            <System:String>PointToLine</System:String>
+                            <System:String>LineToPoint</System:String>
+                        </ComboBox>
+
+
+
+                        <Rectangle Height="24" Width="1" Fill="#FF979797" Opacity="0.5" Margin="10,10,5,10" VerticalAlignment="Center" />
+                        <StackPanel x:Name="stack_edge" Orientation="Horizontal">
+
+                            <Label Content="Threshold" VerticalContentAlignment="Center" Opacity="0.9" FontSize="14" VerticalAlignment="Center" Margin="0,2" />
+                            <Misc:NumericUpDownWithKeyboard Value="{Binding Threshold}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            <Rectangle Height="24" Width="1" Fill="#FF979797" Opacity="0.5" Margin="5,4,0,4" VerticalAlignment="Center" />
+                            <Label Content="Sigma" VerticalContentAlignment="Center" Opacity="0.9" FontSize="14" VerticalAlignment="Center" Margin="5,2" />
+                            <Misc:NumericUpDownWithKeyboard Value="{Binding Sigma}" VerticalAlignment="Center" Margin="0" />
+                            <Rectangle Height="24" Width="1" Fill="#FF979797" Opacity="0.5" Margin="5,4,0,4" VerticalAlignment="Center" />
+                            <Label Content="Transition" VerticalContentAlignment="Center" Opacity="0.9" FontSize="14" VerticalAlignment="Center" Margin="5,2" />
+                            <ComboBox SelectedValue="{Binding Transition}" MinWidth="100" 
+                                      Margin="0,5" VerticalAlignment="Center" 
+                                      HorizontalContentAlignment="Right" 
+                                      VerticalContentAlignment="Center">
+                                <System:String>all</System:String>
+                                <System:String>negative</System:String>
+                                <System:String>positive</System:String>
+                            </ComboBox>
+                            <Label Content="Edge detection mode" VerticalContentAlignment="Center" 
+                                   Opacity="0.9" FontSize="14" VerticalAlignment="Center" Margin="20,2,5,2" />
+
+                            <dxe:ToggleSwitch x:Name="checkBox1" UncheckedStateContent="Auto" 
+                                              IsChecked="{Binding Manual}" CheckedStateContent="Manual" 
+                                              Margin="5,0,5,0" HorizontalAlignment="Right" 
+                                              VerticalAlignment="Center" HorizontalContentAlignment="Right" 
+                                              ContentPlacement="Far" />
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </Grid>
+
+            </ScrollViewer>
+
+
+
+
+        </Border>
+
+
+        <HalconDotNet:HSmartWindowControlWPF x:Name="window_display" HInitWindow="window_display_HInitWindow" HImagePart="0,0,1624,1234" Margin="2,0,2,2" Grid.Row="1" />
+
+        <StackPanel Grid.Column="1" Orientation="Vertical" Grid.Row="2" >
+            <Border>
+                <Grid Margin="5,5,0,5">
+                    <StackPanel Margin="0,0,5,0" Orientation="Horizontal" VerticalAlignment="Top">
+                        <Viewbox Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Canvas Width="24" Height="24">
+                                <Path Data="M9,11L15,11 15,8 19,12 15,16 15,13 9,13 9,16 5,12 9,8 9,11 M2,20L2,4 4,4 4,20 2,20 M20,20L20,4 22,4 22,20 20,20z" Fill="{DynamicResource BlueIOS}" />
+                            </Canvas>
+                        </Viewbox>
+                        <Label Content="Horizontal Axis" VerticalContentAlignment="Center"  Opacity="0.5" FontSize="14" VerticalAlignment="Center" FontWeight="Bold" Margin="5,0,0,0" />
+                    </StackPanel>
+                    <Border BorderThickness="1" VerticalAlignment="Top" Margin="0,27,0,0">
+
+                        <UniformGrid Columns="2" VerticalAlignment="Top">
+                            <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Length (pixel)"  VerticalAlignment="Center" Padding="5,0,0,0" FontSize="14" />
+                            <Misc:NumericUpDownWithKeyboard x:Name="num_length_pixel" UpDownButtonsWidth="40" Minimum="0" Maximum="9999" ValueChanged="num_length_pixel_ValueChanged" Margin="5,2" Value="{Binding LengthPixel}" StringFormat="00.00" />
+                            <TextBlock x:Name="textBlock_Copy" TextWrapping="Wrap" Text="Length (mm)"  VerticalAlignment="Center" Padding="5,0,0,0" FontSize="14" />
+                            <Misc:NumericUpDownWithKeyboard x:Name="num_length_cen" UpDownButtonsWidth="40" Minimum="0" Maximum="99999" ValueChanged="num_length_cen_ValueChanged" Margin="5,2" Value="{Binding Lengthmm}" StringFormat="00.00" />
+                            <TextBlock x:Name="textBlock_Copy1" TextWrapping="Wrap" Text="1mm in pixel X"  VerticalAlignment="Center" Padding="5,0,0,0" FontSize="14" />
+                            <TextBox x:Name="num_zoom_value" TextWrapping="Wrap" Text="{Binding ScaleX, Converter={StaticResource DoubleToIntConverter}, Mode=OneWay}" IsReadOnly="True" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="0,0,50,0" Margin="5,2" />
+                            <TextBlock x:Name="textBlock_Copy2" TextWrapping="Wrap" Text="Image width (mm)"  VerticalAlignment="Center" Padding="5,0,0,0" FontSize="14" />
+                            <TextBox x:Name="num_zoom_value_Copy" TextWrapping="Wrap" Text="{Binding ImageWidthReal, Converter={StaticResource DoubleToIntConverter}}" IsReadOnly="True" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="0,0,50,0" Margin="5,2" />
+                            <TextBlock x:Name="textBlock_Copy5" TextWrapping="Wrap" Text="Calibration object"  VerticalAlignment="Center" Padding="5,0,0,0" Margin="0,11.588,0,11.411" FontSize="14" />
+                            <Button x:Name="btn_draw_pixel" Height="Auto" Content="Change" Click="btn_draw_pixel_Click" Margin="5,2" />
+                        </UniformGrid>
+                    </Border>
+                </Grid>
+            </Border>
+            <Rectangle Height="1" Margin="2" Fill="#FFE0E0E0" />
+            <Border>
+                <Grid Margin="5,5,0,5">
+                    <StackPanel Margin="0,0,5,0" Orientation="Horizontal" VerticalAlignment="Top">
+                        <Viewbox Width="25" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Canvas Width="24" Height="24">
+                                <Path Data="M13,9V15H16L12,19L8,15H11V9H8L12,5L16,9H13M4,2H20V4H4V2M4,20H20V22H4V20Z" Fill="{DynamicResource BlueIOS}" />
+                            </Canvas>
+                        </Viewbox>
+                        <Label Content="Vertical Axis" VerticalContentAlignment="Center"  Opacity="0.5" FontSize="14" VerticalAlignment="Center" FontWeight="Bold" Margin="5,0,0,0" />
+                    </StackPanel>
+                    <Border BorderThickness="1" VerticalAlignment="Top" Margin="0,27,0,0">
+
+                        <UniformGrid Columns="2" VerticalAlignment="Top">
+                            <TextBlock x:Name="textBlock1" TextWrapping="Wrap" Text="Length (pixel)"  VerticalAlignment="Center" Padding="5,0,0,0" FontSize="14" />
+                            <Misc:NumericUpDownWithKeyboard x:Name="num_length_pixel1" UpDownButtonsWidth="40" Minimum="0" Maximum="9999" ValueChanged="num_length_pixel1_ValueChanged" Margin="5,2" Value="{Binding LengthPixelY}" StringFormat="00.00" />
+                            <TextBlock x:Name="textBlock_Copy4" TextWrapping="Wrap" Text="Length (mm)"  VerticalAlignment="Center" Padding="5,0,0,0" FontSize="14" />
+                            <Misc:NumericUpDownWithKeyboard x:Name="num_length_cen1" UpDownButtonsWidth="40" Minimum="0" Maximum="99999" ValueChanged="num_length_cen1_ValueChanged" Margin="5,2" Value="{Binding LengthmmY}" StringFormat="00.00" />
+                            <TextBlock x:Name="textBlock_Copy6" TextWrapping="Wrap" Text="1mm in pixel Y"  VerticalAlignment="Center" Padding="5,0,0,0" FontSize="14" />
+                            <TextBox x:Name="num_zoom_value1" TextWrapping="Wrap" Text="{Binding ScaleY, Converter={StaticResource DoubleToIntConverter}, Mode=OneWay}" IsReadOnly="True" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="0,0,50,0" Margin="5,2" />
+                            <TextBlock x:Name="textBlock_Copy8" TextWrapping="Wrap" Text="Image height (mm)"  VerticalAlignment="Center" Padding="5,0,0,0" FontSize="14" />
+                            <TextBox x:Name="num_zoom_value_Copy3" TextWrapping="Wrap" Text="{Binding ImageHeightReal, Converter={StaticResource DoubleToIntConverter}}" IsReadOnly="True" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="0,0,50,0" Margin="5,2" />
+                            <TextBlock x:Name="textBlock_Copy9" TextWrapping="Wrap" Text="Calibration object"  VerticalAlignment="Center" Padding="5,0,0,0" Margin="0,11.588,0,11.411" FontSize="14" />
+                            <Button x:Name="btn_draw_pixel_y" Height="Auto" Content="Change" Click="btn_draw_pixel_y_Click" Margin="5,2" />
+                        </UniformGrid>
+                    </Border>
+                </Grid>
+            </Border>
+        </StackPanel>
+
+
+    </Grid>
+
+</dx:ThemedWindow>

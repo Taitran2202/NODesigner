@@ -1,0 +1,33 @@
+﻿<Window x:Class="NOVisionDesigner.Designer.Controls.MoxaDeviceList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NOVisionDesigner.Designer.Controls" xmlns:Misc="clr-namespace:NOVisionDesigner.Designer.Misc" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        mc:Ignorable="d"
+        Title="Moxa Device List" Height="450" Width="800" FontSize="14">
+    <Window.Resources>
+        <Misc:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+    </Window.Resources>
+    <Grid IsEnabled="{Binding DeferedVisibility, Converter={StaticResource InverseBooleanConverter}, ElementName=loading}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" VerticalAlignment="Center">
+            <StackPanel Margin="5" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <Label Margin="0,0,5,0" Content="Network Interface" FontWeight="SemiBold"/>
+                <ComboBox x:Name="cmb_interface" ItemsSource="{Binding interfaces_list}" Width="400" SelectionChanged="cmb_interface_SelectionChanged"/>
+            </StackPanel>
+            <StackPanel Margin="5" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+
+                <Button x:Name="btn_refresh" Content="Refresh" Style="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Padding="11,4" Width="80" Height="30" Click="btn_refresh_Click" Margin="5,0,0,0"/>
+                <Button x:Name="btn_ok" Content="OK" Style="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Padding="11,4" Width="80" Height="30" Click="Btn_ok_Click" Margin="5,0,0,0"/>
+            </StackPanel>
+        </Grid>
+        
+        <ListBox Grid.Row="1" x:Name="lst_device" Margin="5"/>
+        <dx:WaitIndicator x:Name="loading" Content="Checking devices, please wait!" Grid.Row="1" />
+    </Grid>
+
+</Window>
